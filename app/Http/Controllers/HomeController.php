@@ -9,7 +9,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-      $users = User::all();
-      return view("home.index", ["users" => $users]);
+      $data = array(
+        "test" => "This a var for test from the HomeController@index !"
+      );
+      return view("home.index")->with($data);
     }
 }

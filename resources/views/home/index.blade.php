@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <?php var_dump($users); ?>
-  </body>
-</html>
+@extends('layouts.app')
+
+@section('content')
+    <h1>Home</h1>
+    <h2>{{$test}}</h2>
+@endsection
