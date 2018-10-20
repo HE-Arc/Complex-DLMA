@@ -5,7 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header text-center">
+                    <h2>
+                        {{ __('Login') }}
+                    </h2>
+                </div>
 
                 <div class="card-body text-center">
                     <form method="POST" action="{{ route('login') }}">
@@ -15,7 +19,7 @@
                             <div class="input-group col-12 col-xl-6 offset-xl-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-at"></i>
                                     </span>
                                 </div>
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="{{ __('E-Mail Address') }}" value="{{ old('email') }}" required autofocus>
