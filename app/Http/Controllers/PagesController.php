@@ -14,9 +14,4 @@ class PagesController extends Controller
       );
       return view("pages.index")->with($data);
     }
-
-    public function login()
-    {
-      return view("pages.login");
-    }
 }

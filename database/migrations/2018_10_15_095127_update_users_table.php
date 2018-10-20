@@ -32,13 +32,13 @@ class UpdateUsersTable extends Migration
     public function down()
     {
         Schema::table('users',
-        function($table)
-        {
-            $table->increments('id');
-            $table->string('nickname')->change();
-            $table->string('email')->change();
-            $table->string('password')->change();
-            $table->dropColumn('role'); 
-        });
+            function($table)
+            {
+                $table->increments('id');
+                $table->string('nickname')->change();
+                $table->string('email')->change();
+                $table->dropColumn('role');
+            }
+        );
     }
 }
