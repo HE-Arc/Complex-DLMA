@@ -11,7 +11,10 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('create_dlma') }}">{{ __('Create new DLMA') }}</a>
+                    <a class="nav-link" href="{{ url('create_dlma') }}">
+                        <i class="fas fa-plus-circle mr-1"></i>
+                        {{ __('Create DLMA') }}
+                    </a>
                 </li>
             </ul>
 
@@ -20,25 +23,36 @@
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link" href="{{ route('login') }}">
+                            <i class="fas fa-sign-in-alt mr-1"></i>
+                            {{ __('Login') }}
+                        </a>
                     </li>
                     <li class="nav-item">
                         @if (Route::has('register'))
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">
+                                <i class="fas fa-user-plus mr-1"></i>
+                                {{ __('Register') }}
+                            </a>
                         @endif
                     </li>
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->username }} <span class="caret"></span>
+                            <i class="fas fa-user ml-1"></i>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
+                            <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                <i class="fas fa-bars mr-1"></i>
+                                {{ __('Dashboard') }}
+                            </a>
 
                             <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt mr-1"></i>
                                 {{ __('Logout') }}
                             </a>
 
