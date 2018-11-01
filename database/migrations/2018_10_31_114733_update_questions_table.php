@@ -16,7 +16,9 @@ class UpdateQuestionsTable extends Migration
         Schema::table('questions', 
             function($table)
             {
+                $table->dropForeign(['user_email']);
                 $table->dropColumn('user_email');
+
                 $table->unsignedInteger('user_id');
                 $table->foreign('user_id')->references('id')->on('users');
             }
@@ -36,6 +38,7 @@ class UpdateQuestionsTable extends Migration
         Schema::table('questions', 
             function($table)
             {
+                $table->dropForeign(['user_id']);
                 $table->dropColumn('user_id');
                 $table->string('user_email', 190);
                 $table->foreign('user_email')->references('email')->on('users');
