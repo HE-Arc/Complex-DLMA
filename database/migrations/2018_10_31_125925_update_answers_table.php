@@ -16,12 +16,12 @@ class UpdateAnswersTable extends Migration
         Schema::table('answers', 
             function($table)
             {
+                $table->dropForeign(['user_email']);
                 $table->dropColumn('user_email');
                 $table->unsignedInteger('user_id');
                 
                 $table->primary(['user_id', 'question_id']);
 
-                $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             }
         );
@@ -39,10 +39,12 @@ class UpdateAnswersTable extends Migration
         Schema::table('answers', 
             function($table)
             {
+                $table->dropForeign(['user_id']);
+                $table->dropPrimary(['user_id', 'question_id']);
+
                 $table->dropColumn('user_id');
                 $table->string('user_email', 190);
 
-                $table->dropPrimary('question_id');
                 $table->primary('user_email');
 
                 $table->foreign('user_email')->references('email')->on('users')->onDelete('cascade');
