@@ -6,7 +6,7 @@
 
 .cd_choice-inner-container {
     position: relative;
-    height: 300px;
+    height: 100%;
     border-radius: 25px;
 }
 
@@ -64,10 +64,22 @@
 
 @include media-breakpoint-down(md) {
     .cd_choices-main-container {
-        height: 500px;
+        height: 450px;
+    }
+    
+    .cd_choice-perc {
+        font-size: 32px;
+    }
+    
+    .cd_choice-counter {
+        font-size: 12px;
+    }
+    
+    .cd_choice-sentence {
+        font-size: 18px;
     }
 
-    .cd_choice-inner-container {
-        height: 200px;
+    .cd_choice-or {
+        font-size: 24px;
     }
 }
