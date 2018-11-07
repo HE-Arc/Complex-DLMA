@@ -17,7 +17,7 @@
                         18 votes
                     </div>
                     <div class="cd_choice-sentence col-12">
-                        {{$question->choice_1}}
+                        {{$data['question']->title}}
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                         54 votes
                     </div>
                     <div class="cd_choice-sentence col-12">
-                        {{$question->choice_2}}
+                        {{$data['question']->title}}
                     </div>
                 </div>
             </div>
