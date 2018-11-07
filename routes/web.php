@@ -16,3 +16,6 @@ Route::get("/", "PagesController@index")->name('home');
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+Route::view('/answers', 'answers', ['answer' => App\Answer::all()]);
+
