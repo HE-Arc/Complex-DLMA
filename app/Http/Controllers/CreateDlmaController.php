@@ -29,6 +29,8 @@ class CreateDlmaController extends Controller
 
     public function store()
     {
+      // process data and add question/choices to the db
 
+      return $this->create();
     }
 }
