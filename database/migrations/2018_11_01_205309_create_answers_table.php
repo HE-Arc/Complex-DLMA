@@ -13,17 +13,21 @@ class CreateAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('answers', function (Blueprint $table) {
-            $table->string('user_email', 190);
+        Schema::create('answers', function (Blueprint $table) { 
+            $table->unsignedInteger('user_id');
             $table->unsignedInteger('question_id');
-            $table->primary('user_email', 'question_id');
 
             $table->unsignedInteger('choice');
             
-            $table->foreign('user_email')->references('email')->on('users')->onDelete('cascade');
-            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
-            
             $table->timestamps();
+        });
+
+        Schema::table('answers', function($table)
+        {
+            $table->primary(['user_id', 'question_id']);
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('questions')->onUpdate('cascade')->onDelete('cascade');
+            
         });
     }
 
