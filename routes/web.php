@@ -16,3 +16,4 @@ Route::get("/", "PagesController@index")->name('home');
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/create_dlma', 'CreateDlma@index')->name('index');
