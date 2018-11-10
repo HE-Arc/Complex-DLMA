@@ -16,6 +16,7 @@ class PagesController extends Controller
       return in_array($choice->id, $validIds); 
     });
   }
+  
   public function index()
   {
     $question = DB::table('questions')

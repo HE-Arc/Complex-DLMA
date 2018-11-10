@@ -11,7 +11,9 @@
 |
 */
 
-Route::get("/", "PagesController@index")->name('home');
+Route::get('/', 'PagesController@index')->name('home');
+
+Route::post('/increment_counter','AjaxTestController@incrementCounter');
 
 Auth::routes();
 

@@ -10469,22 +10469,11 @@ a.text-dark:focus {
 .cd_choices-main-container {
   position: relative;
   height: 300px;
-  word-wrap: break-word;
 }
 
 .cd_choice-inner-container {
   position: relative;
   border-radius: 25px;
-}
-
-.cd_choice1 {
-  background-image: -webkit-gradient(linear, left top, right bottom, from(lightgreen), to(#00a500));
-  background-image: linear-gradient(to bottom right, lightgreen, #00a500);
-}
-
-.cd_choice2 {
-  background-image: -webkit-gradient(linear, left bottom, right top, from(#a32323), to(#f74c4c));
-  background-image: linear-gradient(to top right, #a32323, #f74c4c);
 }
 
 .cd_choice-text-container {
@@ -10529,6 +10518,50 @@ a.text-dark:focus {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 20px;
+}
+
+.cd_checked-choice {
+  color: black;
+  font-size: 30px;
+  z-index: 1;
+  position: absolute;
+  top: 3%;
+}
+
+#checkedChoice1 {
+  left: 97%;
+  -webkit-transform: translate(-100%, 0%);
+          transform: translate(-100%, 0%);
+}
+
+#checkedChoice2 {
+  left: 3%;
+}
+
+.cd_btn-choice1 {
+  background-image: -webkit-gradient(linear, left top, right bottom, from(lightgreen), to(#00a500));
+  background-image: linear-gradient(to bottom right, lightgreen, #00a500);
+  border: none;
+  color: black;
+  white-space: normal;
+}
+
+.cd_btn-choice1:hover {
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#91f091), to(#26bd26));
+  background-image: linear-gradient(to bottom right, #91f091, #26bd26);
+}
+
+.cd_btn-choice2 {
+  background-image: -webkit-gradient(linear, left bottom, right top, from(#a32323), to(#f74c4c));
+  background-image: linear-gradient(to top right, #a32323, #f74c4c);
+  border: none;
+  color: black;
+  white-space: normal;
+}
+
+.cd_btn-choice2:hover {
+  background-image: -webkit-gradient(linear, left bottom, right top, from(#bd3b3b), to(#ff4d4d));
+  background-image: linear-gradient(to top right, #bd3b3b, #ff4d4d);
 }
 
 @media (max-width: 991.98px) {
