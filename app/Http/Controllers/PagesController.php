@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
@@ -23,19 +24,25 @@ class PagesController extends Controller
                 ->select('id', 'title', 'choice_1_id', 'choice_2_id')
                 ->inRandomOrder()
                 ->first();
+
     $choices = DB::table('choices')->get();
     $arrayChoices = [];
+
     foreach($choices as $choice)
     {
       array_push($arrayChoices, $choice);
     }
+
     $validIds = [$question->choice_1_id, $question->choice_2_id];
     
     $choices = $this->filterChoices($arrayChoices, $validIds);
     $data = array(
       "question" => $question,
-      "choices" => $choices
+      "choices" => $choices,
+      "questionID" => $question->id,
+      "userID" => Auth::id()
     );
+
     return view("pages.index")->with('data', $data);
   }
 

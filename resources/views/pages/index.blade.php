@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+
+    <div id="userID" class="d-none">{{ $data['userID'] }}</div>
+    <div id="questionID" class="d-none">{{ $data['questionID'] }}</div>
+
     <div class="row text-center">
         <div class="cd_rather-title col-12">
             Would you rather...

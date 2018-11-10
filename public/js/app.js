@@ -35980,9 +35980,9 @@ $(document).ready(function () {
      * Display the votes number and the percentage of each choice.
      * Call a controller in ajax to increment the choice counter.
      * 
-     * @param {int} choiceNum : the id of the choice made by the user
+     * @param {int} choiceID : the id of the choice made by the user
      */
-    function userSelectChoice(choiceNum) {
+    function userSelectChoice(choiceID) {
         // Avoid voting twice
         if (userHasVoted) {
             return;
@@ -36001,7 +36001,7 @@ $(document).ready(function () {
         });
 
         // Compute the votes percentage
-        nbOfVotes[choiceNum - 1]++;
+        nbOfVotes[choiceID - 1]++;
 
         nbOfVotesTot = nbOfVotes.reduce(function (x, y) {
             return x + y;
@@ -36026,9 +36026,12 @@ $(document).ready(function () {
             i++;
         });
 
-        $('#checkedChoice' + choiceNum).removeClass('d-none');
+        $('#checkedChoice' + choiceID).removeClass('d-none');
 
         // Ajax request to increment the user choice
+        var userID = parseInt($('#userID').html());
+        var questionID = parseInt($('#questionID').html());
+
         $.ajaxSetup({
             headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
         });
@@ -36036,7 +36039,7 @@ $(document).ready(function () {
         $.ajax({
             url: 'increment_counter',
             type: 'POST',
-            data: 'choiceNum=' + choiceNum,
+            data: 'choiceID=' + (choiceID - 1) + "&userID=" + userID + "&questionID=" + questionID,
             dataType: 'JSON',
             success: function success(data) {
                 console.log(data);

@@ -13,8 +13,11 @@ class AjaxTestController extends Controller
         //return response()->json(array('msg'=> $msg), 200);
         //$request = Request::instance();
         
-        $num = $request->input('choiceNum');
-        $res = "Counter of choice n°" . $num . " incremented !";
+        $userID = $request->input('userID');
+        $questionID = $request->input('questionID');
+        $choiceID = $request->input('choiceID');
+
+        $res = "User " . $userID . " incremented counter of choice " . $choiceID . " of question " . $questionID . " !";
         
         return $res;
     }
