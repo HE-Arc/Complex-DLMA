@@ -4,9 +4,29 @@ $(document).ready(function ()
     let userHasVoted = false;
 
     /**
-     * When the user click on the translation button
+     * When the user click on the button 1
      */
-    $('.userChoice').on('click', function()
+    $('#userChoice1').on('click', function()
+    {
+        userSelectChoice(1);
+    });
+
+    /**
+     * When the user click on the button 2
+     */
+    $('#userChoice2').on('click', function()
+    {
+        userSelectChoice(2);
+    });
+
+    /**
+     * Is called when the user make a choice.
+     * Display the votes number and the percentage of each choice.
+     * Call a controller in ajax to increment the choice counter.
+     * 
+     * @param {int} choiceNum : the id of the choice made by the user
+     */
+    function userSelectChoice(choiceNum)
     {
         // Avoid voting twice
         if(userHasVoted)
@@ -15,9 +35,7 @@ $(document).ready(function ()
         }
         userHasVoted = true;
 
-        // Get necessary DOM elements
-        let button = $(this);
-        let choiceNum = button.data('choice');
+        // Declare and init var.
         let nbOfVotes = [];
         let choicesPercDOM = [];
         let choicesCounterDOM = [];
@@ -55,7 +73,7 @@ $(document).ready(function ()
             i++;
         });
         
-        $('#choicesMain #checkedChoice' + choiceNum).removeClass('d-none');
+        $('#checkedChoice' + choiceNum).removeClass('d-none');
 
         // Ajax request to increment the user choice
         $.ajaxSetup({
@@ -74,6 +92,6 @@ $(document).ready(function ()
                 console.log(e.responseText);
             }
         });
-    });
+    };
 
 });

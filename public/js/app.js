@@ -13881,7 +13881,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-module.exports = __webpack_require__(39);
+module.exports = __webpack_require__(40);
 
 
 /***/ }),
@@ -13897,9 +13897,9 @@ module.exports = __webpack_require__(39);
 
 __webpack_require__(13);
 
-__webpack_require__(44);
+__webpack_require__(36);
 
-window.Vue = __webpack_require__(36);
+window.Vue = __webpack_require__(37);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -35955,6 +35955,101 @@ module.exports = function spread(callback) {
 
 /***/ }),
 /* 36 */
+/***/ (function(module, exports) {
+
+// Everything inside this bloc is charged when the document is ready
+$(document).ready(function () {
+    var userHasVoted = false;
+
+    /**
+     * When the user click on the button 1
+     */
+    $('#userChoice1').on('click', function () {
+        userSelectChoice(1);
+    });
+
+    /**
+     * When the user click on the button 2
+     */
+    $('#userChoice2').on('click', function () {
+        userSelectChoice(2);
+    });
+
+    /**
+     * Is called when the user make a choice.
+     * Display the votes number and the percentage of each choice.
+     * Call a controller in ajax to increment the choice counter.
+     * 
+     * @param {int} choiceNum : the id of the choice made by the user
+     */
+    function userSelectChoice(choiceNum) {
+        // Avoid voting twice
+        if (userHasVoted) {
+            return;
+        }
+        userHasVoted = true;
+
+        // Declare and init var.
+        var nbOfVotes = [];
+        var choicesPercDOM = [];
+        var choicesCounterDOM = [];
+
+        $('#choicesMain .userChoice').each(function () {
+            nbOfVotes.push(parseInt($(this).find('.initVotes').html()));
+            choicesPercDOM.push($(this).find('.cd_choice-perc'));
+            choicesCounterDOM.push($(this).find('.cd_choice-counter'));
+        });
+
+        // Compute the votes percentage
+        nbOfVotes[choiceNum - 1]++;
+
+        nbOfVotesTot = nbOfVotes.reduce(function (x, y) {
+            return x + y;
+        });
+
+        choicesPerc = [];
+        choicesPerc.push(Math.round(nbOfVotes[0] / nbOfVotesTot * 100));
+        choicesPerc.push(Math.round(nbOfVotes[1] / nbOfVotesTot * 100));
+
+        // Display the votes and the percentage for each question
+        var i = 0;
+        $.each(choicesPercDOM, function () {
+            $(this).removeClass('d-none');
+            $(this).html(choicesPerc[i] + "%");
+            i++;
+        });
+
+        i = 0;
+        $.each(choicesCounterDOM, function () {
+            $(this).removeClass('d-none');
+            $(this).html(nbOfVotes[i] + " votes");
+            i++;
+        });
+
+        $('#checkedChoice' + choiceNum).removeClass('d-none');
+
+        // Ajax request to increment the user choice
+        $.ajaxSetup({
+            headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
+        });
+
+        $.ajax({
+            url: 'increment_counter',
+            type: 'POST',
+            data: 'choiceNum=' + choiceNum,
+            dataType: 'JSON',
+            success: function success(data) {
+                console.log(data);
+            },
+            error: function error(e) {
+                console.log(e.responseText);
+            }
+        });
+    };
+});
+
+/***/ }),
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46917,10 +47012,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(37).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(38).setImmediate))
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -46976,7 +47071,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(38);
+__webpack_require__(39);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -46990,7 +47085,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -47183,93 +47278,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(6)))
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */
-/***/ (function(module, exports) {
-
-// Everything inside this bloc is charged when the document is ready
-$(document).ready(function () {
-    var userHasVoted = false;
-
-    /**
-     * When the user click on the translation button
-     */
-    $('.userChoice').on('click', function () {
-        // Avoid voting twice
-        if (userHasVoted) {
-            return;
-        }
-        userHasVoted = true;
-
-        // Get necessary DOM elements
-        var button = $(this);
-        var choiceNum = button.data('choice');
-        var nbOfVotes = [];
-        var choicesPercDOM = [];
-        var choicesCounterDOM = [];
-
-        $('#choicesMain .userChoice').each(function () {
-            nbOfVotes.push(parseInt($(this).find('.initVotes').html()));
-            choicesPercDOM.push($(this).find('.cd_choice-perc'));
-            choicesCounterDOM.push($(this).find('.cd_choice-counter'));
-        });
-
-        // Compute the votes percentage
-        nbOfVotes[choiceNum - 1]++;
-
-        nbOfVotesTot = nbOfVotes.reduce(function (x, y) {
-            return x + y;
-        });
-
-        choicesPerc = [];
-        choicesPerc.push(Math.round(nbOfVotes[0] / nbOfVotesTot * 100));
-        choicesPerc.push(Math.round(nbOfVotes[1] / nbOfVotesTot * 100));
-
-        // Display the votes and the percentage for each question
-        var i = 0;
-        $.each(choicesPercDOM, function () {
-            $(this).removeClass('d-none');
-            $(this).html(choicesPerc[i] + "%");
-            i++;
-        });
-
-        i = 0;
-        $.each(choicesCounterDOM, function () {
-            $(this).removeClass('d-none');
-            $(this).html(nbOfVotes[i] + " votes");
-            i++;
-        });
-
-        $('#choicesMain #checkedChoice' + choiceNum).removeClass('d-none');
-
-        // Ajax request to increment the user choice
-        $.ajaxSetup({
-            headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
-        });
-
-        $.ajax({
-            url: 'increment_counter',
-            type: 'POST',
-            data: 'choiceNum=' + choiceNum,
-            dataType: 'JSON',
-            success: function success(data) {
-                console.log(data);
-            },
-            error: function error(e) {
-                console.log(e.responseText);
-            }
-        });
-    });
-});
 
 /***/ })
 /******/ ]);

@@ -9,7 +9,7 @@
     <div id="choicesMain" class="cd_choices-main-container row text-center">
         <div class="col-12 col-lg-6 p-3 p-lg-3">
 
-            <div data-choice="1" class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow">
+            <div id="userChoice1" class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow">
             
                 <i id="checkedChoice1" class="fas fa-check cd_checked-choice d-none"></i>
 
@@ -29,7 +29,7 @@
             
         </div>
         <div class="col-12 col-lg-6 p-3 p-lg-3">
-            <div data-choice="2" class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow">
+            <div id="userChoice2" class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow">
             
                 <i id="checkedChoice2" class="fas fa-check cd_checked-choice d-none"></i>
         
