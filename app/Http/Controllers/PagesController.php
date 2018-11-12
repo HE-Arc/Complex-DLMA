@@ -18,7 +18,7 @@ class PagesController extends Controller
     });
   }
   
-  public function index()
+  public function index(Request $request)
   {
     $question = DB::table('questions')
                 ->select('id', 'title', 'choice_1_id', 'choice_2_id')
@@ -38,10 +38,9 @@ class PagesController extends Controller
     $choices = $this->filterChoices($arrayChoices, $validIds);
     $data = array(
       "question" => $question,
-      "choices" => $choices,
-      "questionID" => $question->id,
-      "userID" => Auth::id()
+      "choices" => $choices
     );
+    $request->session()->put('questionID', $question->id);
 
     return view("pages.index")->with('data', $data);
   }
