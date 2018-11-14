@@ -1,9 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Create a new DLMA</h1>
-    <!-- <h2>{{$data}}</h2> -->
+    @include('flash::message')
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
 
+    <h1>Create a new DLMA</h1>
     {!! Form::open(['route' => 'createDlma.store']) !!}
 
     <div class="form-group">
