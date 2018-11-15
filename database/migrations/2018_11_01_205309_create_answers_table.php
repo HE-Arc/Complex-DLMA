@@ -16,7 +16,6 @@ class CreateAnswersTable extends Migration
         Schema::create('answers', function (Blueprint $table) { 
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('question_id');
-
             $table->unsignedInteger('choice');
             
             $table->timestamps();
@@ -27,7 +26,6 @@ class CreateAnswersTable extends Migration
             $table->primary(['user_id', 'question_id']);
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onUpdate('cascade')->onDelete('cascade');
-            
         });
     }
 

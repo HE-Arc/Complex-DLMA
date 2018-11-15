@@ -11,7 +11,9 @@
 |
 */
 
-Route::get("/", "PagesController@index")->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::post('/insert_answer','AnswerController@insertAnswer');
 
 Auth::routes();
 

@@ -1,0 +1,115 @@
+.cd_choices-main-container {
+    position: relative;
+    height: 300px;
+}
+
+.cd_choice-inner-container {
+    position: relative;
+    border-radius: 25px;
+}
+
+.cd_choice-text-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.cd_choice-or {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+
+    background-color: rgba(0, 0, 0, 0.8);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.cd_choice-perc {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.cd_choice-counter {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+}
+
+.cd_choice-sentence {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.cd_rather-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.cd_checked-choice {
+    color: black;
+    font-size: 30px;
+    z-index: 1;
+
+    position: absolute;
+    top: 3%;
+}
+
+#checkedChoice1 {
+    left: 97%;
+    transform: translate(-100%, 0%);
+}
+
+#checkedChoice2 {
+    left: 3%;
+}
+
+.cd_btn-choice1 {
+    background-image: linear-gradient(to bottom right, lightgreen, rgb(0, 165, 0));
+    border: none;
+    color: black;
+    white-space: normal;
+}
+  
+.cd_btn-choice1:hover {
+    background-image: linear-gradient(to bottom right, rgb(145, 240, 145), rgb(38, 189, 38));
+}
+
+.cd_btn-choice2 {
+    background-image: linear-gradient(to top right, rgb(163, 35, 35), rgb(247, 76, 76));
+    border: none;
+    color: black;
+    white-space: normal;
+}
+  
+.cd_btn-choice2:hover {
+    background-image: linear-gradient(to top right, rgb(189, 59, 59), rgb(255, 77, 77));
+}
+
+@include media-breakpoint-down(md) {
+    .cd_choices-main-container {
+        height: 450px;
+    }
+    
+    .cd_choice-perc {
+        font-size: 32px;
+    }
+    
+    .cd_choice-counter {
+        font-size: 12px;
+    }
+    
+    .cd_choice-sentence {
+        font-size: 18px;
+    }
+
+    .cd_choice-or {
+        font-size: 24px;
+    }
+}
