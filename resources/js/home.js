@@ -84,7 +84,7 @@ $(document).ready(function ()
         });
       
         $.ajax({
-            url: 'insert_answer',
+            url: 'dispatch_request',
             type: 'POST',
             data: 'choiceID=' + (choiceID - 1),
             dataType: 'JSON',

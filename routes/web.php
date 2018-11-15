@@ -13,7 +13,7 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::post('/insert_answer','AnswerController@insertAnswer');
+Route::post('/dispatch_request','AnswerController@dispatchRequest');
 
 Auth::routes();
 
