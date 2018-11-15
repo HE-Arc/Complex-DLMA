@@ -51,5 +51,4 @@
             OR
         </div>
     </div>
-    <h2 style="display:inline-block"></h2>
 @endsection

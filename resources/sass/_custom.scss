@@ -92,6 +92,10 @@
     background-image: linear-gradient(to top right, rgb(189, 59, 59), rgb(255, 77, 77));
 }
 
+.cd_form-control {
+    resize: none;
+}
+
 @include media-breakpoint-down(md) {
     .cd_choices-main-container {
         height: 450px;
