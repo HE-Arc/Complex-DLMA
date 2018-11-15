@@ -16,30 +16,27 @@ class HomeController extends Controller
       });
     }
 
-    public function index()
+  public function index(Request $request)
+  {
+    $question = DB::table('questions')
+                ->select('id', 'title', 'choice_1_id', 'choice_2_id')
+                ->inRandomOrder()
+                ->first();
+    $choices = DB::table('choices')->get();
+    $arrayChoices = [];
+    foreach($choices as $choice)
     {
-      $question = DB::table('questions')
-                  ->select('id', 'title', 'choice_1_id', 'choice_2_id')
-                  ->inRandomOrder()
-                  ->first();
-      $choices = DB::table('choices')->get();
-
-      $arrayChoices = [];
-
-
-      foreach($choices as $choice)
-      {
-        array_push($arrayChoices, $choice);
-      }
-
-      $validIds = [$question->choice_1_id, $question->choice_2_id];
-      
-      $choices = $this->filterChoices($arrayChoices, $validIds);
-
-      $data = array(
-        "question" => $question,
-        "choices" => $choices
-      );
-      return view("pages.index")->with('data', $data);
+      array_push($arrayChoices, $choice);
     }
+    $validIds = [$question->choice_1_id, $question->choice_2_id];
+    
+    $choices = $this->filterChoices($arrayChoices, $validIds);
+    $data = array(
+      "question" => $question,
+      "choices" => $choices
+    );
+    $request->session()->put('questionID', $question->id);
+    return view("pages.index")->with('data', $data);
+  }
+
 }

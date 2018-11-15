@@ -11,18 +11,15 @@ class AnswersTableSeeder extends Seeder
      */
     public function run()
     {
-        $user_id = DB::table('users')
-                ->inRandomOrder()
-                ->first()->id;
-
-        $question_id = DB::table('questions')
-                ->inRandomOrder()
-                ->first()->id;
-
-        DB::table('answers')->insert([
-            'user_id' => $user_id,
-            'question_id' => $question_id,
-            'choice' => random_int(0, 1),
-        ]);
+        $answers = factory(App\Answer::class, 400)->make();
+        foreach ($answers as $answer) {
+            repeat:
+            try {
+                $answer->save();
+            } catch (\Illuminate\Database\QueryException $e) {
+                $answer = factory(App\Answer::class)->make();
+                goto repeat;
+            }
+        }
     }
 }

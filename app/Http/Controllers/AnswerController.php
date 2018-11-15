@@ -20,7 +20,15 @@ class AnswerController extends Controller
                 'user_id' => $userId, 'question_id' => $questionId, 'choice' => $choice
     
             ]);
+
+            //DB::table('choices')->whereId($id)->increment('counter', 1);
         }
+
+        /*
+        $res = "User " . $userID . " incremented counter of choice " . $choiceID . " of question " . $questionID . " !";
+        
+        return $res;
+        */
        
     }
 }

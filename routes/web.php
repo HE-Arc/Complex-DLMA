@@ -11,15 +11,10 @@
 |
 */
 
-//Route::get("/", "PagesController@index")->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::get("/", "HomeController@index")->name('home');
-
+Route::post('/increment_counter','AnswerController@insertAnswer');
 
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-
-Route::get('/testinc', 'Choice@increment');
-
-Route::get('/testanswer', 'Answer@insertAnswer');
