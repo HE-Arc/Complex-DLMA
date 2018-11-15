@@ -23,14 +23,15 @@ class HomeController extends Controller
                 ->inRandomOrder()
                 ->first();
     $choices = DB::table('choices')->get();
-    $arrayChoices = [];
-    foreach($choices as $choice)
-    {
-      array_push($arrayChoices, $choice);
-    }
+  
     $validIds = [$question->choice_1_id, $question->choice_2_id];
     
-    $choices = $this->filterChoices($arrayChoices, $validIds);
+    // Return the values of the filtered choices 
+    // $choices->all() returns the Illuminate collection as array
+    // filter returns the IDs that belongs to the question
+    $choices = array_values($this->filterChoices($choices->all(), $validIds));
+
+
     $data = array(
       "question" => $question,
       "choices" => $choices

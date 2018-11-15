@@ -84,9 +84,9 @@ $(document).ready(function ()
         });
       
         $.ajax({
-            url: 'increment_counter',
+            url: 'insert_answer',
             type: 'POST',
-            data: 'choiceID=' + (choiceID - 1) + "&userID=" + userID + "&questionID=" + questionID,
+            data: 'choiceID=' + (choiceID - 1),
             dataType: 'JSON',
             success: function (data) {
                 console.log(data);

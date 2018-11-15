@@ -17,12 +17,11 @@
                 <div class="col-12 cd_choice-text-container p-3 p-lg-5">
 
                     <div class="cd_choice-perc col-12 d-none"></div>
-
-                    <div class="d-none initVotes">{{ $data['choices'][array_keys($data['choices'])[0]]->counter }}</div>
+                    <div class="d-none initVotes">{{ $data['choices'][0]->counter }}</div>
                     <div class="cd_choice-counter col-12 d-none"></div>
 
                     <div class="cd_choice-sentence col-12">
-                        {{ $data['choices'][array_keys($data['choices'])[0]]->text }}
+                        {{ $data['choices'][0]->text }}
                     </div>
 
                 </div>
@@ -38,11 +37,11 @@
 
                     <div class="cd_choice-perc col-12 d-none"></div>
 
-                    <div class="d-none initVotes">{{ $data['choices'][array_keys($data['choices'])[1]]->counter }}</div>
+                    <div class="d-none initVotes">{{ $data['choices'][1]->counter }}</div>
                     <div class="cd_choice-counter col-12 d-none"></div>
 
                     <div class="cd_choice-sentence col-12">
-                        {{ $data['choices'][array_keys($data['choices'])[1]]->text }}
+                        {{ $data['choices'][1]->text }}
                     </div>
                 </div>
             </div>
