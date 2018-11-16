@@ -51,6 +51,7 @@
             OR
         </div>
     </div>
+
     <div class="container">
         @foreach($data['comments'] as $comment)
         <div class="col-sm-12 mb-3">
@@ -62,7 +63,7 @@
                     {{$comment->text}}
                 </div><!-- /panel-body -->
             </div><!-- /panel panel-default -->
-        </div><!-- /col-sm-5 -->
+        </div><!-- /col-sm -->
         @endforeach
     </div> <!--/container-->
     

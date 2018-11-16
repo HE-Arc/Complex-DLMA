@@ -14,7 +14,9 @@
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::post('/dispatch_request','AnswerController@dispatchRequest');
+Route::post('/post_comment', 'HomeController@store')->name('createComment.store')->middleware('auth');
 
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+

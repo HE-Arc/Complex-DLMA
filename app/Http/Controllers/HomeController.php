@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function filterChoices($choices, $validIds)
+  public function filterChoices($choices, $validIds)
+  {
+    // filters the choices to get only the one in the validIds array
+    return array_filter($choices, function($choice) use ($validIds)
     {
-      // filters the choices to get only the one in the validIds array
-      return array_filter($choices, function($choice) use ($validIds)
-      {
-        return in_array($choice->id, $validIds); 
-      });
-    }
+      return in_array($choice->id, $validIds); 
+    });
+  }
 
   public function index(Request $request)
   {
@@ -43,6 +43,12 @@ class HomeController extends Controller
     );
     $request->session()->put('questionID', $question->id);
     return view("pages.index")->with('data', $data);
+  }
+
+  public function store(Request $request)
+  {
+    $userID = Auth::id();
+    $questionID = $request->session()->get('questionID');
   }
 
 }
