@@ -13,7 +13,8 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::post('/insert_answer','AnswerController@insertAnswer');
+Route::post('/dispatch_request','AnswerController@dispatchRequest');
+Route::post('/post_comment', 'HomeController@store')->name('createComment.store')->middleware('auth');
 
 Auth::routes();
 

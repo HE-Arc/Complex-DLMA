@@ -19,6 +19,13 @@ $(document).ready(function ()
         userSelectChoice(2);
     });
 
+    $('#formComment').on('submit', function()
+    {
+        //https://stackoverflow.com/questions/27346205/submit-form-laravel-using-ajax
+        var commentText = $('#commentText').val();
+        userPostComment(commentText);
+    });
+
     /**
      * Is called when the user make a choice.
      * Display the votes number and the percentage of each choice.
@@ -84,7 +91,7 @@ $(document).ready(function ()
         });
       
         $.ajax({
-            url: 'insert_answer',
+            url: 'dispatch_request',
             type: 'POST',
             data: 'choiceID=' + (choiceID - 1),
             dataType: 'JSON',
@@ -96,5 +103,22 @@ $(document).ready(function ()
             }
         });
     };
+
+    function userPostComment(commentText)
+    {
+        $.ajax({
+            url: 'post_comment',
+            type: 'POST',
+            data: 'commentText=' + commentText,
+            dateType: 'JSON',
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (e) {
+                console.log(e.responseText);
+            }
+
+        });
+    }
 
 });

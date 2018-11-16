@@ -53,4 +53,19 @@
     </div>
 
     <hr class="cd_hr-s1" />
+
+    <div class="container">
+        @foreach($data['comments'] as $comment)
+        <div class="col-sm-12 mb-3">
+            <div class="panel panel-default">
+                <div class="panel-heading lead">
+                    {{$comment->username}} <span class="text-muted">commented on the {{date('d.m.Y \a\t H:i:s',strtotime($comment->created_at))}}</span>
+                </div>
+                <div class="panel-body">
+                    {{$comment->text}}
+                </div><!-- /panel-body -->
+            </div><!-- /panel panel-default -->
+        </div><!-- /col-sm -->
+        @endforeach
+    </div> <!--/container-->
 @endsection
