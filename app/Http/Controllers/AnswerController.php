@@ -14,9 +14,8 @@ class AnswerController extends Controller
 
         // choice number should be 0 or 1 (first choice or 2nd)
         $choiceNumber = $request->input('choiceID');
-        // choice ID is the ID in the DB
 
-        // choice number must be either 0 or 1, this prevents from user modification
+        // choice number must be either 0 or 1, this prevents from user modification in the JS
         if(!($choiceNumber == 0 || $choiceNumber == 1))
             return "Ajax request did not send 0 or 1, aborting.";
         
@@ -24,15 +23,17 @@ class AnswerController extends Controller
 
         // if user is not logged in
         if($userID == '')
-            incrementCounter($choiceNumber, $questionID);
+            $this->incrementCounter($choiceNumber, $questionID);
         else
         {
-            if(!answerExists($userID, $questionID))
-                incrementCounter($choiceNumber, $questionID);
-            insertUpdateAnswer($userID, $questionID, $choiceNumber);
+            // if the user did not answer already, we need to increment the choice counter 
+            if(!$this->answerExists($userID, $questionID))
+                $this->incrementCounter($choiceNumber, $questionID);
+            // anyway we update its response or insert as a new one
+            $this->insertUpdateAnswer($userID, $questionID, $choiceNumber);
         }
     
-        $res = "User " . $userID . " incremented counter of the choice " . $choiceID . " in the question " . $questionID . " !";
+        $res = "User " . $userID . " incremented counter of the choice " . $choiceNumber . " in the question " . $questionID . " !";
         return $res;
     }
 
@@ -60,32 +61,6 @@ class AnswerController extends Controller
 
     private function insertUpdateAnswer($userID, $questionID, $choiceNumber)
     {
-        DB::table('answers')::updateOrCreate(['user_id' => $userID, 'question_id' => $questionID], ['choice' => $choiceNumber]);
-        /*$userID = Auth::id();
-        // choice number is 0 or 1 (first or second choice)
-        $choiceNumber = 0;
-        // choice ID is the ID in the DB
-        $choiceID = 0;
-        $questionID = 0;
-       
-        // if user does not exist (IE anonymous), do not insert into DB
-        if($userID != '')
-        {
-            $choiceNumber = $request->input('choiceID');
-            $questionID = $request->session()->get('questionID');
-
-            // insert the user answers in the associative table user question
-            if(DB::table('answers')->where('user_id', $userID)->count() == 0)
-            {
-                DB::table('answers')->insert([
-                    'user_id' => $userID, 'question_id' => $questionID, 'choice' => $choiceNumber
-                ]);
-    
-            }
-        }
-        */
-     
-
-       
-    }
+        DB::table('answers')::updateOrCreate(['user_id' => $userID, 'question_id' => $questionID], ['choice' => $choiceNumber]);       
+    }    
 }
