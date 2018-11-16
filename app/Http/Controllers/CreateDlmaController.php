@@ -55,7 +55,7 @@ class CreateDlmaController extends Controller
 
         // create question and push to db
         $question = new Question;
-        $question->title = $request->get("title");
+        $question->description = $request->get("description");
         $question->choice_1_id = $choice_1->id;
         $question->choice_2_id = $choice_2->id;
         $question->user_id = Auth::user()->id;;

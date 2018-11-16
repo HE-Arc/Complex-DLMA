@@ -1,3 +1,26 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.cd_page-title {
+    font-size: 40px;
+}
+
+.cd_hr-s1 {
+    border: 0;
+    border-top: 1px solid grey;
+}
+
+.cd_hr-s2 {
+    width: 60%;
+    border: 0;
+    border-top: 2px solid black;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
 .cd_choices-main-container {
     position: relative;
     height: 300px;
@@ -16,7 +39,6 @@
 }
 
 .cd_choice-or {
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 30px;
     color: white;
@@ -30,24 +52,28 @@
 }
 
 .cd_choice-perc {
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 40px;
 }
 
 .cd_choice-counter {
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
 }
 
 .cd_choice-sentence {
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 24px;
 }
 
+.cd_choice-description {
+    font-size: 20px;
+}
+
+.cd_choice-description-label {
+    font-size: 18px;
+}
+
 .cd_rather-title {
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 20px;
 }
@@ -71,20 +97,20 @@
 }
 
 .cd_btn-choice1 {
-    background-image: linear-gradient(to bottom right, lightgreen, rgb(0, 165, 0));
+    background-image: linear-gradient(to bottom right, rgb(108, 228, 108), rgb(0, 141, 0));
     border: none;
-    color: black;
+    color: white;
     white-space: normal;
 }
   
 .cd_btn-choice1:hover {
-    background-image: linear-gradient(to bottom right, rgb(145, 240, 145), rgb(38, 189, 38));
+    background-image: linear-gradient(to bottom right, rgb(119, 231, 119), rgb(28, 179, 28));
 }
 
 .cd_btn-choice2 {
     background-image: linear-gradient(to top right, rgb(163, 35, 35), rgb(247, 76, 76));
     border: none;
-    color: black;
+    color: white;
     white-space: normal;
 }
   
@@ -92,11 +118,58 @@
     background-image: linear-gradient(to top right, rgb(189, 59, 59), rgb(255, 77, 77));
 }
 
-.cd_form-control {
+.cd_btn-default {
+    border : 2px solid rgb(52, 58, 64);
+    background-color: white;
+    color: rgb(52, 58, 64);
+    white-space: normal;
+}
+  
+.cd_btn-default:hover {
+    background-color: rgb(52, 58, 64);
+    color: white;
+}
+
+.cd_form-control-choice {
     resize: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    box-shadow: none;
+}
+
+.cd_form-control-choice:valid {
+    background: rgba(255, 255, 255, 0.0);
+}
+
+.cd_form-control-choice::placeholder {
+    color: rgb(235, 235, 235);
+}
+
+.cd_form-control-choice:focus {
+    color: black;
+    background: rgba(255, 255, 255, 1);
+}
+
+.cd_form-control-choice:focus::placeholder {
+    color: rgb(116, 116, 116);
+}
+
+.cd_form-control-description {
+    resize: none;
+    color:black;
 }
 
 @include media-breakpoint-down(md) {
+
+    .cd_page-title {
+        font-size: 30px;
+    }
+
+    .cd_hr-s2 {
+        width: 80%;
+    }
+
     .cd_choices-main-container {
         height: 450px;
     }
@@ -111,6 +184,18 @@
     
     .cd_choice-sentence {
         font-size: 18px;
+    }
+    
+    .cd_rather-title {
+        font-size: 14px;
+    }
+
+    .cd_choice-description {
+        font-size: 14px;
+    }
+    
+    .cd_choice-description-label {
+        font-size: 14px;
     }
 
     .cd_choice-or {

@@ -24,7 +24,7 @@ class DlmaFormRequest extends FormRequest
     public function rules()
     {
         return [
-            "title"        => "required|max:190",
+            "title"        => "max:190",
             "choice_1"     => "required|max:75",
             "choice_2"     => "required|max:75",
         ];
@@ -38,7 +38,6 @@ class DlmaFormRequest extends FormRequest
     public function messages()
     {
         return [
-            "title.required" => "A title is required.",
             "choice_1.required"  => "Two choices are required.",
             "choice_2.required"  => "Two choices are required.",
         ];

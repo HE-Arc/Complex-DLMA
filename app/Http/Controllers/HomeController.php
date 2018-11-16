@@ -19,7 +19,7 @@ class HomeController extends Controller
   public function index(Request $request)
   {
     $question = DB::table('questions')
-                ->select('id', 'title', 'choice_1_id', 'choice_2_id')
+                ->select('id', 'description', 'choice_1_id', 'choice_2_id')
                 ->inRandomOrder()
                 ->first();
     $choices = DB::table('choices')->get();

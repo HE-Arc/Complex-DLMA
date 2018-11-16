@@ -51,4 +51,6 @@
             OR
         </div>
     </div>
+
+    <hr class="cd_hr-s1" />
 @endsection

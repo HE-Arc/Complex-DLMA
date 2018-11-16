@@ -10466,6 +10466,29 @@ a.text-dark:focus {
   }
 }
 
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.cd_page-title {
+  font-size: 40px;
+}
+
+.cd_hr-s1 {
+  border: 0;
+  border-top: 1px solid grey;
+}
+
+.cd_hr-s2 {
+  width: 60%;
+  border: 0;
+  border-top: 2px solid black;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
 .cd_choices-main-container {
   position: relative;
   height: 300px;
@@ -10485,7 +10508,6 @@ a.text-dark:focus {
 }
 
 .cd_choice-or {
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 30px;
   color: white;
@@ -10498,24 +10520,28 @@ a.text-dark:focus {
 }
 
 .cd_choice-perc {
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 40px;
 }
 
 .cd_choice-counter {
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
 }
 
 .cd_choice-sentence {
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 24px;
 }
 
+.cd_choice-description {
+  font-size: 20px;
+}
+
+.cd_choice-description-label {
+  font-size: 18px;
+}
+
 .cd_rather-title {
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 20px;
 }
@@ -10539,23 +10565,23 @@ a.text-dark:focus {
 }
 
 .cd_btn-choice1 {
-  background-image: -webkit-gradient(linear, left top, right bottom, from(lightgreen), to(#00a500));
-  background-image: linear-gradient(to bottom right, lightgreen, #00a500);
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#6ce46c), to(#008d00));
+  background-image: linear-gradient(to bottom right, #6ce46c, #008d00);
   border: none;
-  color: black;
+  color: white;
   white-space: normal;
 }
 
 .cd_btn-choice1:hover {
-  background-image: -webkit-gradient(linear, left top, right bottom, from(#91f091), to(#26bd26));
-  background-image: linear-gradient(to bottom right, #91f091, #26bd26);
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#77e777), to(#1cb31c));
+  background-image: linear-gradient(to bottom right, #77e777, #1cb31c);
 }
 
 .cd_btn-choice2 {
   background-image: -webkit-gradient(linear, left bottom, right top, from(#a32323), to(#f74c4c));
   background-image: linear-gradient(to top right, #a32323, #f74c4c);
   border: none;
-  color: black;
+  color: white;
   white-space: normal;
 }
 
@@ -10564,11 +10590,74 @@ a.text-dark:focus {
   background-image: linear-gradient(to top right, #bd3b3b, #ff4d4d);
 }
 
-.cd_form-control {
+.cd_btn-default {
+  border: 2px solid #343a40;
+  background-color: white;
+  color: #343a40;
+  white-space: normal;
+}
+
+.cd_btn-default:hover {
+  background-color: #343a40;
+  color: white;
+}
+
+.cd_form-control-choice {
   resize: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.cd_form-control-choice:valid {
+  background: rgba(255, 255, 255, 0);
+}
+
+.cd_form-control-choice::-webkit-input-placeholder {
+  color: #ebebeb;
+}
+
+.cd_form-control-choice::-ms-input-placeholder {
+  color: #ebebeb;
+}
+
+.cd_form-control-choice::placeholder {
+  color: #ebebeb;
+}
+
+.cd_form-control-choice:focus {
+  color: black;
+  background: white;
+}
+
+.cd_form-control-choice:focus::-webkit-input-placeholder {
+  color: #747474;
+}
+
+.cd_form-control-choice:focus::-ms-input-placeholder {
+  color: #747474;
+}
+
+.cd_form-control-choice:focus::placeholder {
+  color: #747474;
+}
+
+.cd_form-control-description {
+  resize: none;
+  color: black;
 }
 
 @media (max-width: 991.98px) {
+  .cd_page-title {
+    font-size: 30px;
+  }
+
+  .cd_hr-s2 {
+    width: 80%;
+  }
+
   .cd_choices-main-container {
     height: 450px;
   }
@@ -10583,6 +10672,18 @@ a.text-dark:focus {
 
   .cd_choice-sentence {
     font-size: 18px;
+  }
+
+  .cd_rather-title {
+    font-size: 14px;
+  }
+
+  .cd_choice-description {
+    font-size: 14px;
+  }
+
+  .cd_choice-description-label {
+    font-size: 14px;
   }
 
   .cd_choice-or {
