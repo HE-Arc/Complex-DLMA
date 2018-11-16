@@ -78,10 +78,10 @@
 
     <div class="form-group">
         {!! Form::label('description', 'Description, optional and used to specify a context...', [
-            'class' => 'cd_choice-description-label'
+            'class' => 'cd_form-control-description-label'
         ]) !!}
         {!! Form::textarea('description', null, [
-            'class' => 'form-control cd_form-control-description cd_choice-description',
+            'class' => 'form-control cd_form-control-description',
             'wrap' => 'soft',
             'rows' => 2,
             'maxlength' => '190'

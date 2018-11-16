@@ -52,14 +52,34 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-12">
+            Question added by <span class="font-weight-bold">{{ $data['user']->username }}</span>
+        </div>
+    </div>
+
     <hr class="cd_hr-s1" />
 
-    <div class="container">
+    <div class="row">
+        <div class="col-12 cd_choice-description-label">
+            Description :
+        </div>
+        <div class="col-12 cd_choice-description">
+            {{ $data['question']->description }}
+        </div>
+    </div>
+
+    <hr class="cd_hr-s1" />
+
+    <div class="row">
+        <div class="col-12">
+            {{ $data['commentsNumber'] }} comments
+        </div>
         @foreach($data['comments'] as $comment)
         <div class="col-sm-12 mb-3">
             <div class="panel panel-default">
                 <div class="panel-heading lead">
-                    {{$comment->username}} <span class="text-muted">commented on the {{date('d.m.Y \a\t H:i:s',strtotime($comment->created_at))}}</span>
+                    {{$comment->username}} <span class="text-muted">commented on the {{date('d.m.Y \a\t H:i',strtotime($comment->created_at))}}</span>
                 </div>
                 <div class="panel-body">
                     {{$comment->text}}

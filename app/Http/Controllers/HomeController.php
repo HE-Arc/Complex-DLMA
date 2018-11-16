@@ -22,11 +22,20 @@ class HomeController extends Controller
                 ->select('id', 'description', 'choice_1_id', 'choice_2_id')
                 ->inRandomOrder()
                 ->first();
+
     $choices = DB::table('choices')->get();
+
     $comments = DB::table('comments')
                 ->join('users', 'users.id', '=', 'comments.user_id')
                 ->select('comments.text', 'comments.created_at', 'users.username')
                 ->where('question_id', $question->id)->orderBy('comments.created_at')->get();
+
+    $commentsNumber = count($comments);
+
+    $user = DB::table('users')
+                ->join('questions', 'questions.user_id', '=', 'users.id')
+                ->select('users.username')
+                ->where('questions.id', $question->id)->first();
   
     $validIds = [$question->choice_1_id, $question->choice_2_id];
     
@@ -35,13 +44,16 @@ class HomeController extends Controller
     // filter returns the IDs that belongs to the question
     $choices = array_values($this->filterChoices($choices->all(), $validIds));
 
-
     $data = array(
       "question" => $question,
       "choices" => $choices,
-      "comments" => $comments
+      "comments" => $comments,
+      "commentsNumber" => $commentsNumber,
+      "user" => $user
     );
+
     $request->session()->put('questionID', $question->id);
+
     return view("pages.index")->with('data', $data);
   }
 

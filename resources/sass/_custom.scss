@@ -66,10 +66,18 @@ body {
 }
 
 .cd_choice-description {
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .cd_choice-description-label {
+    font-size: 20px;
+}
+
+.cd_form-control-description {
+    font-size: 18px;
+}
+
+.cd_form-control-description-label {
     font-size: 18px;
 }
 
@@ -158,6 +166,7 @@ body {
 .cd_form-control-description {
     resize: none;
     color:black;
+    font-size: 18px;
 }
 
 @include media-breakpoint-down(md) {
@@ -194,7 +203,11 @@ body {
         font-size: 14px;
     }
     
-    .cd_choice-description-label {
+    .cd_form-control-description-label {
+        font-size: 14px;
+    }
+
+    .cd_form-control-description {
         font-size: 14px;
     }
 
