@@ -49,6 +49,12 @@ class HomeController extends Controller
   {
     $userID = Auth::id();
     $questionID = $request->session()->get('questionID');
+    $commentText = $request->input('commentText');
+
+    DB::table('comments')->insert(['user_id' => $userID, 'question_id' => $questionID, 'text' => $commentText]);
+
+    $response = [Auth::username(), $commentText];
+    return $response;
   }
 
 }
