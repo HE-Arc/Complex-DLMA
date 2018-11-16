@@ -23,6 +23,10 @@ class HomeController extends Controller
                 ->inRandomOrder()
                 ->first();
     $choices = DB::table('choices')->get();
+    $comments = DB::table('comments')
+                ->join('users', 'users.id', '=', 'comments.user_id')
+                ->select('comments.text', 'comments.created_at', 'users.username')
+                ->where('question_id', $question->id)->orderBy('comments.created_at')->get();
   
     $validIds = [$question->choice_1_id, $question->choice_2_id];
     
@@ -34,7 +38,8 @@ class HomeController extends Controller
 
     $data = array(
       "question" => $question,
-      "choices" => $choices
+      "choices" => $choices,
+      "comments" => $comments
     );
     $request->session()->put('questionID', $question->id);
     return view("pages.index")->with('data', $data);
