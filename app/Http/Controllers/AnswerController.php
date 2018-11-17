@@ -27,10 +27,15 @@ class AnswerController extends Controller
         else
         {
             // if the user did not answer already, we need to increment the choice counter 
+            // and insert its answer into the DB
             if(!$this->answerExists($userID, $questionID))
+            {
                 $this->incrementCounter($choiceNumber, $questionID);
-            // anyway we update its response or insert as a new one
-            $this->insertUpdateAnswer($userID, $questionID, $choiceNumber);
+                $this->insertAnswer($userID, $questionID, $choiceNumber);
+            }
+            // if he did already we do NOT increment the counter again but still update its answer
+            else
+                $this->updateAnswer($userID, $questionID, $choiceNumber);
         }
     
         $res = "User " . $userID . " incremented counter of the choice " . $choiceNumber . " in the question " . $questionID . " !";
@@ -59,8 +64,13 @@ class AnswerController extends Controller
             return true;
     }
 
-    private function insertUpdateAnswer($userID, $questionID, $choiceNumber)
+    private function insertAnswer($userID, $questionID, $choiceNumber)
     {
-        DB::table('answers')::updateOrCreate(['user_id' => $userID, 'question_id' => $questionID], ['choice' => $choiceNumber]);       
-    }    
+        DB::table('answers')->insert(['user_id' => $userID, 'question_id' => $questionID,   'choice' => $choiceNumber]);       
+    }
+
+    private function updateAnswer($userID, $questionID, $choiceNumber)
+    {
+        DB::table('answers')->where('user_id', $userID)->where('question_id', $questionID)->update(['choice' => $choiceNumber]);
+    }
 }
