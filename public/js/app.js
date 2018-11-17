@@ -35960,6 +35960,29 @@ module.exports = function spread(callback) {
 // Everything inside this bloc is charged when the document is ready
 $(document).ready(function () {
     var userHasVoted = false;
+    var addCommentEnable = false;
+
+    $('#formComment').on('submit', function () {
+        //https://stackoverflow.com/questions/27346205/submit-form-laravel-using-ajax
+        var commentText = $('#commentText').val();
+        userPostComment(commentText);
+    });
+
+    /**
+     * When the user click on the add comment button.
+     * Display or not the comment zone and change the add comment button text.
+     */
+    $('#addComment').on('click', function () {
+        addCommentEnable = !addCommentEnable;
+
+        if (addCommentEnable) {
+            $('#newComment').removeClass('d-none');
+            $('#addComment').html('Cancel comment');
+        } else {
+            $('#newComment').addClass('d-none');
+            $('#addComment').html('Add comment');
+        }
+    });
 
     /**
      * When the user click on the button 1
@@ -35973,12 +35996,6 @@ $(document).ready(function () {
      */
     $('#userChoice2').on('click', function () {
         userSelectChoice(2);
-    });
-
-    $('#formComment').on('submit', function () {
-        //https://stackoverflow.com/questions/27346205/submit-form-laravel-using-ajax
-        var commentText = $('#commentText').val();
-        userPostComment(commentText);
     });
 
     /**
@@ -36057,6 +36074,10 @@ $(document).ready(function () {
     };
 
     function userPostComment(commentText) {
+
+        $.ajaxSetup({
+            headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
+        });
         $.ajax({
             url: 'post_comment',
             type: 'POST',

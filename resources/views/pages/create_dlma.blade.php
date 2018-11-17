@@ -19,7 +19,7 @@
     {!! Form::open(['route' => 'createDlma.store']) !!}
 
     <div class="row text-center">
-      <div class="cd_rather-title col-12">
+      <div class="cd_md-text font-weight-bold col-12">
           Would you rather...
       </div>
     </div>
@@ -34,7 +34,7 @@
 
                   <div class="form-group">
                     {!! Form::textarea('choice_1', null, [
-                        'class' => 'form-control cd_form-control-choice cd_choice-sentence',
+                        'class' => 'form-control cd_form-control-choice cd_lg-text font-weight-bold',
                         'wrap' => 'soft',
                         'placeholder' => 'Enter choice 1...',
                         'rows' => 3,
@@ -56,7 +56,7 @@
 
                   <div class="form-group">
                     {!! Form::textarea('choice_2', null, [
-                        'class' => 'form-control cd_form-control-choice cd_choice-sentence',
+                        'class' => 'form-control cd_form-control-choice cd_lg-text font-weight-bold',
                         'wrap' => 'soft',
                         'placeholder' => 'Enter choice 2...',
                         'rows' => 3,
@@ -78,18 +78,18 @@
 
     <div class="form-group">
         {!! Form::label('description', 'Description, optional and used to specify a context...', [
-            'class' => 'cd_form-control-description-label'
+            'class' => 'cd_md-text'
         ]) !!}
         {!! Form::textarea('description', null, [
-            'class' => 'form-control cd_form-control-description',
+            'class' => 'form-control cd_form-control-description cd_md-text',
             'wrap' => 'soft',
             'rows' => 2,
             'maxlength' => '190'
         ]) !!}
     </div>
 
-    <div class="row text-center">
-        {!! Form::submit('Submit DLMA', ['class' => 'btn btn-lg cd_btn-default offset-4 col-4 mb-5']) !!}
+    <div class="col-12 text-center">
+        {!! Form::submit('Submit DLMA', ['class' => 'btn btn-lg cd_btn-default mb-5']) !!}
     </div>
 
     {!! Form::close() !!}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -32,7 +33,7 @@ class HomeController extends Controller
 
     $commentsNumber = count($comments);
 
-    $user = DB::table('users')
+    $question_user = DB::table('users')
                 ->join('questions', 'questions.user_id', '=', 'users.id')
                 ->select('users.username')
                 ->where('questions.id', $question->id)->first();
@@ -49,7 +50,7 @@ class HomeController extends Controller
       "choices" => $choices,
       "comments" => $comments,
       "commentsNumber" => $commentsNumber,
-      "user" => $user
+      "question_user" => $question_user
     );
 
     $request->session()->put('questionID', $question->id);

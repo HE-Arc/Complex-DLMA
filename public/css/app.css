@@ -10468,6 +10468,7 @@ a.text-dark:focus {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  min-width: 300px;
 }
 
 .cd_page-title {
@@ -10481,6 +10482,11 @@ body {
 
 .cd_hr-s2 {
   width: 60%;
+  border: 0;
+  border-top: 2px solid black;
+}
+
+.cd_hr-s3 {
   border: 0;
   border-top: 2px solid black;
 }
@@ -10507,6 +10513,22 @@ body {
           transform: translate(-50%, -50%);
 }
 
+.cd_sm-text {
+  font-size: 12px;
+}
+
+.cd_md-text {
+  font-size: 18px;
+}
+
+.cd_lg-text {
+  font-size: 24px;
+}
+
+.cd_xl-text {
+  font-size: 30px;
+}
+
 .cd_choice-or {
   font-weight: bold;
   font-size: 30px;
@@ -10520,38 +10542,7 @@ body {
 }
 
 .cd_choice-perc {
-  font-weight: bold;
   font-size: 40px;
-}
-
-.cd_choice-counter {
-  font-size: 18px;
-}
-
-.cd_choice-sentence {
-  font-weight: bold;
-  font-size: 24px;
-}
-
-.cd_choice-description {
-  font-size: 16px;
-}
-
-.cd_choice-description-label {
-  font-size: 20px;
-}
-
-.cd_form-control-description {
-  font-size: 18px;
-}
-
-.cd_form-control-description-label {
-  font-size: 18px;
-}
-
-.cd_rather-title {
-  font-weight: bold;
-  font-size: 20px;
 }
 
 .cd_checked-choice {
@@ -10655,7 +10646,6 @@ body {
 .cd_form-control-description {
   resize: none;
   color: black;
-  font-size: 18px;
 }
 
 @media (max-width: 991.98px) {
@@ -10673,30 +10663,6 @@ body {
 
   .cd_choice-perc {
     font-size: 32px;
-  }
-
-  .cd_choice-counter {
-    font-size: 12px;
-  }
-
-  .cd_choice-sentence {
-    font-size: 18px;
-  }
-
-  .cd_rather-title {
-    font-size: 14px;
-  }
-
-  .cd_choice-description {
-    font-size: 14px;
-  }
-
-  .cd_form-control-description-label {
-    font-size: 14px;
-  }
-
-  .cd_form-control-description {
-    font-size: 14px;
   }
 
   .cd_choice-or {
