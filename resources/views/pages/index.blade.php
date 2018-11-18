@@ -1,7 +1,7 @@
 @extends('layouts.app')
-
+<link rel="shortcut icon" sizes="114x114" href="assets/img/ficon.png">
 @section('content')
-
+   
     <div class="row text-center">
         <div class="cd_md-text font-weight-bold col-12">
             Would you rather...
