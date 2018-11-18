@@ -33,7 +33,7 @@ class AnswerController extends Controller
                 $this->incrementCounter($choiceNumber, $questionID);
                 $this->insertAnswer($userID, $questionID, $choiceNumber);
             }
-            // if he did already we do NOT increment the counter again but still update its answer
+            // if he did already we do NOT increment the counter again but still gupdate its answer
             else
                 $this->updateAnswer($userID, $questionID, $choiceNumber);
         }

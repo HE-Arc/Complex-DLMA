@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -53,7 +54,7 @@ class HomeController extends Controller
 
     DB::table('comments')->insert(['user_id' => $userID, 'question_id' => $questionID, 'text' => $commentText]);
 
-    $response = [Auth::username(), $commentText];
+    $response = "Return something";
     return $response;
   }
 

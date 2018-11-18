@@ -50,20 +50,31 @@
         <div class="cd_choice-or rounded-circle col-3 col-sm-2 col-lg-1 shadow">
             OR
         </div>
-    </div>
 
-    <div class="container">
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10 mb-3">
+                <textarea id="commentText" rows="4" class="form-control" placeholder="Enter your comment..."></textarea>
+            </div>
+            <div class="col-md-2 mb-3">
+                <!-- ajouter align-items: center dans le css pour ici -->
+                <button id="buttonPost" type="button" class="test btn btn-primary">Comment</button>
+            </div>
+        </div>
         @foreach($data['comments'] as $comment)
-        <div class="col-sm-12 mb-3">
-            <div class="panel panel-default">
-                <div class="panel-heading lead">
-                    {{$comment->username}} <span class="text-muted">commented on the {{date('d.m.Y \a\t H:i:s',strtotime($comment->created_at))}}</span>
-                </div>
-                <div class="panel-body">
-                    {{$comment->text}}
-                </div><!-- /panel-body -->
-            </div><!-- /panel panel-default -->
-        </div><!-- /col-sm -->
+        <div class="row">
+            <div class="col-sm-12 mb-3">
+                <div class="panel panel-default">
+                    <div class="panel-het'ading lead">
+                        {{$comment->username}} <span class="text-muted">commented on the {{date('d.m.Y \a\t H:i:s',strtotime($comment->created_at))}}</span>
+                    </div>
+                    <div class="panel-body">
+                        {{$comment->text}}
+                    </div><!-- /panel-body -->
+                </div><!-- /panel panel-default -->
+            </div><!-- /col-sm -->
+        </div>
         @endforeach
     </div> <!--/container-->
     
