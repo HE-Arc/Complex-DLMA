@@ -13,7 +13,7 @@ class PagesController extends Controller
     // filters the choices to get only the one in the validIds array
     return array_filter($choices, function($choice) use ($validIds)
     {
-      return in_array($choice->id, $validIds); 
+      return in_array($choice->id, $validIds);
     });
   }
   public function index()
@@ -29,11 +29,22 @@ class PagesController extends Controller
       array_push($arrayChoices, $choice);
     }
     $validIds = [$question->choice_1_id, $question->choice_2_id];
-    
+
     $choices = $this->filterChoices($arrayChoices, $validIds);
+
+
+    $usernames = DB::table('users')->select('username')->get()->all();
+    $usernames = collect($usernames)->map(function($x) { return (array) $x; })->toArray();
+    $arrayUsernames = array();
+    foreach($usernames as $username) {
+      array_push($arrayUsernames, htmlentities($username["username"]));
+    }
+
+
     $data = array(
       "question" => $question,
-      "choices" => $choices
+      "choices" => $choices,
+      "usernames" => json_encode($arrayUsernames)
     );
     return view("pages.index")->with('data', $data);
   }

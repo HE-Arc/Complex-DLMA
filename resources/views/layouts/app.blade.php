@@ -9,8 +9,16 @@
 
     <title>{{ config('app.name', 'Complex-DLMA') }}</title>
 
+    <!-- Load user ID in JavaScript global variable -->
+    @if(Auth::check())
+      <script>
+        var userID = "{{ Auth::user()->id }}";
+      </script>
+    @endif
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/nodeClient.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
