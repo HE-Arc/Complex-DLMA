@@ -3,73 +3,57 @@
 @section('content')
 
     <div class="row text-center">
-        <div class="cd_md-text font-weight-bold col-12">
+        <div class="cd_medium-text font-weight-bold col-12">
             Would you rather...
         </div>
     </div>
-    <div id="choicesMain" class="cd_choices-main-container row text-center">
-        <div class="col-12 col-lg-6 p-3 p-lg-3">
 
-            <div id="userChoice1" class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow">
-            
-                <i id="checkedChoice1" class="fas fa-check cd_checked-choice d-none"></i>
+    <div id="choicesMain" class="row cd_choices-main-container text-center">
 
-                <div class="col-12 cd_choice-text-container p-3 p-lg-5">
-
-                    <div class="cd_choice-perc font-weight-bold col-12 d-none"></div>
-
-                    <div class="d-none initVotes">{{ $data['choices'][0]->counter }}</div>
-                    <div class="cd_choice-counter cd_md-text col-12 d-none"></div>
-
-                    <div class="cd_lg-text font-weight-bold col-12">
-                        {{ $data['choices'][0]->text }}
+            <div class="col-12 col-lg-6 p-3 p-lg-3">
+                <div id="userChoice1" class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow">
+                
+                    <i id="checkedChoice1" class="fas fa-check cd_checked-choice d-none"></i>
+                    
+                    <div id="choice1">
+                        {!! $data['homeController']->questionChoice($data['question']->choice_1_id) !!}
                     </div>
-
                 </div>
             </div>
-            
-        </div>
-        <div class="col-12 col-lg-6 p-3 p-lg-3">
-            <div id="userChoice2" class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow">
-            
-                <i id="checkedChoice2" class="fas fa-check cd_checked-choice d-none"></i>
         
-                <div class="col-12 cd_choice-text-container p-3 p-lg-5">
-
-                    <div class="cd_choice-perc font-weight-bold col-12 d-none"></div>
-
-                    <div class="d-none initVotes">{{ $data['choices'][1]->counter }}</div>
-                    <div class="cd_choice-counter cd_md-text col-12 d-none"></div>
-
-                    <div class="cd_lg-text font-weight-bold col-12">
-                        {{ $data['choices'][1]->text }}
+            <div class="col-12 col-lg-6 p-3 p-lg-3">
+                <div id="userChoice2" class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow">
+                
+                    <i id="checkedChoice2" class="fas fa-check cd_checked-choice d-none"></i>
+            
+                    <div id="choice2">
+                        {!! $data['homeController']->questionChoice($data['question']->choice_2_id) !!}
                     </div>
                 </div>
             </div>
+        
+            <div class="cd_choice-or rounded-circle col-3 col-sm-2 col-lg-1 shadow">
+                OR
+            </div>
         </div>
-        <div class="cd_choice-or rounded-circle col-3 col-sm-2 col-lg-1 shadow">
-            OR
-        </div>
-    </div>
 
-    <div class="col-12">
-        <div class="col-12 cd_sm-text">
-            DLMA added by <span class="font-weight-bold">{{ $data['question_user']->username }}</span>
+        <div id="questionUsername">
+            {!! $data['homeController']->questionUsername($data['question']->id) !!}
         </div>
-    </div>
 
-    <hr class="cd_hr-s1" />
-
-    <div class="col-12">
-        <div class="col-12 cd_md-text font-weight-bold">
-            Description
+        <div class="col-12 text-center text-sm-right p-0">
+            <button id="nextQuestion" class="btn btn-lg cd_btn-default cd_next-question" type="button"><span>Next question</span></button>
         </div>
-        <div class="col-12 cd_sm-text">
-            {{ $data['question']->description }}
-        </div>
-    </div>
+        
+        <hr class="cd_hr-s1" />
 
-    <hr class="cd_hr-s3 my-5" />
-    
-    @include('inc.comments')
+        <div id="questionDescription">
+            {!! $data['homeController']->questionDescription($data['question']->id) !!}
+        </div>
+        
+        <hr class="cd_hr-s3 my-5" />
+        
+        <div id="questionComments">
+            {!! $data['homeController']->questionComments($data['question']->id) !!}
+        </div>
 @endsection
