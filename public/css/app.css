@@ -10648,14 +10648,14 @@ body {
   color: black;
 }
 
-.cd_next-question {
+.cd_btn-animated {
   width: 200px;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
   cursor: pointer;
 }
 
-.cd_next-question span {
+.cd_btn-animated span {
   cursor: pointer;
   display: inline-block;
   position: relative;
@@ -10663,7 +10663,7 @@ body {
   transition: 0.5s;
 }
 
-.cd_next-question span:after {
+.cd_btn-animated span:after {
   content: '\1F8A5';
   position: absolute;
   opacity: 0;
@@ -10673,11 +10673,11 @@ body {
   transition: 0.5s;
 }
 
-.cd_next-question:hover span {
+.cd_btn-animated:hover span {
   padding-right: 25px;
 }
 
-.cd_next-question:hover span:after {
+.cd_btn-animated:hover span:after {
   opacity: 1;
   right: 0;
 }

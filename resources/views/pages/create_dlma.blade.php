@@ -89,7 +89,9 @@
     </div>
 
     <div class="col-12 text-center">
-        {!! Form::submit('Submit DLMA', ['class' => 'btn btn-lg cd_btn-default mb-5']) !!}
+        <button type="submit" class="btn btn-lg cd_btn-default cd_btn-animated mb-5">
+            <span>Submit DLMA</span>
+        </button>
     </div>
 
     {!! Form::close() !!}

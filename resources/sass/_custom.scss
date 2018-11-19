@@ -160,20 +160,20 @@ body {
 }
 
 // Adapted from : https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_buttons_animate1
-.cd_next-question {
+.cd_btn-animated {
     width: 200px;
     transition: all 0.5s;
     cursor: pointer;
 }
-  
-.cd_next-question span {
+
+.cd_btn-animated span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
 }
   
-.cd_next-question span:after {
+.cd_btn-animated span:after {
     content: '\1f8a5';
     position: absolute;
     opacity: 0;
@@ -182,11 +182,11 @@ body {
     transition: 0.5s;
 }
   
-.cd_next-question:hover span {
+.cd_btn-animated:hover span {
     padding-right: 25px;
 }
   
-.cd_next-question:hover span:after {
+.cd_btn-animated:hover span:after {
     opacity: 1;
     right: 0;
 }

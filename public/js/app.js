@@ -36177,7 +36177,6 @@ $(document).ready(function () {
                 //console.log(data);
             },
             error: function error(e) {
-                console.log("KO");
                 console.log(e.responseText);
             }
         });
