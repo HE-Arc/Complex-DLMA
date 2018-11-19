@@ -35959,7 +35959,6 @@ module.exports = function spread(callback) {
 
 // Everything inside this bloc is charged when the document is ready
 $(document).ready(function () {
-
     var userHasVoted = false;
     var addCommentEnable = false;
 
@@ -35986,9 +35985,120 @@ $(document).ready(function () {
     });
 
     /**
+     * When the user click on the button next question.
+     * A new question is load from the db and is load in the page.
+     */
+    $('#nextQuestion').on('click', function () {
+        $.ajaxSetup({
+            headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
+        });
+
+        $.ajax({
+            url: 'next_question',
+            type: 'GET',
+            dataType: 'JSON',
+            success: function success(data) {
+                updateChoices(data);
+                updateQuestionDetails(data);
+            },
+            error: function error(e) {
+                console.log(e.responseText);
+            }
+        });
+    });
+
+    /**
+     * Update the question username, description and comments
+     * @param {array} data 
+     */
+    function updateQuestionDetails(data) {
+        $.ajaxSetup({
+            headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
+        });
+
+        $.ajax({
+            url: 'next_question_username',
+            type: 'GET',
+            data: 'questionID=' + data['question']['id'],
+            dataType: 'HTML',
+            success: function success(data) {
+                $('#questionUsername').html(data);
+            },
+            error: function error(e) {
+                console.log(e.responseText);
+            }
+        });
+
+        $.ajax({
+            url: 'next_question_description',
+            type: 'GET',
+            data: 'questionID=' + data['question']['id'],
+            dataType: 'HTML',
+            success: function success(data) {
+                $('#questionDescription').html(data);
+            },
+            error: function error(e) {
+                console.log(e.responseText);
+            }
+        });
+
+        $.ajax({
+            url: 'next_question_comments',
+            type: 'GET',
+            data: 'questionID=' + data['question']['id'],
+            dataType: 'HTML',
+            success: function success(data) {
+                $('#questionComments').html(data);
+            },
+            error: function error(e) {
+                console.log(e.responseText);
+            }
+        });
+    }
+
+    /**
+     * Update the 2 choices
+     * @param {array} data
+     */
+    function updateChoices(data) {
+        $.ajaxSetup({
+            headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
+        });
+
+        $.ajax({
+            url: 'next_question_choice',
+            type: 'GET',
+            data: 'choiceID=' + data['question']['choice_1_id'],
+            dataType: 'HTML',
+            success: function success(data) {
+                $('#choice1').html(data);
+            },
+            error: function error(e) {
+                console.log(e.responseText);
+            }
+        });
+
+        $.ajax({
+            url: 'next_question_choice',
+            type: 'GET',
+            data: 'choiceID=' + data['question']['choice_2_id'],
+            dataType: 'HTML',
+            success: function success(data) {
+                $('#choice2').html(data);
+
+                userHasVoted = false;
+                $('#checkedChoice1').addClass('d-none');
+                $('#checkedChoice2').addClass('d-none');
+            },
+            error: function error(e) {
+                console.log(e.responseText);
+            }
+        });
+    }
+
+    /**
      * When the user click on the button 1
      */
-
     $('#userChoice1').on('click', function () {
         userSelectChoice(1);
     });
@@ -36007,7 +36117,7 @@ $(document).ready(function () {
         userCheckRedirectLogin();
     });
 
-    $('#buttonPost').click(function (e) {
+    $('#postComment').click(function (e) {
         var commentText = $('#commentText').val().trim();
         if (commentText.length > 0) userPostComment(commentText);
     });
@@ -36066,9 +36176,6 @@ $(document).ready(function () {
         $('#checkedChoice' + choiceID).removeClass('d-none');
 
         // Ajax request to increment the user choice
-        var userID = parseInt($('#userID').html());
-        var questionID = parseInt($('#questionID').html());
-
         $.ajaxSetup({
             headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
         });
@@ -36077,9 +36184,9 @@ $(document).ready(function () {
             url: 'dispatch_request',
             type: 'POST',
             data: 'choiceID=' + (choiceID - 1),
-            dataType: 'JSON',
+            dataType: 'HTML',
             success: function success(data) {
-                console.log(data);
+                //console.log(data);
             },
             error: function error(e) {
                 console.log(e.responseText);
@@ -36103,8 +36210,8 @@ $(document).ready(function () {
             }
         });
     }
-    function userPostComment(commentText) {
 
+    function userPostComment(commentText) {
         $.ajaxSetup({
             headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
         });
@@ -36113,8 +36220,7 @@ $(document).ready(function () {
             url: 'post_comment',
             type: 'POST',
             data: 'commentText=' + commentText,
-            dateType: 'JSON',
-            // need to display the newly added comment
+            dateType: 'HTML',
             success: function success(data) {
                 console.log(data);
                 $('#commentText').val('');
@@ -36122,7 +36228,6 @@ $(document).ready(function () {
             error: function error(e) {
                 console.log(e.responseText);
             }
-
         });
     };
 });

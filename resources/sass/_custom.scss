@@ -44,19 +44,19 @@ body {
     transform: translate(-50%,-50%);
 }
 
-.cd_sm-text {
+.cd_small-text {
     font-size: 12px;
 }
 
-.cd_md-text {
+.cd_medium-text {
     font-size: 18px;
 }
 
-.cd_lg-text {
+.cd_large-text {
     font-size: 24px;
 }
 
-.cd_xl-text {
+.cd_xlarge-text {
     font-size: 30px;
 }
 
@@ -159,6 +159,39 @@ body {
     color:black;
 }
 
+// Adapted from : https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_buttons_animate1
+.cd_btn-animated {
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.cd_btn-animated span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+.cd_btn-animated span:after {
+    content: '\1f8a5';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+  
+.cd_btn-animated:hover span {
+    padding-right: 25px;
+}
+  
+.cd_btn-animated:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+// End
+
 @include media-breakpoint-down(md) {
 
     .cd_page-title {
@@ -180,4 +213,13 @@ body {
     .cd_choice-or {
         font-size: 24px;
     }
+
+    .cd_large-text-md {
+        font-size: 18px;
+    }
 }
+
+
+
+
+

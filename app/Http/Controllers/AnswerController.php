@@ -38,8 +38,7 @@ class AnswerController extends Controller
                 $this->updateAnswer($userID, $questionID, $choiceNumber);
         }
     
-        $res = "User " . $userID . " incremented counter of the choice " . $choiceNumber . " in the question " . $questionID . " !";
-        return $res;
+        return "";
     }
 
     private function incrementCounter($choiceNumber, $questionID)
