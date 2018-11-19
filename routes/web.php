@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +14,13 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/auth/check',function(){
+    return \Auth::id();
+});
+
 Route::post('/dispatch_request','AnswerController@dispatchRequest');
-Route::post('/post_comment', 'HomeController@store')->name('createComment.store')->middleware('auth');
+
+Route::post('/post_comment', 'HomeController@store')->middleware('auth');
 
 Auth::routes();
 

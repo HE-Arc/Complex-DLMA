@@ -64,9 +64,14 @@ class HomeController extends Controller
     $questionID = $request->session()->get('questionID');
     $commentText = $request->input('commentText');
 
-    DB::table('comments')->insert(['user_id' => $userID, 'question_id' => $questionID, 'text' => $commentText]);
+    DB::table('comments')->insert([
+      'user_id' => $userID, 
+      'question_id' => $questionID, 
+      'text' => $commentText,
+      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+      'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),]);
 
-    $response = [Auth::username(), $commentText];
+    $response = "Return something";
     return $response;
   }
 

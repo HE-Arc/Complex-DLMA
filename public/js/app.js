@@ -35959,6 +35959,7 @@ module.exports = function spread(callback) {
 
 // Everything inside this bloc is charged when the document is ready
 $(document).ready(function () {
+
     var userHasVoted = false;
     var addCommentEnable = false;
 
@@ -35987,6 +35988,7 @@ $(document).ready(function () {
     /**
      * When the user click on the button 1
      */
+
     $('#userChoice1').on('click', function () {
         userSelectChoice(1);
     });
@@ -35996,6 +35998,18 @@ $(document).ready(function () {
      */
     $('#userChoice2').on('click', function () {
         userSelectChoice(2);
+    });
+
+    /*
+    * We want to ask the user to login before he starts typing his long ramblings
+    */
+    $('#commentText').on('focus', function () {
+        userCheckRedirectLogin();
+    });
+
+    $('#buttonPost').click(function (e) {
+        var commentText = $('#commentText').val().trim();
+        if (commentText.length > 0) userPostComment(commentText);
     });
 
     /**
@@ -36073,25 +36087,44 @@ $(document).ready(function () {
         });
     };
 
+    /**
+     * This verifies that the user is indeed logged in before posting a comment
+     */
+    function userCheckRedirectLogin() {
+        $.ajaxSetup({
+            headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
+        });
+
+        $.ajax({
+            url: 'auth/check',
+            type: 'GET',
+            success: function success(userID) {
+                if (userID == "") window.location.href = "login";
+            }
+        });
+    }
     function userPostComment(commentText) {
 
         $.ajaxSetup({
             headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
         });
+
         $.ajax({
             url: 'post_comment',
             type: 'POST',
             data: 'commentText=' + commentText,
             dateType: 'JSON',
+            // need to display the newly added comment
             success: function success(data) {
                 console.log(data);
+                $('#commentText').val('');
             },
             error: function error(e) {
                 console.log(e.responseText);
             }
 
         });
-    }
+    };
 });
 
 /***/ }),

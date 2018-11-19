@@ -50,6 +50,7 @@
         <div class="cd_choice-or rounded-circle col-3 col-sm-2 col-lg-1 shadow">
             OR
         </div>
+
     </div>
 
     <div class="col-12">
