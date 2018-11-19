@@ -16,7 +16,7 @@ if (userID != -1) {
   connection.onopen = function () {
     // connection is opened and ready to use
     console.log("Connection opened");
-    let msg = {type: "greetings", data: userID};
+    let msg = {type: "greetings", userID: userID, username: username};
     connection.send(JSON.stringify(msg));
   };
 

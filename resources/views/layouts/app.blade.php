@@ -9,10 +9,11 @@
 
     <title>{{ config('app.name', 'Complex-DLMA') }}</title>
 
-    <!-- Load user ID in JavaScript global variable -->
+    <!-- Load user ID and username in JavaScript global variable -->
     @if(Auth::check())
       <script>
         var userID = "{{ Auth::user()->id }}";
+        var username = "{{ Auth::user()->username }}";
       </script>
     @endif
 

@@ -30,7 +30,7 @@ wsServer = new WebSocketServer({
 wsServer.on("request", function(request) {
   console.log((new Date()) + " Connection from origin " + request.origin + ".");
   var connection = request.accept(null, request.origin);
-  var index = clients.push({connection: connection, id: -1}) - 1;
+  var index = clients.push({connection: connection, id: -1, username: ""}) - 1;
   console.log((new Date()) + " Connection accepted.");
 
 
@@ -42,7 +42,11 @@ wsServer.on("request", function(request) {
 
       switch(msgObject.type) {
         case "greetings":
-          clients[index].id = msgObject.data;
+          clients[index].id = msgObject.userID;
+          clients[index].username = msgObject.username;
+          break;
+        case "shareQuestion":
+          
           break;
         default:
       }

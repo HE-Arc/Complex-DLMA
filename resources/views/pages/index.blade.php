@@ -14,7 +14,7 @@
 
 
 
-  <div id="btnShare" {{ Auth::check() ? 'data-toggle=modal data-target=#shareWithUserModal style=background-color:lightblue;' : 'style=background-color:lightgray;' }}>
+  <div id="btnShare" onclick="resetShareModal()" {{ Auth::check() ? 'data-toggle=modal data-target=#shareWithUserModal style=background-color:lightblue;' : 'style=background-color:lightgray;' }}>
     <img src="" alt="Share!" height="30" width="30" />
   </div>
 
@@ -31,19 +31,23 @@
 
         <div class="modal-body">
           <div class="form-group">
-            <p>Search a user's nickname :</p>
-            <input type="text" class="form-control" id="searchUsersNickname" onkeypress="findUsers(this.value)" />
+            <p><label for="searchUsersNickname">Search a user's nickname :</label></p>
+            <input type="text" class="form-control" onkeyup="findUsers(this.value)" id="searchUsersNickname" />
           </div>
 
           <div class="form-group">
             <div id="usersList"></div>
+          </div>
+          <hr/>
+          <div class="form-group">
+            <div id="shareList"></div>
           </div>
         </div>
 
         <div class="modal-footer">
           <div class="form-group">
             <button type="button" class="btn" data-dismiss="modal">Cancel</button>
-            <button type="button" id="btnShareWithUserModal" class="btn" onclick="shareQuestion()">Share question</button>
+            <button type="button" disabled id="btnShareWithUserModal" class="btn" onclick="shareQuestion()">Share question</button>
           </div>
         </div>
       </div>

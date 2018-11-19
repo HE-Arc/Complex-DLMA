@@ -1,33 +1,79 @@
 
+var shareList = [];
+
+function resetShareModal() {
+  shareList = [];
+  displayShareList();
+  document.getElementById("searchUsersNickname").value = "";
+  document.getElementById("usersList").innerHTML = "";
+}
+
 function findUsers(filter) {
   const regex = new RegExp(filter, 'g');
   let users = usernames.filter(username => username.match(regex));
-  displayUsers(users);
+
+  if (users.includes(username))
+    users.splice(users.indexOf(username), 1);
+
+  let listNode = document.getElementById("usersList");
+  listNode.innerHTML = "";
+
+  if (users.length < 12)
+    displayUsers(users, listNode);
 }
 
-function displayUsers(users) {
-  let list = document.getElementById("usersList");
-  list.innerHTML = "";
-  users.forEach(function(username) {
-    let node = document.createElement("div");
-    node.appendChild(document.createTextNode(username));
-    list.appendChild(node);
+function displayUsers(users, listNode) {
+  users.forEach((username) => {
+    let parentNode = document.createElement("div");
+    parentNode.onclick = () => addUserToShareList(username);
+    parentNode.appendChild(document.createTextNode(username));
+    listNode.appendChild(parentNode);
   });
 }
 
-function getSelectedUser() {
+function addUserToShareList(username) {
+  if (!shareList.includes(username)) {
+    if (shareList.length < 5) {
+      shareList.push(username);
+      displayShareList();
+    } else
+      alert("Sorry, you can share this question whith maximum 5 different users.");
+  }
+}
 
-  return -1;
+function removeUserFromShareList(username) {
+  shareList.splice(shareList.indexOf(username), 1);
+  displayShareList();
+}
+
+function displayShareList() {
+  let shareListNode = document.getElementById("shareList");
+  shareListNode.innerHTML = "";
+
+  shareList.forEach((username) => {
+    let parentNode = document.createElement("span");
+    parentNode.appendChild(document.createTextNode(username));
+    parentNode.onclick = () => removeUserFromShareList(username);
+    shareListNode.appendChild(parentNode);
+  });
+
+  updateShareButtonStatus();
+}
+
+function updateShareButtonStatus() {
+  let btn = document.getElementById("btnShareWithUserModal");
+  btn.disabled = shareList.length <= 0;
 }
 
 /*
 * Sends the current question to the selected user.
 */
 function shareQuestion() {
-  let userToID = getSelectedUser();
-  if (userID != -1 && userToID != -1 && connection != null) {
-    let msg = {type: "shareQuestion", userFrom: userID, userTo: userToID, question: questionId};
-    connection.send(JSON.stringify(msg));
+  if (userID != -1 && connection != null) {
+    shareList.forEach((usernameTo) => {
+        let msg = {type: "shareQuestion", userFrom: username, userTo: usernameTo, question: questionId};
+        connection.send(JSON.stringify(msg));
+    });
   }
   $('#shareWithUserModal').modal('hide');
 }
