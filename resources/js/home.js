@@ -149,6 +149,7 @@ $(document).ready(function ()
             // need to display the newly added comment
             success: function (data) {
                 console.log(data);
+                $('#commentText').val('');
             },
             error: function (e) {
                 console.log(e.responseText);

@@ -36094,6 +36094,7 @@ $(document).ready(function () {
             // need to display the newly added comment
             success: function success(data) {
                 console.log(data);
+                $('#commentText').val('');
             },
             error: function error(e) {
                 console.log(e.responseText);
