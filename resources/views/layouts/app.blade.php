@@ -28,6 +28,20 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <style>
+      /* temporary stylesheet */
+      .modalless {
+        left: 50%;
+        top: auto !important;
+        bottom: 0% !important;
+        right: auto;
+        margin-left: -300px;
+        display: none;
+      }
+      .modal {
+        overflow: hidden;
+      }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -35,6 +49,22 @@
 
         <div class="container mt-3">
             @yield('content')
+
+            <div class="modal modalless" id="shareMyChoicePopup">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 id="shareMyChoicePopupTitle"></h5>
+                  </div>
+                  <div class="modal-body">
+                    <div id="shareMyChoicePopupQuestion"></div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn" id="btnCloseShareMyChoice">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
     </div>
 </body>

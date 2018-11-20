@@ -1,8 +1,10 @@
 @extends('layouts.app')
 <script src="{{ asset('js/index.js') }}" defer></script>
 <script>
-  var questionId = <?php echo $data["question"]->id ?>;
   var usernames = <?php echo $data["usernames"] ?>;
+  var questionTitle = "<?php echo $data["question"]->title ?>";
+  var questionChoice1 = "<?php echo $data['choices'][array_keys($data['choices'])[0]]->text ?>";
+  var questionChoice2 = "<?php echo $data['choices'][array_keys($data['choices'])[1]]->text ?>";
 </script>
 
 @section('content')

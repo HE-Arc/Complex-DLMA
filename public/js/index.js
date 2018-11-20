@@ -9,11 +9,11 @@ function resetShareModal() {
 }
 
 function findUsers(filter) {
-  const regex = new RegExp(filter, 'g');
-  let users = usernames.filter(username => username.match(regex));
+  const regex = new RegExp(filter.toLowerCase(), 'g');
+  let users = usernames.filter(username => username.toLowerCase().match(regex));
 
-  if (users.includes(username))
-    users.splice(users.indexOf(username), 1);
+  // if (users.includes(username)) todo
+  //   users.splice(users.indexOf(username), 1);
 
   let listNode = document.getElementById("usersList");
   listNode.innerHTML = "";
@@ -69,11 +69,7 @@ function updateShareButtonStatus() {
 * Sends the current question to the selected user.
 */
 function shareQuestion() {
-  if (userID != -1 && connection != null) {
-    shareList.forEach((usernameTo) => {
-        let msg = {type: "shareQuestion", userFrom: username, userTo: usernameTo, question: questionId};
-        connection.send(JSON.stringify(msg));
-    });
-  }
+  if (userID != -1 && connection != null)
+    shareList.forEach(usernameTo => sendShareRequest(usernameTo));
   $('#shareWithUserModal').modal('hide');
 }

@@ -45,8 +45,21 @@ wsServer.on("request", function(request) {
           clients[index].id = msgObject.userID;
           clients[index].username = msgObject.username;
           break;
-        case "shareQuestion":
-          
+        case "shareRequest":
+          let clientToIndex = -1;
+          for (let i=0; i<clients.length; i++) {
+            if (clients[i].username == msgObject.userTo) {
+              clientToIndex = i;
+              break;
+            }
+          }
+
+          if (clientToIndex != -1)
+            clients[clientToIndex].connection.sendUTF(JSON.stringify(msgObject)); // pass the request further
+          else {
+            let msg = {type: "shareError", username: msgObject.userTo, errorCode: 0}; // client not connected
+            connection.sendUTF(JSON.stringify(msg));
+          }
           break;
         default:
       }
@@ -56,5 +69,6 @@ wsServer.on("request", function(request) {
   connection.on("close", function(connection) {
     // close user connection
     console.log("Connection closed with a client : " + connection)
+    clients.splice(index, 1);
   });
 });

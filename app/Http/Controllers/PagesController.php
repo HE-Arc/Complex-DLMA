@@ -22,11 +22,13 @@ class PagesController extends Controller
                 ->select('id', 'title', 'choice_1_id', 'choice_2_id')
                 ->inRandomOrder()
                 ->first();
+    $question->title = htmlentities($question->title);
     $choices = DB::table('choices')->get();
     $arrayChoices = [];
     foreach($choices as $choice)
     {
       array_push($arrayChoices, $choice);
+      $choice->text = htmlentities($choice->text);
     }
     $validIds = [$question->choice_1_id, $question->choice_2_id];
 
