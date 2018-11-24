@@ -17,6 +17,14 @@ function htmlEntities(str) {
   .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+function findClientByUsername(searchedClientUsername) {
+  for (let i=0; i<clients.length; i++) {
+    if (clients[i].username == searchedClientUsername)
+      return i;
+  }
+  return -1;
+}
+
 server.listen(webSocketsServerPort, function() {
   console.log((new Date()) + " Server is listening on port " + webSocketsServerPort);
 });
@@ -46,13 +54,7 @@ wsServer.on("request", function(request) {
           clients[index].username = msgObject.username;
           break;
         case "shareRequest":
-          let clientToIndex = -1;
-          for (let i=0; i<clients.length; i++) {
-            if (clients[i].username == msgObject.userTo) {
-              clientToIndex = i;
-              break;
-            }
-          }
+          var clientToIndex = findClientByUsername(msgObject.userTo);
 
           if (clientToIndex != -1)
             clients[clientToIndex].connection.sendUTF(JSON.stringify(msgObject)); // pass the request further
@@ -60,6 +62,12 @@ wsServer.on("request", function(request) {
             let msg = {type: "shareError", username: msgObject.userTo, errorCode: 0}; // client not connected
             connection.sendUTF(JSON.stringify(msg));
           }
+          break;
+        case "shareRequestAnswer":
+          var clientToIndex = findClientByUsername(msgObject.userTo);
+
+          if (clientToIndex != -1)
+            clients[clientToIndex].connection.sendUTF(JSON.stringify(msgObject)); // pass the request further
           break;
         default:
       }

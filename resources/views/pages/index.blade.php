@@ -34,7 +34,7 @@
         <div class="modal-body">
           <div class="form-group">
             <p><label for="searchUsersNickname">Search a user's nickname :</label></p>
-            <input type="text" class="form-control" onkeyup="findUsers(this.value)" id="searchUsersNickname" />
+            <input type="text" class="form-control" onkeyup="findUsers(this.value)" id="searchUsersNickname" autofocus />
           </div>
 
           <div class="form-group">
@@ -51,6 +51,22 @@
             <button type="button" class="btn" data-dismiss="modal">Cancel</button>
             <button type="button" disabled id="btnShareWithUserModal" class="btn" onclick="shareQuestion()">Share question</button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modalless" id="choiceSharingAnswerPopup">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="choiceSharingAnswerPopupTitle"></h5>
+        </div>
+        <div class="modal-body">
+          <div id="choiceSharingAnswerPopupRes"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" id="btnCloseChoiceSharingAnswerPopup">Ok</button>
         </div>
       </div>
     </div>
