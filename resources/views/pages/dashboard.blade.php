@@ -21,7 +21,7 @@
                         </div>
 
                         <div class="cd_choice-counter cd_medium-text col-12">
-                            {!! $answer[0]['counter'] !!}votes
+                            {!! $answer[0]['counter'] !!} votes
                         </div>
 
                         <div class="cd_choice-text cd_large-text cd_large-text-md font-weight-bold col-12">
@@ -45,7 +45,7 @@
                         </div>
     
                         <div class="cd_choice-counter cd_medium-text col-12">
-                            {!! $answer[1]['counter'] !!}votes
+                            {!! $answer[1]['counter'] !!} votes
                         </div>
     
                         <div class="cd_choice-text cd_large-text cd_large-text-md font-weight-bold col-12">
