@@ -13,7 +13,7 @@ $factory->define(App\Question::class, function (Faker $faker) {
                   ->inRandomOrder()
                   ->first()->id;
     return [
-        'title' => $faker->realText(50),
+        'description' => $faker->realText(190),
         'user_id' => $user_id,
         'choice_1_id' => $choice_1_id,
         'choice_2_id' => $choice_2_id,
