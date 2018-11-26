@@ -69,22 +69,29 @@ if (userID != -1) {
 }
 
 function initShareMyChoicePopup(msg) {
-  document.getElementById("shareMyChoicePopupTitle").innerHTML = "Share requests";
+  // using HTML structure in layout 'app.blade.php'
+  document.getElementById("shareMyChoicePopupTitle").innerHTML = "Share requests"; // window title
   let node = document.getElementById("shareMyChoicePopupQuestion");
+
+  // div containing the new request
   let nodeRequest = document.createElement("div");
   nodeRequest.id = "shareMyChoicePopupRequest" + document.querySelectorAll("#shareMyChoicePopupQuestion .shareMyChoicePopupRequest").length;
   nodeRequest.classList.add("shareMyChoicePopupRequest");
 
+  // request's title
   let nodeElementTitle = document.createElement("div");
   nodeElementTitle.appendChild(document.createTextNode("'" + msg.userTo + "' wants to know your opinion !"));
 
+  // question's title
   let nodeQuestionTitle = document.createElement("div");
   nodeQuestionTitle.appendChild(document.createTextNode(msg.questionTitle));
 
+  // choice 1
   let btnChoice1 = document.createElement("button");
   btnChoice1.appendChild(document.createTextNode(msg.questionChoice1));
   btnChoice1.onclick = () => sendAnswerShareRequest(1, msg, nodeRequest.id);
 
+  // choice 2
   let btnChoice2 = document.createElement("button");
   btnChoice2.appendChild(document.createTextNode(msg.questionChoice2));
   btnChoice2.onclick = () => sendAnswerShareRequest(2, msg, nodeRequest.id);
@@ -92,6 +99,7 @@ function initShareMyChoicePopup(msg) {
   btnChoice1.style = "display: inline-block;";
   btnChoice2.style = "display: inline-block;";
 
+  // requests separation line
   if(node.innerHTML != "")
     nodeRequest.appendChild(document.createElement("hr"));
 
@@ -103,20 +111,28 @@ function initShareMyChoicePopup(msg) {
 }
 
 function initChoiceSharingAnswerPopup(msg) {
-  document.getElementById("choiceSharingAnswerPopupTitle").innerHTML = "Shared opinions";
+  // using HTML structure in view 'index.blade.php'
+  document.getElementById("choiceSharingAnswerPopupTitle").innerHTML = "Shared opinions"; // window title
   let node = document.getElementById("choiceSharingAnswerPopupRes");
+
+  // div containing the new answer
   let nodeAnswer = document.createElement("div");
 
+  // answer's texts
   let titleResult = "'" + msg.userTo + "' shared his/her opinion with you !";
   let chosenChoice = msg.choiceMade == 1 ? msg.choice1 : msg.choice2;
   let otherChoice = msg.choiceMade == 1 ? msg.choice2 : msg.choice1;
   let response = "'" + msg.userTo + "' would rather " + chosenChoice + " than " + otherChoice;
 
+  // answers separation line
   if(node.innerHTML != "")
     nodeAnswer.appendChild(document.createElement("hr"));
 
+  // answer's title
   let titleNode = document.createElement("div");
   titleNode.appendChild(document.createTextNode(titleResult));
+
+  // answer's result
   let contentNode = document.createElement("div");
   contentNode.appendChild(document.createTextNode(response));
 

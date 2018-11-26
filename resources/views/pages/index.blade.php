@@ -20,7 +20,6 @@
     <img src="" alt="Share!" height="30" width="30" />
   </div>
 
-
   <div class="modal fade" id="shareWithUserModal" tabindex="-1" role="dialog" aria-labelledby="shareWithUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
