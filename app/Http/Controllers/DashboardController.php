@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Answer;
 
 class DashboardController extends Controller
 {
@@ -27,6 +28,9 @@ class DashboardController extends Controller
     {
         $userID = Auth::id();
 
+        $answers2 = Answer::where('user_id', $userID)
+                    ->get();
+                    
         $answers = DB::table('answers')
                     ->where('user_id', $userID)
                     ->get()
@@ -72,7 +76,7 @@ class DashboardController extends Controller
 
                 if($answer->question_id == $user_question->id) {
                     $user_choice = $answer->choice;
-                    $user_answer_time = $answer->created_at;
+                    $user_answer_time = $answer->updated_at;
                 }
             }
 
@@ -94,13 +98,10 @@ class DashboardController extends Controller
         }
 
         krsort($res);
-    /*
+/*
         $data = [
-          'answers' => $answers,
-          'questions' => $questions,
-          'user_questions' => $user_questions,
-          'choices' => $choices,
-          'answer' => $res
+            'answers' => $answers,
+            'answers2' => $answers2
         ];*/
 
         return view('pages.dashboard')->with('data', $res);

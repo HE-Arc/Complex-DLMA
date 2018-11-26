@@ -10,7 +10,7 @@
 
     <div id="choicesMain" class="row cd_choices-main-container text-center">
 
-        <div class="col-12 col-lg-6 p-3 p-lg-3">
+        <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice1">
             <div id="userChoice1" class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow">
             
                 <i id="checkedChoice1" class="fas fa-check cd_checked-choice d-none"></i>
@@ -21,7 +21,7 @@
             </div>
         </div>
     
-        <div class="col-12 col-lg-6 p-3 p-lg-3">
+        <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice2">
             <div id="userChoice2" class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow">
             
                 <i id="checkedChoice2" class="fas fa-check cd_checked-choice d-none"></i>
@@ -32,9 +32,7 @@
             </div>
         </div>
     
-        <div class="cd_choice-or rounded-circle col-3 col-sm-2 col-lg-1 shadow">
-            OR
-        </div>
+        <div class="cd_choice-or rounded-circle col-3 col-sm-2 col-lg-1 shadow">OR</div>
 
     </div>
 

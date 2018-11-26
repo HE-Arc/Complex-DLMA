@@ -7,7 +7,7 @@
 
         <div class="row cd_choices-main-container text-center">
 
-            <div class="col-12 col-lg-6 p-3 p-lg-3">
+            <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice1">
                 <div class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow">
 
                     @if ($answer['user_choice'] == 0)
@@ -31,7 +31,7 @@
                 </div>
             </div>
         
-            <div class="col-12 col-lg-6 p-3 p-lg-3">
+            <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice2">
                 <div class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow">
 
                     @if ($answer['user_choice'] == 1)
@@ -62,7 +62,7 @@
         </div>
 
         <div class="col-12 cd_medium-text">
-            Answer at : {{ $key }}
+            Answered at : {{ $key }}
         </div>
 
         <hr class="cd_hr-s1" />

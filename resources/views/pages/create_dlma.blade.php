@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="cd_choices-main-container row text-center">
-        <div class="col-12 col-lg-6 p-3 p-lg-3">
+        <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice1">
 
             <div class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow">
             
@@ -47,7 +47,7 @@
             </div>
             
         </div>
-        <div class="col-12 col-lg-6 p-3 p-lg-3">
+        <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice2">
             <div class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow">
             
                 <i class="fas fa-check cd_checked-choice d-none"></i>

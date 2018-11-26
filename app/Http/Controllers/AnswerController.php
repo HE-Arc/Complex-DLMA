@@ -66,13 +66,6 @@ class AnswerController extends Controller
         $choice = $question->choice($choiceNumber);
         $choice->counter++;
         $choice->save();
-/*
-        $choice = Choice::findOrFail($choices[$choiceNumber]->id);
-        Log::info($choice->id);
-        Log::info($choice->counter);
-        Log::info($choiceNumber);
-        $choice->counter = $choice->counter + 1;
-        $choice->save();*/
     }
 
     /**

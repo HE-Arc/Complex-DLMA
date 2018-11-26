@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Question;
 
 class HomeController extends Controller
 {
@@ -40,8 +41,7 @@ class HomeController extends Controller
    */
   private function getNewQuestion()
   {
-    $question = DB::table('questions')
-                ->select('id', 'choice_1_id', 'choice_2_id')
+    $question = Question::select('id', 'choice_1_id', 'choice_2_id')
                 ->inRandomOrder()
                 ->first();
 
@@ -76,9 +76,8 @@ class HomeController extends Controller
    */
   private function getQuestionDescription($questionID)
   {
-    $question = DB::table('questions')
-                ->select('description')
-                ->where('id', $questionID)
+    $question = Question::select('description')
+                ->whereId($questionID)
                 ->first();
 
     $data = [

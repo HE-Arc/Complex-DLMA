@@ -10500,6 +10500,17 @@ body {
   height: 300px;
 }
 
+.cd_choice-inner-choice1 {
+  position: absolute;
+  height: 300px;
+}
+
+.cd_choice-inner-choice2 {
+  position: absolute;
+  height: 300px;
+  left: 50%;
+}
+
 .cd_choice-inner-container {
   position: relative;
   border-radius: 25px;
@@ -10693,6 +10704,18 @@ body {
 
   .cd_choices-main-container {
     height: 450px;
+  }
+
+  .cd_choice-inner-choice1 {
+    position: absolute;
+    height: 225px;
+  }
+
+  .cd_choice-inner-choice2 {
+    position: absolute;
+    height: 225px;
+    left: 0%;
+    top: 50%;
   }
 
   .cd_choice-perc {
