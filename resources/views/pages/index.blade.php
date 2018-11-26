@@ -1,28 +1,14 @@
 @extends('layouts.app')
 
-@php
-$usernames = array();
-foreach($data['usernames'] as $username)
-{
-    array_push($usernames, e($username['username']));
-}
-@endphp
-
 <link rel="shortcut icon" sizes="114x114" href="assets/img/ficon.png">
 <script src="{{ asset('js/index.js') }}" defer></script>
 
-<script>
-    var usernames = {!! json_encode($usernames) !!};
-    var questionTitle = {!! json_encode(e($data['question']->description)) !!};
-    var questionChoice1 = {!! json_encode(e($data['choice1Text'])) !!};
-    var questionChoice2 = {!! json_encode(e($data['choice2Text'])) !!};
-    console.log(usernames);
-    console.log(questionTitle);
-    console.log(questionChoice1);
-    console.log(questionChoice2);
-</script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+{!! $data['homeController']->questionHeader($data['question']->id) !!}
 
 @section('content')
+
+    <div id="questionHeader"></div>
    
     <div class="row text-center">
         <div class="cd_medium-text font-weight-bold col-12">

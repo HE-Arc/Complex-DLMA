@@ -43,9 +43,44 @@ class HomeController extends Controller
    */
   private function getNewQuestion()
   {
-    $question = Question::select('id', 'description', 'choice_1_id', 'choice_2_id')
+    $question = Question::select('id', 'choice_1_id', 'choice_2_id')
                 ->inRandomOrder()
                 ->first();
+
+    $data = [
+      'question' => $question
+    ];
+
+    return $data;
+  }
+
+  /**
+   * Ajax call of the method questionHeader
+   */
+  public function questionHeaderAjax(Request $request)
+  {
+    return $this->questionHeader($request->input('questionID'));
+  }
+
+  /**
+   * Get the question header with the corresponding question id
+   * Return a view
+   */
+  public function questionHeader($questionID)
+  {
+    $data = $this->getQuestionHeader($questionID);
+
+    return view("inc.question_header")->with('data', $data);
+  }
+
+  /**
+   * Get the question header with the corresponding question id
+   */
+  public function getQuestionHeader($questionID)
+  {
+    $question = Question::select('description', 'choice_1_id', 'choice_2_id')
+                ->whereId($questionID)
+                ->firstOrFail();
 
     $choice1 = Choice::findOrFail($question->choice_1_id);
     $choice2 = Choice::findOrfail($question->choice_2_id);

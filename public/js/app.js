@@ -35971,6 +35971,22 @@ $(document).ready(function () {
         });
 
         $.ajax({
+            url: 'next_question_header',
+            type: 'GET',
+            data: 'questionID=' + data['question']['id'],
+            dataType: 'HTML',
+            success: function success(data) {
+                $('#questionHeader').html(data);
+            },
+            error: function error(e) {
+                console.log(e.responseText);
+            }
+        });
+
+        $.ajaxSetup({
+            headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
+        });
+        $.ajax({
             url: 'next_question_username',
             type: 'GET',
             data: 'questionID=' + data['question']['id'],
