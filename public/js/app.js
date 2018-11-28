@@ -35914,6 +35914,7 @@ module.exports = function spread(callback) {
 // Everything inside this bloc is charged when the document is ready
 $(document).ready(function () {
     var userHasVoted = false;
+    console.log("e", questionID);
 
     $('#formComment').on('submit', function () {
         //https://stackoverflow.com/questions/27346205/submit-form-laravel-using-ajax
@@ -35935,8 +35936,9 @@ $(document).ready(function () {
             type: 'GET',
             dataType: 'JSON',
             success: function success(data) {
-                updateChoices(data);
-                updateQuestionDetails(data);
+                updateChoices(data['question']);
+                updateQuestionDetails(data['question']['id']);
+                UpdateComments(data['question']['id']);
             },
             error: function error(e) {
                 console.log(e.responseText);
@@ -35948,7 +35950,7 @@ $(document).ready(function () {
      * Update the question username, description and comments
      * @param {array} data 
      */
-    function updateQuestionDetails(data) {
+    function updateQuestionDetails(questionID) {
         $.ajaxSetup({
             headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
         });
@@ -35956,7 +35958,7 @@ $(document).ready(function () {
         $.ajax({
             url: 'next_question_header',
             type: 'GET',
-            data: 'questionID=' + data['question']['id'],
+            data: 'questionID=' + questionID,
             dataType: 'HTML',
             success: function success(data) {
                 $('#questionHeader').html(data);
@@ -35972,7 +35974,7 @@ $(document).ready(function () {
         $.ajax({
             url: 'next_question_username',
             type: 'GET',
-            data: 'questionID=' + data['question']['id'],
+            data: 'questionID=' + questionID,
             dataType: 'HTML',
             success: function success(data) {
                 $('#questionUsername').html(data);
@@ -35985,7 +35987,7 @@ $(document).ready(function () {
         $.ajax({
             url: 'next_question_description',
             type: 'GET',
-            data: 'questionID=' + data['question']['id'],
+            data: 'questionID=' + questionID,
             dataType: 'HTML',
             success: function success(data) {
                 $('#questionDescription').html(data);
@@ -35994,11 +35996,13 @@ $(document).ready(function () {
                 console.log(e.responseText);
             }
         });
+    }
 
+    function UpdateComments(questionID) {
         $.ajax({
             url: 'next_question_comments',
             type: 'GET',
-            data: 'questionID=' + data['question']['id'],
+            data: 'questionID=' + questionID,
             dataType: 'HTML',
             success: function success(data) {
                 $('#questionComments').html(data);
@@ -36011,7 +36015,7 @@ $(document).ready(function () {
         $.ajax({
             url: 'next_question_comments_counter',
             type: 'GET',
-            data: 'questionID=' + data['question']['id'],
+            data: 'questionID=' + questionID,
             dataType: 'HTML',
             success: function success(data) {
                 $('#questionCommentsCounter').html(data);
@@ -36026,7 +36030,7 @@ $(document).ready(function () {
      * Update the 2 choices
      * @param {array} data
      */
-    function updateChoices(data) {
+    function updateChoices(choicesID) {
         $.ajaxSetup({
             headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
         });
@@ -36034,7 +36038,7 @@ $(document).ready(function () {
         $.ajax({
             url: 'next_question_choice',
             type: 'GET',
-            data: 'choiceID=' + data['question']['choice_1_id'],
+            data: 'choiceID=' + choicesID['choice_1_id'],
             dataType: 'HTML',
             success: function success(data) {
                 $('#choice1').html(data);
@@ -36047,7 +36051,7 @@ $(document).ready(function () {
         $.ajax({
             url: 'next_question_choice',
             type: 'GET',
-            data: 'choiceID=' + data['question']['choice_2_id'],
+            data: 'choiceID=' + choicesID['choice_2_id'],
             dataType: 'HTML',
             success: function success(data) {
                 $('#choice2').html(data);
@@ -36189,10 +36193,12 @@ $(document).ready(function () {
             dateType: 'HTML',
             success: function success(data) {
                 console.log(data);
+                console.log(questionID);
+                UpdateComments(questionID);
                 $('#commentText').val('');
             },
             error: function error(e) {
-                console.log(e.responseText);
+                console.log("error");
             }
         });
     };
