@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Answer;
+use App\Question;
+use App\Choice;
 
 class AnswerController extends Controller
 {
+    /**
+     * Increment the question choice.
+     * Create an answer for connected user.
+     */
     public function dispatchRequest(Request $request)
     {
         $userID = Auth::id();
@@ -23,53 +31,74 @@ class AnswerController extends Controller
 
         // if user is not logged in
         if($userID == '')
+        {
             $this->incrementCounter($choiceNumber, $questionID);
+        }
         else
         {
+            $answer = $this->answerExists($userID, $questionID);
+
             // if the user did not answer already, we need to increment the choice counter 
             // and insert its answer into the DB
-            if(!$this->answerExists($userID, $questionID))
+            if(!$answer)
             {
                 $this->incrementCounter($choiceNumber, $questionID);
-                $this->insertAnswer($userID, $questionID, $choiceNumber);
+
+                $this->store($userID, $questionID, $choiceNumber);
             }
             // if he did already we do NOT increment the counter again but still gupdate its answer
             else
-                $this->updateAnswer($userID, $questionID, $choiceNumber);
+            {
+                $this->update($userID, $questionID, $choiceNumber);
+            }
         }
     
         return "";
     }
 
+    /**
+     * Increment the counter of a question choice.
+     */
     private function incrementCounter($choiceNumber, $questionID)
     {
-        // get the question to increment the choices of
-        $question = DB::table('questions')->whereId($questionID)->select('choice_1_id', 'choice_2_id')->first();
-    
-        // get the database ID of the choice to increment
-        $choicesID = [$question->choice_1_id, $question->choice_2_id];
-        $choiceID = $choicesID[$choiceNumber];
-        
-        // increment in the DB
-        DB::table('choices')->whereId($choiceID)->increment('counter', 1);
+        $question = Question::findOrFail($questionID);
+
+        $choice = $question->choice($choiceNumber);
+        $choice->counter++;
+        $choice->save();
     }
 
+    /**
+     * Check if a given answer exists in the DB
+     */
     private function answerExists($userID, $questionID)
     {
-        // refactor this to return DB::table as bool ?
-        if(DB::table('answers')->where('user_id', $userID)->where('question_id', $questionID)->count() == 0)
-            return false;
-        else
-            return true;
+        return Answer::where('user_id', $userID)
+            ->where('question_id', $questionID)
+            ->first();
     }
 
-    private function insertAnswer($userID, $questionID, $choiceNumber)
+    /**
+     * Create a new answer.
+     */
+    private function store($userID, $questionID, $choiceNumber)
     {
-        DB::table('answers')->insert(['user_id' => $userID, 'question_id' => $questionID,   'choice' => $choiceNumber]);       
+        $answer = new Answer;
+        $answer->user_id = $userID;
+        $answer->question_id = $questionID;
+        $answer->choice = $choiceNumber;
+        $answer->save();
     }
 
-    private function updateAnswer($userID, $questionID, $choiceNumber)
+    /**
+     * Update an answer.
+     */
+    private function update($userID, $questionID, $choiceNumber)
     {
-        DB::table('answers')->where('user_id', $userID)->where('question_id', $questionID)->update(['choice' => $choiceNumber]);
+        $answer = Answer::where('user_id', $userID)
+                    ->where('question_id', $questionID)
+                    ->firstOrFail();
+        $answer->choice = $choiceNumber;
+        $answer->save();
     }
 }
