@@ -61,9 +61,28 @@
     </div>
     
     <hr class="cd_hr-s3 my-5" />
+
+    <div id="questionCommentsCounter">
+        {!! $data['homeController']->questionCommentsCounter($data['question']->id) !!}
+    </div>
     
-    <div id="questionComments">
-        {!! $data['homeController']->questionComments($data['question']->id) !!}
+    <hr class="cd_hr-s1" />
+        
+    <div class="col-12">
+        <div class="col-12 cd_medium-text">
+            <div id="newComment" class="col-12 col-lg-6 p-0 mb-3">
+                <div class="input-group">
+                    <input id="commentText" type="text" class="form-control" placeholder="Enter your comment...">
+                    <div class="input-group-append">
+                        <button id="postComment"class="btn btn-sm cd_btn-default ml-1" type="button">Post</button>
+                    </div>
+                </div>
+            </div>
+    
+            <div id="questionComments">
+                {!! $data['homeController']->questionComments($data['question']->id) !!}
+            </div>
+        </div>
     </div>
 
     <div id="btnShare" onclick="resetShareModal()" {{ Auth::check() ? 'data-toggle=modal data-target=#shareWithUserModal style=background-color:lightblue;' : 'style=background-color:lightgray;' }}>

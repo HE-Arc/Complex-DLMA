@@ -35914,28 +35914,11 @@ module.exports = function spread(callback) {
 // Everything inside this bloc is charged when the document is ready
 $(document).ready(function () {
     var userHasVoted = false;
-    var addCommentEnable = false;
 
     $('#formComment').on('submit', function () {
         //https://stackoverflow.com/questions/27346205/submit-form-laravel-using-ajax
         var commentText = $('#commentText').val();
         userPostComment(commentText);
-    });
-
-    /**
-     * When the user click on the add comment button.
-     * Display or not the comment zone and change the add comment button text.
-     */
-    $('#addComment').on('click', function () {
-        addCommentEnable = !addCommentEnable;
-
-        if (addCommentEnable) {
-            $('#newComment').removeClass('d-none');
-            $('#addComment').html('Cancel comment');
-        } else {
-            $('#newComment').addClass('d-none');
-            $('#addComment').html('Add comment');
-        }
     });
 
     /**
@@ -36019,6 +36002,19 @@ $(document).ready(function () {
             dataType: 'HTML',
             success: function success(data) {
                 $('#questionComments').html(data);
+            },
+            error: function error(e) {
+                console.log(e.responseText);
+            }
+        });
+
+        $.ajax({
+            url: 'next_question_comments_counter',
+            type: 'GET',
+            data: 'questionID=' + data['question']['id'],
+            dataType: 'HTML',
+            success: function success(data) {
+                $('#questionCommentsCounter').html(data);
             },
             error: function error(e) {
                 console.log(e.responseText);

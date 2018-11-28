@@ -34,4 +34,5 @@ Route::get('/next_question_choice', 'HomeController@questionChoiceAjax');
 Route::get('/next_question_username', 'HomeController@questionUsernameAjax');
 Route::get('/next_question_description', 'HomeController@questionDescriptionAjax');
 Route::get('/next_question_comments', 'HomeController@questionCommentsAjax');
+Route::get('/next_question_comments_counter', 'HomeController@questionCommentsCounterAjax');
 Route::get('/next_question_header', 'HomeController@questionHeaderAjax');

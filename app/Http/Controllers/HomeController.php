@@ -189,7 +189,7 @@ class HomeController extends Controller
   }
 
   /**
-   * Get the question username with the corresponding question id.
+   * Get the choice with the corresponding choice id.
    */
   private function getQuestionChoice($choiceID)
   {
@@ -199,6 +199,42 @@ class HomeController extends Controller
               ->first();
     
     return $choice;
+  }
+
+  /**
+   * Ajax call of the method questionCommentsCounter
+   */
+  public function questionCommentsCounterAjax(Request $request)
+  {
+    return $this->questionCommentsCounter($request->input('questionID'));
+  }
+
+  /**
+   * Get the question comments counter with the corresponding question id.
+   * Return a view
+   */
+  public function questionCommentsCounter($questionID)
+  {
+    $data = $this->getQuestionCommentsCounter($questionID);
+
+    return view("inc.question_comments_counter")->with('data', $data);
+  }
+
+  /**
+   * Get the question comments counter with the corresponding question id.
+   */
+  private function getQuestionCommentsCounter($questionID)
+  {
+    $commentsNumber = DB::table('comments')
+                ->join('users', 'users.id', '=', 'comments.user_id')
+                ->where('question_id', $questionID)
+                ->count();
+
+    $data = array(
+      "commentsNumber" => $commentsNumber
+    );
+
+    return $data;
   }
 
   /**
@@ -221,20 +257,19 @@ class HomeController extends Controller
   }
 
   /**
-   * Get the question username with the corresponding question id.
+   * Get the question comments with the corresponding question id.
    */
   private function getQuestionComments($questionID)
   {
     $comments = DB::table('comments')
                 ->join('users', 'users.id', '=', 'comments.user_id')
                 ->select('comments.text', 'comments.created_at', 'users.username')
-                ->where('question_id', $questionID)->orderBy('comments.created_at')->get();
-
-    $commentsNumber = count($comments);
+                ->where('question_id', $questionID)
+                ->orderBy('comments.created_at')
+                ->get();
 
     $data = array(
-      "comments" => $comments,
-      "commentsNumber" => $commentsNumber
+      "comments" => $comments
     );
 
     return $data;
