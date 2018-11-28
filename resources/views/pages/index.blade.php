@@ -62,6 +62,10 @@
 
     <hr class="cd_hr-s3 my-5" />
 
+
+
+    <hr class="cd_hr-s3 my-5" />
+
     <div id="questionCommentsCounter">
         {!! $data['homeController']->questionCommentsCounter($data['question']->id) !!}
     </div>

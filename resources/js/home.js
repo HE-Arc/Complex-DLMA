@@ -2,7 +2,6 @@
 $(document).ready(function ()
 {
     let userHasVoted = false;
-    console.log("e", questionID);
 
     $('#formComment').on('submit', function()
     {
@@ -298,7 +297,6 @@ $(document).ready(function ()
             dateType: 'HTML',
             success: function (data) {
                 console.log(data);
-                console.log(questionID);
                 UpdateComments(questionID);
                 $('#commentText').val('');
             },

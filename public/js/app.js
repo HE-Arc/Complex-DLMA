@@ -35914,7 +35914,6 @@ module.exports = function spread(callback) {
 // Everything inside this bloc is charged when the document is ready
 $(document).ready(function () {
     var userHasVoted = false;
-    console.log("e", questionID);
 
     $('#formComment').on('submit', function () {
         //https://stackoverflow.com/questions/27346205/submit-form-laravel-using-ajax
@@ -36193,7 +36192,6 @@ $(document).ready(function () {
             dateType: 'HTML',
             success: function success(data) {
                 console.log(data);
-                console.log(questionID);
                 UpdateComments(questionID);
                 $('#commentText').val('');
             },

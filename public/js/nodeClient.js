@@ -98,10 +98,6 @@ function initShareMyChoicePopup(msg) {
   btnChoice2.appendChild(document.createTextNode(msg.questionChoice2));
   btnChoice2.onclick = () => sendAnswerShareRequest(2, msg, nodeRequest.id);
 
-  // choice 1&2 temporary style
-  btnChoice1.style = "display: inline-block;";
-  btnChoice2.style = "display: inline-block;";
-
   // question's description
   let nodeQuestionDescription = document.createElement("div");
   nodeQuestionDescription.appendChild(document.createTextNode(msg.questionDescription));
