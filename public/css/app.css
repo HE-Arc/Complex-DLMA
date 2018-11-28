@@ -10495,6 +10495,20 @@ body {
   font-weight: bold;
 }
 
+.cd_modalless {
+  left: 50%;
+  top: auto !important;
+  bottom: 0% !important;
+  right: auto;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+  z-index: 1000;
+}
+
+.modal {
+  overflow: hidden;
+}
+
 .cd_choices-main-container {
   position: relative;
   height: 300px;
