@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Question;
+use App\Choice;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -47,6 +49,49 @@ class HomeController extends Controller
 
     $data = [
       'question' => $question
+    ];
+
+    return $data;
+  }
+
+  /**
+   * Ajax call of the method questionHeader
+   */
+  public function questionHeaderAjax(Request $request)
+  {
+    return $this->questionHeader($request->input('questionID'));
+  }
+
+  /**
+   * Get the question header with the corresponding question id
+   * Return a view
+   */
+  public function questionHeader($questionID)
+  {
+    $data = $this->getQuestionHeader($questionID);
+
+    return view("inc.question_header")->with('data', $data);
+  }
+
+  /**
+   * Get the question header with the corresponding question id
+   */
+  public function getQuestionHeader($questionID)
+  {
+    $question = Question::select('description', 'choice_1_id', 'choice_2_id')
+                ->whereId($questionID)
+                ->firstOrFail();
+
+    $choice1 = Choice::findOrFail($question->choice_1_id);
+    $choice2 = Choice::findOrfail($question->choice_2_id);
+
+    $users = User::select('username')->get()->toArray();
+
+    $data = [
+      'question' => $question,
+      'choice1Text' => $choice1->text,
+      'choice2Text' => $choice2->text,
+      'usernames' => $users
     ];
 
     return $data;
@@ -144,7 +189,7 @@ class HomeController extends Controller
   }
 
   /**
-   * Get the question username with the corresponding question id.
+   * Get the choice with the corresponding choice id.
    */
   private function getQuestionChoice($choiceID)
   {
@@ -154,6 +199,42 @@ class HomeController extends Controller
               ->first();
     
     return $choice;
+  }
+
+  /**
+   * Ajax call of the method questionCommentsCounter
+   */
+  public function questionCommentsCounterAjax(Request $request)
+  {
+    return $this->questionCommentsCounter($request->input('questionID'));
+  }
+
+  /**
+   * Get the question comments counter with the corresponding question id.
+   * Return a view
+   */
+  public function questionCommentsCounter($questionID)
+  {
+    $data = $this->getQuestionCommentsCounter($questionID);
+
+    return view("inc.question_comments_counter")->with('data', $data);
+  }
+
+  /**
+   * Get the question comments counter with the corresponding question id.
+   */
+  private function getQuestionCommentsCounter($questionID)
+  {
+    $commentsNumber = DB::table('comments')
+                ->join('users', 'users.id', '=', 'comments.user_id')
+                ->where('question_id', $questionID)
+                ->count();
+
+    $data = array(
+      "commentsNumber" => $commentsNumber
+    );
+
+    return $data;
   }
 
   /**
@@ -176,20 +257,19 @@ class HomeController extends Controller
   }
 
   /**
-   * Get the question username with the corresponding question id.
+   * Get the question comments with the corresponding question id.
    */
   private function getQuestionComments($questionID)
   {
     $comments = DB::table('comments')
                 ->join('users', 'users.id', '=', 'comments.user_id')
                 ->select('comments.text', 'comments.created_at', 'users.username')
-                ->where('question_id', $questionID)->orderBy('comments.created_at')->get();
-
-    $commentsNumber = count($comments);
+                ->where('question_id', $questionID)
+                ->orderBy('comments.created_at')
+                ->get();
 
     $data = array(
-      "comments" => $comments,
-      "commentsNumber" => $commentsNumber
+      "comments" => $comments
     );
 
     return $data;

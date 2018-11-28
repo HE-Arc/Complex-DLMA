@@ -1,6 +1,14 @@
 @extends('layouts.app')
+
 <link rel="shortcut icon" sizes="114x114" href="assets/img/ficon.png">
+<script src="{{ asset('js/index.js') }}" defer></script>
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+{!! $data['homeController']->questionHeader($data['question']->id) !!}
+
 @section('content')
+
+    <div id="questionHeader"></div>
    
     <div class="row text-center">
         <div class="cd_medium-text font-weight-bold col-12">
@@ -53,8 +61,83 @@
     </div>
     
     <hr class="cd_hr-s3 my-5" />
-    
-    <div id="questionComments">
-        {!! $data['homeController']->questionComments($data['question']->id) !!}
+
+    <div id="questionCommentsCounter">
+        {!! $data['homeController']->questionCommentsCounter($data['question']->id) !!}
     </div>
+    
+    <hr class="cd_hr-s1" />
+        
+    <div class="col-12">
+        <div class="col-12 cd_medium-text">
+            <div id="newComment" class="col-12 col-lg-6 p-0 mb-3">
+                <div class="input-group">
+                    <input id="commentText" type="text" class="form-control" placeholder="Enter your comment...">
+                    <div class="input-group-append">
+                        <button id="postComment"class="btn btn-sm cd_btn-default ml-1" type="button">Post</button>
+                    </div>
+                </div>
+            </div>
+    
+            <div id="questionComments">
+                {!! $data['homeController']->questionComments($data['question']->id) !!}
+            </div>
+        </div>
+    </div>
+
+    <div id="btnShare" onclick="resetShareModal()" {{ Auth::check() ? 'data-toggle=modal data-target=#shareWithUserModal style=background-color:lightblue;' : 'style=background-color:lightgray;' }}>
+      <img src="" alt="Share!" height="30" width="30" />
+    </div>
+
+    <div class="modal fade" id="shareWithUserModal" tabindex="-1" role="dialog" aria-labelledby="shareWithUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="shareWithUserModalLabel">Select a user</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-group">
+              <p><label for="searchUsersNickname">Search a user's nickname :</label></p>
+              <input type="text" class="form-control" onkeyup="findUsers(this.value)" id="searchUsersNickname" autofocus />
+            </div>
+
+            <div class="form-group">
+              <div id="usersList"></div>
+            </div>
+            <hr/>
+            <div class="form-group">
+              <div id="shareList"></div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <div class="form-group">
+              <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+              <button type="button" disabled id="btnShareWithUserModal" class="btn" onclick="shareQuestion()">Share question</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal modalless" id="choiceSharingAnswerPopup">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="choiceSharingAnswerPopupTitle"></h5>
+          </div>
+          <div class="modal-body">
+            <div id="choiceSharingAnswerPopupRes"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" id="btnCloseChoiceSharingAnswerPopup">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 @endsection

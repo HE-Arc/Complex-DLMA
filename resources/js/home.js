@@ -2,33 +2,12 @@
 $(document).ready(function ()
 {
     let userHasVoted = false;
-    let addCommentEnable = false;
 
     $('#formComment').on('submit', function()
     {
         //https://stackoverflow.com/questions/27346205/submit-form-laravel-using-ajax
         var commentText = $('#commentText').val();
         userPostComment(commentText);
-    });
-
-    /**
-     * When the user click on the add comment button.
-     * Display or not the comment zone and change the add comment button text.
-     */
-    $('#addComment').on('click', function()
-    {
-        addCommentEnable = !addCommentEnable;
-        
-        if(addCommentEnable)
-        {
-            $('#newComment').removeClass('d-none');
-            $('#addComment').html('Cancel comment');
-        }
-        else
-        {
-            $('#newComment').addClass('d-none');
-            $('#addComment').html('Add comment');
-        }
     });
 
     /**
@@ -64,7 +43,23 @@ $(document).ready(function ()
         $.ajaxSetup({
             headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')}
         });
+        
+        $.ajax({
+            url: 'next_question_header',
+            type: 'GET',
+            data: 'questionID=' + data['question']['id'],
+            dataType: 'HTML',
+            success: function (data) {
+                $('#questionHeader').html(data);
+            },
+            error: function (e) {
+                console.log(e.responseText);
+            }
+        });
 
+        $.ajaxSetup({
+            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')}
+        });
         $.ajax({
             url: 'next_question_username',
             type: 'GET',
@@ -98,6 +93,19 @@ $(document).ready(function ()
             dataType: 'HTML',
             success: function (data) {
                 $('#questionComments').html(data);
+            },
+            error: function (e) {
+                console.log(e.responseText);
+            }
+        });
+
+        $.ajax({
+            url: 'next_question_comments_counter',
+            type: 'GET',
+            data: 'questionID=' + data['question']['id'],
+            dataType: 'HTML',
+            success: function (data) {
+                $('#questionCommentsCounter').html(data);
             },
             error: function (e) {
                 console.log(e.responseText);
