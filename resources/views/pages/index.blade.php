@@ -84,7 +84,23 @@ foreach($data['usernames'] as $username)
       <img src="" alt="Share!" height="30" width="30" />
     </div>
 
-    <div class="modal fade" id="shareWithUserModal" tabindex="-1" role="dialog" aria-labelledby="shareWithUserModalLabel" aria-hidden="true">
+    <div class="modal modalless" id="choiceSharingAnswerPopup" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="choiceSharingAnswerPopupTitle"></h5>
+          </div>
+          <div class="modal-body">
+            <div id="choiceSharingAnswerPopupRes" style="max-height: 200px; overflow-y: auto;"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" id="btnCloseChoiceSharingAnswerPopup">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="shareWithUserModal" tabindex="0" role="dialog" aria-labelledby="shareWithUserModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -114,22 +130,6 @@ foreach($data['usernames'] as $username)
               <button type="button" class="btn" data-dismiss="modal">Cancel</button>
               <button type="button" disabled id="btnShareWithUserModal" class="btn" onclick="shareQuestion()">Share question</button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal modalless" id="choiceSharingAnswerPopup">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 id="choiceSharingAnswerPopupTitle"></h5>
-          </div>
-          <div class="modal-body">
-            <div id="choiceSharingAnswerPopupRes"></div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn" id="btnCloseChoiceSharingAnswerPopup">Ok</button>
           </div>
         </div>
       </div>

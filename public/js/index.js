@@ -21,7 +21,7 @@ function resetShareModal() {
  */
 function findUsers(filter) {
   // find usernames matching the regex
-  const regex = new RegExp(filter.toLowerCase(), 'g');
+  const regex = new RegExp("^"+filter.toLowerCase(), 'g');
   let users = usernames.filter(username => username.toLowerCase().match(regex));
 
   // remove currently logged user's username (one should not share question with himself)
@@ -32,8 +32,7 @@ function findUsers(filter) {
   listNode.innerHTML = "";
 
   // display matched usernames if there's not too many
-  if (users.length < 12)
-    displayUsers(users, listNode);
+  displayUsers(users, listNode);
 }
 
 /**
@@ -44,12 +43,17 @@ function findUsers(filter) {
  * @param {Node} listNode - usernames div container
  */
 function displayUsers(users, listNode) {
-  users.forEach((username) => {
-    let usernameParentNode = document.createElement("div");
-    usernameParentNode.onclick = () => addUserToShareList(username);
-    usernameParentNode.appendChild(document.createTextNode(username));
-    listNode.appendChild(usernameParentNode);
-  });
+  let maxUsers = 12;
+  try {
+    users.forEach((username) => {
+      if(maxUsers-- <= 0)
+        throw BreakException;
+      let usernameParentNode = document.createElement("div");
+      usernameParentNode.onclick = () => addUserToShareList(username);
+      usernameParentNode.appendChild(document.createTextNode(username));
+      listNode.appendChild(usernameParentNode);
+    });
+  } catch(e) {}
 }
 
 /**
