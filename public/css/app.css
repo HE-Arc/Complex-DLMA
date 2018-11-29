@@ -10626,6 +10626,11 @@ body {
   color: white;
 }
 
+.cd_btn-default:disabled {
+  background-color: white;
+  color: #343a40;
+}
+
 .cd_form-control-choice {
   resize: none;
   background: rgba(255, 255, 255, 0.2);

@@ -70,7 +70,7 @@ class HomeController extends Controller
   {
     $data = $this->getQuestionHeader($questionID);
 
-    return view("inc.question_header")->with('data', $data);
+    return view("questions.question_header")->with('data', $data);
   }
 
   /**
@@ -113,7 +113,7 @@ class HomeController extends Controller
   {
     $questionDescription = $this->getQuestionDescription($questionID);
 
-    return view("inc.question_description")->with('data', $questionDescription);
+    return view("questions.question_description")->with('data', $questionDescription);
   }
 
   /**
@@ -148,7 +148,7 @@ class HomeController extends Controller
   {
     $questionUsername = $this->getQuestionUsername($questionID);
 
-    return view("inc.question_username")->with('data', $questionUsername);
+    return view("questions.question_username")->with('data', $questionUsername);
   }
 
   /**
@@ -185,7 +185,7 @@ class HomeController extends Controller
   {
     $choice = $this->getQuestionChoice($choiceID);
 
-    return view("inc.question_choice")->with('data', $choice);
+    return view("questions.question_choice")->with('data', $choice);
   }
 
   /**
@@ -217,7 +217,7 @@ class HomeController extends Controller
   {
     $data = $this->getQuestionCommentsCounter($questionID);
 
-    return view("inc.question_comments_counter")->with('data', $data);
+    return view("questions.question_comments_counter")->with('data', $data);
   }
 
   /**
@@ -253,7 +253,7 @@ class HomeController extends Controller
   {
     $data = $this->getQuestionComments($questionID);
 
-    return view("inc.question_comments")->with('data', $data);
+    return view("questions.question_comments")->with('data', $data);
   }
 
   /**

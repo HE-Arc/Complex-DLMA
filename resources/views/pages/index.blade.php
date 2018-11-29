@@ -49,7 +49,7 @@
     </div>
 
     <div class="col-12 text-center text-sm-right p-0">
-        <button id="btnShare" class="btn btn-md cd_btn-default mr-5" type="button" onclick="resetShareModal()" {{ Auth::check() ? 'data-toggle=modal data-target=#shareWithUserModal' : '' }}>
+        <button id="btnShare" class="btn btn-md cd_btn-default mr-5" type="button" onclick="resetShareModal()" {{ Auth::check() ? 'data-toggle=modal data-target=#shareWithUserModal' : 'disabled' }}>
             <i class="fas fa-balance-scale cd_sharing-icon"></i> Ask others
         </button>
 
@@ -79,7 +79,7 @@
                 <div class="input-group">
                     <input id="commentText" type="text" class="form-control" placeholder="Enter your comment...">
                     <div class="input-group-append">
-                        <button id="postComment" class="btn btn-sm cd_btn-default ml-1" type="button">Post</button>
+                        <button id="postComment" class="btn btn-sm cd_btn-default ml-1" type="button" {{ !Auth::check() ? 'disabled' : '' }}>Post</button>
                     </div>
                 </div>
             </div>
@@ -90,6 +90,6 @@
         </div>
     </div>
 
-    @include('inc.question_modal')
+    @include('inc.ask_users_modal');
 
 @endsection

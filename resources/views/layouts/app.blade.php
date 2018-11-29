@@ -38,6 +38,8 @@
         <div class="container mt-3">
             @yield('content')
         </div>
+
+        @include('inc.answer_users_modal');
     </div>
 </body>
 </html>
