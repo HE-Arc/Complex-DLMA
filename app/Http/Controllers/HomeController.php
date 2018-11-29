@@ -26,6 +26,16 @@ class HomeController extends Controller
     return view("pages.index")->with('data', $data);
   }
 
+  public function indexWithId(Request $request, $questionID)
+  {
+    $data['question'] = Question::findOrFail($questionID);
+    $data['homeController'] = $this;
+
+    $request->session()->put('questionID', $data['question']->id);
+  
+    return view("pages.index")->with('data', $data);
+  }
+
   /**
    * Get a new question in the db and update the question id in session
    */

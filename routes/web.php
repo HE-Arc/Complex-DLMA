@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'HomeController@index')->name('home');
 
+
 Route::get('/auth/check',function(){
     return \Auth::id();
 });
@@ -36,3 +37,6 @@ Route::get('/next_question_description', 'HomeController@questionDescriptionAjax
 Route::get('/next_question_comments', 'HomeController@questionCommentsAjax');
 Route::get('/next_question_comments_counter', 'HomeController@questionCommentsCounterAjax');
 Route::get('/next_question_header', 'HomeController@questionHeaderAjax');
+
+
+Route::get('/{question_id}', ['uses' => 'HomeController@indexWithId'])->name('home_select');

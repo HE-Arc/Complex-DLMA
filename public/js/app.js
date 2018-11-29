@@ -35944,6 +35944,10 @@ $(document).ready(function () {
         });
     });
 
+    function setUriQuestionID(questionID) {
+        history.pushState(null, "", "/" + questionID);
+    }
+
     /**
      * Update the question username, description and comments
      * @param {array} data 
@@ -35960,6 +35964,7 @@ $(document).ready(function () {
             dataType: 'HTML',
             success: function success(data) {
                 $('#questionHeader').html(data);
+                setUriQuestionID(data['question']['id']);
             },
             error: function error(e) {
                 console.log(e.responseText);

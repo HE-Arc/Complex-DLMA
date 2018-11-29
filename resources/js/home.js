@@ -2,6 +2,8 @@
 $(document).ready(function ()
 {
     let userHasVoted = false;
+    
+
 
     $('#formComment').on('submit', function()
     {
@@ -33,6 +35,11 @@ $(document).ready(function ()
             }
         });
     });
+
+    function setUriQuestionID(questionID)
+    {
+        history.pushState(null, "", "/" + questionID);
+    }
 
     /**
      * Update the question username, description and comments
