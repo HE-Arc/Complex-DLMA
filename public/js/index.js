@@ -43,13 +43,17 @@ function findUsers(filter) {
  * @param {Node} listNode - usernames div container
  */
 function displayUsers(users, listNode) {
-  let maxUsers = 12;
+  let maxUsers = 500;
+
   try {
     users.forEach((username) => {
       if(maxUsers-- <= 0)
         throw BreakException;
+
       let usernameParentNode = document.createElement("div");
+      usernameParentNode.classList.add('cd_pick-user', 'col-12');
       usernameParentNode.onclick = () => addUserToShareList(username);
+      usernameParentNode.innerHTML = "<i class='fas fa-plus-circle cd_pick-user-icon'></i> ";
       usernameParentNode.appendChild(document.createTextNode(username));
       listNode.appendChild(usernameParentNode);
     });
@@ -64,8 +68,10 @@ function displayUsers(users, listNode) {
  * @param {String} username - username to add to the share list
  */
 function addUserToShareList(username) {
+  let maxUsers = 5;
+
   if (!shareList.includes(username)) { // if username's not already in the share list
-    if (shareList.length < 5) { // limit the number of users to share a question with to 5
+    if (shareList.length < maxUsers) { // limit the number of users to share a question with to 5
       shareList.push(username);
       displayShareList();
     } else
@@ -97,7 +103,9 @@ function displayShareList() {
 
   // create each username's DOM representation.
   shareList.forEach((username) => {
-    let parentNode = document.createElement("span"); // container
+    let parentNode = document.createElement("div"); // container
+    parentNode.classList.add('btn', 'cd_btn-default', 'mr-3', 'mb-3', 'cd_del-user');
+    parentNode.innerHTML = "<i class='fas fa-times'></i> ";
     parentNode.appendChild(document.createTextNode(username)); // content (username)
     parentNode.onclick = () => removeUserFromShareList(username);
     shareListNode.appendChild(parentNode); // append to the share list DOM element (div container)

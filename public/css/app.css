@@ -10467,7 +10467,7 @@ a.text-dark:focus {
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif !important;
   min-width: 300px;
 }
 
@@ -10525,6 +10525,22 @@ body {
   left: 50%;
 }
 
+.cd_choices-main-container-ask {
+  position: relative;
+  height: 150px;
+}
+
+.cd_choice-inner-choice1-ask {
+  position: absolute;
+  height: 150px;
+}
+
+.cd_choice-inner-choice2-ask {
+  position: absolute;
+  height: 150px;
+  left: 50%;
+}
+
 .cd_choice-inner-container {
   position: relative;
   border-radius: 25px;
@@ -10566,6 +10582,17 @@ body {
           transform: translate(-50%, -50%);
 }
 
+.cd_choice-or-ask {
+  font-weight: bold;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
 .cd_choice-perc {
   font-size: 40px;
 }
@@ -10586,6 +10613,25 @@ body {
 
 #checkedChoice2 {
   left: 3%;
+}
+
+#usersList {
+  min-height: 0px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.cd_pick-user:hover {
+  background-color: #d8d8d8;
+  cursor: pointer;
+}
+
+.cd_pick-user:hover .cd_pick-user-icon {
+  color: green;
+}
+
+.cd_del-user:hover {
+  background-color: #960000 !important;
 }
 
 .cd_btn-choice1 {
@@ -10726,13 +10772,25 @@ body {
   }
 
   .cd_choice-inner-choice1 {
-    position: absolute;
     height: 225px;
   }
 
   .cd_choice-inner-choice2 {
-    position: absolute;
     height: 225px;
+    left: 0%;
+    top: 50%;
+  }
+
+  .cd_choices-main-container-ask {
+    height: 250px;
+  }
+
+  .cd_choice-inner-choice1-ask {
+    height: 125px;
+  }
+
+  .cd_choice-inner-choice2-ask {
+    height: 125px;
     left: 0%;
     top: 50%;
   }

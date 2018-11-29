@@ -22,20 +22,22 @@
         </div>
 
         <div class="form-group">
-          <div id="usersList"></div>
+          <div id="usersList" class="row"></div>
         </div>
 
         <hr class="cd_hr-s1" />
 
         <div class="form-group">
-          <div id="shareList"></div>
+          <div class="row">
+              <div id="shareList" class="col-12"></div>
+          </div>
         </div>
       </div>
 
       <div class="modal-footer">
         <div class="form-group">
-            <button class="btn btn-sm cd_btn-default mr-3" type="button" data-dismiss="modal">Cancel</button>
-            <button id="btnShareWithUserModal" class="btn btn-sm cd_btn-default" onclick="shareQuestion()" type="button" disabled>Send</button>
+            <button class="btn btn-lg cd_btn-default mr-3" type="button" data-dismiss="modal">Cancel</button>
+            <button id="btnShareWithUserModal" class="btn btn-lg cd_btn-default" onclick="shareQuestion()" type="button" disabled>Send</button>
         </div>
       </div>
     </div>

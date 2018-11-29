@@ -88,15 +88,53 @@ function initShareMyChoicePopup(msg) {
   let nodeElementTitle = document.createElement("div");
   nodeElementTitle.appendChild(document.createTextNode("'" + msg.userTo + "' wants to know your opinion !"));
 
+  // choices
+  let choicesContainer = document.createElement("div");
+  choicesContainer.className += "row cd_choices-main-container-ask text-center";
+
   // choice 1
-  let btnChoice1 = document.createElement("button");
-  btnChoice1.appendChild(document.createTextNode(msg.questionChoice1));
-  btnChoice1.onclick = () => sendAnswerShareRequest(1, msg, nodeRequest.id);
+  let innerChoice1 = document.createElement("div");
+  innerChoice1.className += "col-12 col-lg-6 p-1 p-lg-3 cd_choice-inner-choice1-ask";
+  choicesContainer.appendChild(innerChoice1);
+
+  let innerContainerChoice1 = document.createElement("div");
+  innerContainerChoice1.className += "btn cd_btn-choice1 userChoice cd_choice-inner-container-ask col-12 h-100 shadow";
+  innerChoice1.appendChild(innerContainerChoice1);
+
+  let textContainerChoice1 = document.createElement("div");
+  textContainerChoice1.className += "col-12 cd_choice-text-container p-1";
+  innerContainerChoice1.appendChild(textContainerChoice1);
+
+  let textChoice1 = document.createElement("div");
+  textChoice1.className += "cd_choice-text cd_medium-text font-weight-bold col-12";
+  textChoice1.appendChild(document.createTextNode(msg.questionChoice1));
+  textChoice1.onclick = () => sendAnswerShareRequest(1, msg, nodeRequest.id);
+  textContainerChoice1.appendChild(textChoice1);
 
   // choice 2
-  let btnChoice2 = document.createElement("button");
-  btnChoice2.appendChild(document.createTextNode(msg.questionChoice2));
-  btnChoice2.onclick = () => sendAnswerShareRequest(2, msg, nodeRequest.id);
+  let innerChoice2 = document.createElement("div");
+  innerChoice2.className += "col-12 col-lg-6 p-1 p-lg-3 cd_choice-inner-choice2-ask";
+  choicesContainer.appendChild(innerChoice2);
+
+  let innerContainerChoice2 = document.createElement("div");
+  innerContainerChoice2.className += "btn cd_btn-choice2 userChoice cd_choice-inner-container-ask col-12 h-100 shadow";
+  innerChoice2.appendChild(innerContainerChoice2);
+
+  let textContainerChoice2 = document.createElement("div");
+  textContainerChoice2.className += "col-12 cd_choice-text-container p-1";
+  innerContainerChoice2.appendChild(textContainerChoice2);
+
+  let textChoice2 = document.createElement("div");
+  textChoice2.className += "cd_choice-text cd_medium-text font-weight-bold col-12";
+  textChoice2.appendChild(document.createTextNode(msg.questionChoice2));
+  textChoice2.onclick = () => sendAnswerShareRequest(2, msg, nodeRequest.id);
+  textContainerChoice2.appendChild(textChoice2);
+
+  // or
+  let orChoice = document.createElement("div");
+  orChoice.className += "cd_choice-or-ask cd_medium-text rounded-circle col-3 col-lg-1 shadow";
+  orChoice.appendChild(document.createTextNode("OR"));
+  choicesContainer.appendChild(orChoice);
 
   // question's description
   let nodeQuestionDescription = document.createElement("div");
@@ -107,8 +145,7 @@ function initShareMyChoicePopup(msg) {
     nodeRequest.appendChild(document.createElement("hr"));
 
   nodeRequest.appendChild(nodeElementTitle);
-  nodeRequest.appendChild(btnChoice1);
-  nodeRequest.appendChild(btnChoice2);
+  nodeRequest.appendChild(choicesContainer);
   nodeRequest.appendChild(nodeQuestionDescription);
   node.appendChild(nodeRequest);
 
