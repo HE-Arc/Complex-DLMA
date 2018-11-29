@@ -67,6 +67,76 @@ if (userID != -1) {
 // ---
 
 /**
+ * Create the entire question DOM.
+ * @param {string} choice1
+ * @param {string} choice2
+ * @param {string} description 
+ */
+function createDOMQuestion(choice1, choice2, description)
+{
+  let questionContainer = document.createElement("div");
+
+  // choices
+  let choicesContainer = document.createElement("div");
+  choicesContainer.className += " row cd_choices-main-container-ask text-center";
+  questionContainer.appendChild(choicesContainer);
+
+  // choice 1
+  let innerChoice1 = document.createElement("div");
+  innerChoice1.className += " col-12 col-lg-6 p-1 p-lg-3 cd_choice-inner-choice1-ask";
+  choicesContainer.appendChild(innerChoice1);
+
+  let innerContainerChoice1 = document.createElement("div");
+  innerContainerChoice1.className += " btn cd_btn-choice1 userChoice cd_choice-inner-container-ask col-12 h-100 shadow";
+  innerChoice1.appendChild(innerContainerChoice1);
+
+  let textContainerChoice1 = document.createElement("div");
+  textContainerChoice1.className += " col-12 cd_choice-text-container p-1";
+  innerContainerChoice1.appendChild(textContainerChoice1);
+
+  let textChoice1 = document.createElement("div");
+  textChoice1.className += " cd_choice-text cd_medium-text font-weight-bold col-12";
+  textChoice1.appendChild(document.createTextNode(choice1));
+  textContainerChoice1.appendChild(textChoice1);
+
+  // choice 2
+  let innerChoice2 = document.createElement("div");
+  innerChoice2.className += " col-12 col-lg-6 p-1 p-lg-3 cd_choice-inner-choice2-ask";
+  choicesContainer.appendChild(innerChoice2);
+
+  let innerContainerChoice2 = document.createElement("div");
+  innerContainerChoice2.className += " btn cd_btn-choice2 userChoice cd_choice-inner-container-ask col-12 h-100 shadow";
+  innerChoice2.appendChild(innerContainerChoice2);
+
+  let textContainerChoice2 = document.createElement("div");
+  textContainerChoice2.className += " col-12 cd_choice-text-container p-1";
+  innerContainerChoice2.appendChild(textContainerChoice2);
+
+  let textChoice2 = document.createElement("div");
+  textChoice2.className += " cd_choice-text cd_medium-text font-weight-bold col-12";
+  textChoice2.appendChild(document.createTextNode(choice2));
+  textContainerChoice2.appendChild(textChoice2);
+
+  // or
+  let orChoice = document.createElement("div");
+  orChoice.className += " cd_choice-or-ask cd_medium-text rounded-circle col-3 col-lg-1 shadow";
+  orChoice.appendChild(document.createTextNode("OR"));
+  choicesContainer.appendChild(orChoice);
+
+  // question's description
+  let nodeQuestionDescription = document.createElement("div");
+  let descriptionText = document.createElement('span');
+  descriptionText.appendChild(document.createTextNode("Description : "));
+  descriptionText.className += " font-weight-bold";
+  nodeQuestionDescription.appendChild(descriptionText);
+  nodeQuestionDescription.appendChild(document.createTextNode(description));
+  nodeQuestionDescription.className += " cd_small-text";
+  questionContainer.appendChild(nodeQuestionDescription);
+
+  return questionContainer;
+}
+
+/**
  * initShareMyChoicePopup
  * Creates the DOM content for the given share request.
  * Displays the shared question's in the "shareMyChoicePopup" popup.
@@ -86,67 +156,26 @@ function initShareMyChoicePopup(msg) {
 
   // request's title
   let nodeElementTitle = document.createElement("div");
-  nodeElementTitle.appendChild(document.createTextNode("'" + msg.userTo + "' wants to know your opinion !"));
+  let username = document.createElement("span");
+  username.className += " font-weight-bold";
+  username.appendChild(document.createTextNode(msg.userFrom));
+  nodeElementTitle.appendChild(username);
+  nodeElementTitle.appendChild(document.createTextNode(" would like to know your opinion on the follow DLMA !"));
+  nodeElementTitle.className += " cd_small-text";
 
-  // choices
-  let choicesContainer = document.createElement("div");
-  choicesContainer.className += "row cd_choices-main-container-ask text-center";
+  let questionContainer = createDOMQuestion(msg.questionChoice1, msg.questionChoice2, msg.questionDescription);
 
-  // choice 1
-  let innerChoice1 = document.createElement("div");
-  innerChoice1.className += "col-12 col-lg-6 p-1 p-lg-3 cd_choice-inner-choice1-ask";
-  choicesContainer.appendChild(innerChoice1);
-
-  let innerContainerChoice1 = document.createElement("div");
-  innerContainerChoice1.className += "btn cd_btn-choice1 userChoice cd_choice-inner-container-ask col-12 h-100 shadow";
-  innerChoice1.appendChild(innerContainerChoice1);
-
-  let textContainerChoice1 = document.createElement("div");
-  textContainerChoice1.className += "col-12 cd_choice-text-container p-1";
-  innerContainerChoice1.appendChild(textContainerChoice1);
-
-  let textChoice1 = document.createElement("div");
-  textChoice1.className += "cd_choice-text cd_medium-text font-weight-bold col-12";
-  textChoice1.appendChild(document.createTextNode(msg.questionChoice1));
-  textChoice1.onclick = () => sendAnswerShareRequest(1, msg, nodeRequest.id);
-  textContainerChoice1.appendChild(textChoice1);
-
-  // choice 2
-  let innerChoice2 = document.createElement("div");
-  innerChoice2.className += "col-12 col-lg-6 p-1 p-lg-3 cd_choice-inner-choice2-ask";
-  choicesContainer.appendChild(innerChoice2);
-
-  let innerContainerChoice2 = document.createElement("div");
-  innerContainerChoice2.className += "btn cd_btn-choice2 userChoice cd_choice-inner-container-ask col-12 h-100 shadow";
-  innerChoice2.appendChild(innerContainerChoice2);
-
-  let textContainerChoice2 = document.createElement("div");
-  textContainerChoice2.className += "col-12 cd_choice-text-container p-1";
-  innerContainerChoice2.appendChild(textContainerChoice2);
-
-  let textChoice2 = document.createElement("div");
-  textChoice2.className += "cd_choice-text cd_medium-text font-weight-bold col-12";
-  textChoice2.appendChild(document.createTextNode(msg.questionChoice2));
-  textChoice2.onclick = () => sendAnswerShareRequest(2, msg, nodeRequest.id);
-  textContainerChoice2.appendChild(textChoice2);
-
-  // or
-  let orChoice = document.createElement("div");
-  orChoice.className += "cd_choice-or-ask cd_medium-text rounded-circle col-3 col-lg-1 shadow";
-  orChoice.appendChild(document.createTextNode("OR"));
-  choicesContainer.appendChild(orChoice);
-
-  // question's description
-  let nodeQuestionDescription = document.createElement("div");
-  nodeQuestionDescription.appendChild(document.createTextNode(msg.questionDescription));
+  let choice1 = questionContainer.getElementsByClassName("cd_choice-text")[0];
+  choice1.onclick = () => sendAnswerShareRequest(1, msg, nodeRequest.id);
+  let choice2 = questionContainer.getElementsByClassName("cd_choice-text")[1];
+  choice2.onclick = () => sendAnswerShareRequest(2, msg, nodeRequest.id);
 
   // requests separation line
   if(node.innerHTML != "")
     nodeRequest.appendChild(document.createElement("hr"));
 
   nodeRequest.appendChild(nodeElementTitle);
-  nodeRequest.appendChild(choicesContainer);
-  nodeRequest.appendChild(nodeQuestionDescription);
+  nodeRequest.appendChild(questionContainer);
   node.appendChild(nodeRequest);
 
   // display the "shareMyChoicePopup" popup
@@ -170,23 +199,43 @@ function initChoiceSharingAnswerPopup(msg) {
   // div containing the new answer
   let nodeAnswer = document.createElement("div");
 
-  // answer's texts
-  let titleResult = "'" + msg.userTo + "' shared his/her opinion with you !";
-  let chosenChoice = msg.choiceMade == 1 ? msg.choice1 : msg.choice2;
-  let otherChoice = msg.choiceMade == 1 ? msg.choice2 : msg.choice1;
-  let response = "'" + msg.userTo + "' would rather " + chosenChoice + " than " + otherChoice;
+  // question
+  let questionContainer = createDOMQuestion(msg.choice1, msg.choice2, msg.description);
+
+  let choicesContainer = document.getElementById("choiceSharingAnswerPopupRes");
+  let closeButton = document.createElement("div");
+  closeButton.className += " btn btn-sm cd_btn-choice-close btn-";
+  closeButton.appendChild(document.createTextNode("x"));
+  choicesContainer.appendChild(closeButton);
+
+  let disabledChoice;
+  if(msg.choiceMade == 1) {
+    disabledChoice = questionContainer.getElementsByClassName("cd_btn-choice2")[0];
+    let selectedChoice = questionContainer.getElementsByClassName("cd_btn-choice1")[0];
+    selectedChoice.innerHTML += "<i id='checkedChoice1' class='fas fa-check cd_checked-choice'></i>";
+  }
+  else {
+    disabledChoice = questionContainer.getElementsByClassName("cd_btn-choice1")[0];
+    let selectedChoice = questionContainer.getElementsByClassName("cd_btn-choice2")[0];
+    selectedChoice.innerHTML += "<i id='checkedChoice2' class='fas fa-check cd_checked-choice'></i>";
+  }
+  disabledChoice.className += " cd_btn-choice-disabled";
 
   // answers separation line
   if(node.innerHTML != "")
     nodeAnswer.appendChild(document.createElement("hr"));
 
   // answer's title
+  let titleResultUser = document.createElement("span");
+  titleResultUser.appendChild(document.createTextNode(msg.userFrom))
+  titleResultUser.className += " font-weight-bold";
   let titleNode = document.createElement("div");
-  titleNode.appendChild(document.createTextNode(titleResult));
+  titleNode.appendChild(titleResultUser);
+  titleNode.appendChild(document.createTextNode(" answered !"));
 
   // answer's result
   let contentNode = document.createElement("div");
-  contentNode.appendChild(document.createTextNode(response));
+  contentNode.appendChild(questionContainer);
 
   nodeAnswer.appendChild(titleNode);
   nodeAnswer.appendChild(contentNode);
@@ -240,7 +289,8 @@ function sendAnswerShareRequest(choiceMade, shareRequestMsg, nodeId) {
 
   // send the share request's answer
   let msg = {type: "shareRequestAnswer", userFrom: shareRequestMsg.userTo, userTo: shareRequestMsg.userFrom,
-             choiceMade: choiceMade, choice1: shareRequestMsg.questionChoice1, choice2: shareRequestMsg.questionChoice2};
+             choiceMade: choiceMade, choice1: shareRequestMsg.questionChoice1,
+             choice2: shareRequestMsg.questionChoice2, description: shareRequestMsg.questionDescription};
   connection.send(JSON.stringify(msg));
 }
 
