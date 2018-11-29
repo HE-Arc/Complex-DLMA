@@ -20,26 +20,26 @@
 
         <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice1">
             <div id="userChoice1" class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow">
-            
+
                 <i id="checkedChoice1" class="fas fa-check cd_checked-choice d-none"></i>
-                
+
                 <div id="choice1">
                     {!! $data['homeController']->questionChoice($data['question']->choice_1_id) !!}
                 </div>
             </div>
         </div>
-    
+
         <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice2">
             <div id="userChoice2" class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow">
-            
+
                 <i id="checkedChoice2" class="fas fa-check cd_checked-choice d-none"></i>
-        
+
                 <div id="choice2">
                     {!! $data['homeController']->questionChoice($data['question']->choice_2_id) !!}
                 </div>
             </div>
         </div>
-    
+
         <div class="cd_choice-or rounded-circle col-3 col-sm-2 col-lg-1 shadow">OR</div>
 
     </div>
@@ -53,13 +53,13 @@
             <span>Next question</span>
         </button>
     </div>
-    
+
     <hr class="cd_hr-s1" />
 
     <div id="questionDescription">
         {!! $data['homeController']->questionDescription($data['question']->id) !!}
     </div>
-    
+
     <hr class="cd_hr-s3 my-5" />
 
     <div id="questionCommentsCounter">
@@ -89,7 +89,23 @@
       <img src="" alt="Share!" height="30" width="30" />
     </div>
 
-    <div class="modal fade" id="shareWithUserModal" tabindex="-1" role="dialog" aria-labelledby="shareWithUserModalLabel" aria-hidden="true">
+    <div class="modal modalless" id="choiceSharingAnswerPopup" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="choiceSharingAnswerPopupTitle"></h5>
+          </div>
+          <div class="modal-body">
+            <div id="choiceSharingAnswerPopupRes" style="max-height: 200px; overflow-y: auto;"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" id="btnCloseChoiceSharingAnswerPopup">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="shareWithUserModal" tabindex="0" role="dialog" aria-labelledby="shareWithUserModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -119,22 +135,6 @@
               <button type="button" class="btn" data-dismiss="modal">Cancel</button>
               <button type="button" disabled id="btnShareWithUserModal" class="btn" onclick="shareQuestion()">Share question</button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal modalless" id="choiceSharingAnswerPopup">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 id="choiceSharingAnswerPopupTitle"></h5>
-          </div>
-          <div class="modal-body">
-            <div id="choiceSharingAnswerPopupRes"></div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn" id="btnCloseChoiceSharingAnswerPopup">Ok</button>
           </div>
         </div>
       </div>

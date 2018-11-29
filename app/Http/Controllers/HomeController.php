@@ -88,7 +88,7 @@ class HomeController extends Controller
    */
   public function getQuestionHeader($questionID)
   {
-    $question = Question::select('description', 'choice_1_id', 'choice_2_id')
+    $question = Question::select('id', 'description', 'choice_1_id', 'choice_2_id')
                 ->whereId($questionID)
                 ->firstOrFail();
 
@@ -275,7 +275,7 @@ class HomeController extends Controller
                 ->join('users', 'users.id', '=', 'comments.user_id')
                 ->select('comments.text', 'comments.created_at', 'users.username')
                 ->where('question_id', $questionID)
-                ->orderBy('comments.created_at')
+                ->orderBy('comments.created_at', 'desc')
                 ->get();
 
     $data = array(
