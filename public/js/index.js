@@ -25,8 +25,13 @@ function findUsers(filter) {
   let users = usernames.filter(username => username.toLowerCase().match(regex));
 
   // remove currently logged user's username (one should not share question with himself)
-  // if (users.includes(username)) todo
-  //   users.splice(users.indexOf(username), 1);
+  if (users.includes(username))
+    users.splice(users.indexOf(username), 1);
+
+  shareList.forEach((username) => {
+    if (users.includes(username))
+      users.splice(users.indexOf(username), 1);
+  });
 
   let listNode = document.getElementById("usersList");
   listNode.innerHTML = "";
@@ -73,10 +78,19 @@ function addUserToShareList(username) {
   if (!shareList.includes(username)) { // if username's not already in the share list
     if (shareList.length < maxUsers) { // limit the number of users to share a question with to 5
       shareList.push(username);
-      displayShareList();
+      updateSLRelatedInterfaces();
     } else
       alert("Sorry, you can share this question whith at most 5 different users.");
   }
+}
+
+/**
+ * updateSLRelatedInterfaces
+ * Updates share list related interfaces.
+ */
+function updateSLRelatedInterfaces() {
+  displayShareList();
+  findUsers(document.getElementById("searchUsersNickname").value);
 }
 
 /**
@@ -89,7 +103,7 @@ function addUserToShareList(username) {
 function removeUserFromShareList(username) {
   if (shareList.includes(username)) { // if username is in the share list
     shareList.splice(shareList.indexOf(username), 1);
-    displayShareList();
+    updateSLRelatedInterfaces();
   }
 }
 

@@ -9,7 +9,7 @@ var serverAddress = "ws://127.0.0.1:1337";
 
 // use websockets only if user is authenticated
 if (userID != -1) {
-  console.log("NodeJS Client running, id : " + userID);
+  // console.log("NodeJS Client running, id : " + userID);
 
   // browsers compatibility 
   window.WebSocket = window.WebSocket || window.MozWebSocket;
@@ -20,7 +20,7 @@ if (userID != -1) {
   // handles newly opened connection
   connection.onopen = function() {
     // connection is opened and ready to use
-    console.log("Connection opened");
+    // console.log("Connection opened");
 
     // send greetings (basic user's infos needed server side)
     let msg = {type: "greetings", userID: userID, username: username};
@@ -38,15 +38,15 @@ if (userID != -1) {
     try {
       let msgObject = JSON.parse(message.data);
 
-      console.log(message.data);
+      // console.log(message.data);
 
       switch(msgObject.type) {
         case "shareRequest": // handle incoming share request
-          console.log("'" + msgObject.userTo + "' shared a question with you !");
+          // console.log("'" + msgObject.userTo + "' shared a question with you !");
           initShareMyChoicePopup(msgObject);
           break;
         case "shareRequestAnswer": // handle incoming share request's answer
-          console.log("'" + msgObject.userFrom + "' has responded to your shared choice : choice n°" + msgObject.choiceMade);
+          // console.log("'" + msgObject.userFrom + "' has responded to your shared choice : choice n°" + msgObject.choiceMade);
           initChoiceSharingAnswerPopup(msgObject);
           break;
         case "shareError": // handle incoming error message
@@ -151,7 +151,7 @@ function initShareMyChoicePopup(msg) {
 
   // div containing the new request
   let nodeRequest = document.createElement("div");
-  nodeRequest.id = "shareMyChoicePopupRequest" + document.querySelectorAll("#shareMyChoicePopupQuestion .shareMyChoicePopupRequest").length;
+  nodeRequest.id = "shareMyChoicePopupRequest_" + Date.now();
   nodeRequest.classList.add("shareMyChoicePopupRequest");
 
   // request's title
@@ -198,6 +198,8 @@ function initChoiceSharingAnswerPopup(msg) {
 
   // div containing the new answer
   let nodeAnswer = document.createElement("div");
+  nodeAnswer.id = "shareRequestAnswer_" + Date.now();
+  nodeAnswer.classList.add("shareRequestAnswers");
 
   // question
   let questionContainer = createDOMQuestion(msg.choice1, msg.choice2, msg.description);
@@ -206,6 +208,8 @@ function initChoiceSharingAnswerPopup(msg) {
   let closeButton = document.createElement("div");
   closeButton.className += " btn btn-sm cd_btn-choice-close btn-";
   closeButton.appendChild(document.createTextNode("x"));
+  closeButton.id = "shareRequestAnswerButtonClose_" + Date.now();
+  closeButton.onclick = () => closeAnswer(nodeAnswer.id, closeButton.id);
   choicesContainer.appendChild(closeButton);
 
   let disabledChoice;
@@ -243,10 +247,7 @@ function initChoiceSharingAnswerPopup(msg) {
 
   // display the "choiceSharingAnswerPopup" popup
   $("#choiceSharingAnswerPopup").fadeIn(750);
-  $("#btnCloseChoiceSharingAnswerPopup").click(function(){
-    $("#choiceSharingAnswerPopup").hide(200);
-    document.getElementById("choiceSharingAnswerPopupRes").innerHTML = "";
-  });
+  $("#btnCloseChoiceSharingAnswerPopup").click(closeChoiceSharingAnswerPopup);
 }
 
 /**
@@ -256,6 +257,31 @@ function initChoiceSharingAnswerPopup(msg) {
 function closeShareMyChoicePopup() {
   $("#shareMyChoicePopup").hide(200);
   document.getElementById("shareMyChoicePopupQuestion").innerHTML = "";
+}
+
+/**
+ * closeAnswer
+ * Removes the answer and closes the "choiceSharingAnswerPopup" popup if there's no more.
+ * 
+ * @param {String} nodeId - answer's container id (used to identify which answer has to be closed)
+ * @param {String} closeButtonId - answer's close button id
+ */
+function closeAnswer(nodeId, closeButtonId) {
+  document.getElementById(nodeId).remove();
+  document.getElementById(closeButtonId).remove();
+
+  // if there is no more answe in the popup close the "choiceSharingAnswerPopup" popup
+  if (document.querySelectorAll("#choiceSharingAnswerPopupRes .shareRequestAnswers").length == 0)
+    closeChoiceSharingAnswerPopup();
+}
+
+/**
+ * closeChoiceSharingAnswerPopup
+ * Closes the "closeChoiceSharingAnswerPopup" popup and resets its content.
+ */
+function closeChoiceSharingAnswerPopup() {
+  $("#choiceSharingAnswerPopup").hide(200);
+  document.getElementById("choiceSharingAnswerPopupRes").innerHTML = "";
 }
 
 /**

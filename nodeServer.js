@@ -38,7 +38,7 @@ function findClientByUsername(searchedClientUsername) {
 
 // listen on web socket's port for new clients
 server.listen(webSocketsServerPort, function() {
-  console.log((new Date()) + " Server is listening on port " + webSocketsServerPort);
+  console.log((new Date()) + " Server is listening on 127.0.0.1:" + webSocketsServerPort);
 });
 
 // creates the server
@@ -61,7 +61,7 @@ wsServer.on("request", function(request) {
   connection.on("message", function(message) {
     if (message.type === "utf8") {
       // handle message
-      console.log("Incoming message : " + message.utf8Data);
+      // console.log("Incoming message : " + message.utf8Data);
       let msgObject = JSON.parse(message.utf8Data);
 
       switch(msgObject.type) {
