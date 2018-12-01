@@ -49,11 +49,11 @@
     </div>
 
     <div class="col-12 text-center text-sm-right p-0">
-        <button id="btnShare" class="btn btn-md cd_btn-default mr-5" type="button" onclick="resetShareModal()" {{ Auth::check() ? 'data-toggle=modal data-target=#shareWithUserModal' : 'disabled' }}>
+        <button id="btnShare" class="btn btn-md cd_btn-default mr-0 mr-sm-5 mt-3 mt-sm-0" type="button" onclick="resetShareModal()" {{ Auth::check() ? 'data-toggle=modal data-target=#shareWithUserModal' : 'disabled' }}>
             <i class="fas fa-balance-scale cd_sharing-icon"></i> Ask others
         </button>
 
-        <button id="nextQuestion" class="btn btn-lg cd_btn-default cd_btn-animated" type="button">
+        <button id="nextQuestion" class="btn btn-lg cd_btn-default cd_btn-animated mt-3 mt-sm-0" type="button">
             <span>Next question</span>
         </button>
     </div>
@@ -90,6 +90,6 @@
         </div>
     </div>
 
-    @include('inc.ask_users_modal');
+    @include('inc.ask_users_modal')
 
 @endsection

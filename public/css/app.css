@@ -10497,6 +10497,7 @@ body {
 
 .cd_modal-content {
   max-width: 800px !important;
+  margin-top: 0%;
 }
 
 .cd_modal-body {
@@ -10512,7 +10513,7 @@ body {
   -webkit-transform: translate(-50%, 0%);
           transform: translate(-50%, 0%);
   z-index: 1000;
-  width: 100%;
+  width: 800px;
 }
 
 .modal {
@@ -10828,6 +10829,10 @@ body {
     height: 150px;
     left: 0%;
     top: 50%;
+  }
+
+  .cd_modalless {
+    width: 100%;
   }
 
   .cd_modal-content {
