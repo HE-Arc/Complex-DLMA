@@ -199,35 +199,44 @@ function initChoiceSharingAnswerPopup(msg) {
   // div containing the new answer
   let nodeAnswer = document.createElement("div");
   nodeAnswer.id = "shareRequestAnswer_" + Date.now();
-  nodeAnswer.classList.add("shareRequestAnswers");
+  nodeAnswer.className += " cd_answer-node shareRequestAnswers my-1";
 
   // question
   let questionContainer = createDOMQuestion(msg.choice1, msg.choice2, msg.description);
 
-  let choicesContainer = document.getElementById("choiceSharingAnswerPopupRes");
+  // close button
   let closeButton = document.createElement("div");
-  closeButton.className += " btn btn-sm cd_btn-choice-close btn-";
+  closeButton.className += " btn btn-sm cd_btn-choice-close py-0";
   closeButton.appendChild(document.createTextNode("x"));
   closeButton.id = "shareRequestAnswerButtonClose_" + Date.now();
   closeButton.onclick = () => closeAnswer(nodeAnswer.id, closeButton.id);
-  choicesContainer.appendChild(closeButton);
 
+  // Check the answered choice disable the other
   let disabledChoice;
+  let selectedChoice;
+  let checkedChoice;
   if(msg.choiceMade == 1) {
     disabledChoice = questionContainer.getElementsByClassName("cd_btn-choice2")[0];
-    let selectedChoice = questionContainer.getElementsByClassName("cd_btn-choice1")[0];
-    selectedChoice.innerHTML += "<i id='checkedChoice1' class='fas fa-check cd_checked-choice'></i>";
+    selectedChoice = questionContainer.getElementsByClassName("cd_btn-choice1")[0];
+    checkedChoice = document.createElement("i");
+    checkedChoice.id = "checkedChoice1";
   }
   else {
     disabledChoice = questionContainer.getElementsByClassName("cd_btn-choice1")[0];
-    let selectedChoice = questionContainer.getElementsByClassName("cd_btn-choice2")[0];
-    selectedChoice.innerHTML += "<i id='checkedChoice2' class='fas fa-check cd_checked-choice'></i>";
+    selectedChoice = questionContainer.getElementsByClassName("cd_btn-choice2")[0];
+    checkedChoice = document.createElement("i");
+    checkedChoice.id = "checkedChoice2";
   }
+  selectedChoice.appendChild(checkedChoice);
+  checkedChoice.className += " fas fa-check cd_checked-choice";
   disabledChoice.className += " cd_btn-choice-disabled";
 
   // answers separation line
-  if(node.innerHTML != "")
-    nodeAnswer.appendChild(document.createElement("hr"));
+  if(node.innerHTML != "") {
+    let hrNode = document.createElement("hr");
+    hrNode.className += " cd_hr-s1 my-1";
+    nodeAnswer.appendChild(hrNode);
+  }
 
   // answer's title
   let titleResultUser = document.createElement("span");
@@ -237,12 +246,9 @@ function initChoiceSharingAnswerPopup(msg) {
   titleNode.appendChild(titleResultUser);
   titleNode.appendChild(document.createTextNode(" answered !"));
 
-  // answer's result
-  let contentNode = document.createElement("div");
-  contentNode.appendChild(questionContainer);
-
   nodeAnswer.appendChild(titleNode);
-  nodeAnswer.appendChild(contentNode);
+  nodeAnswer.appendChild(questionContainer);
+  nodeAnswer.appendChild(closeButton);
   node.appendChild(nodeAnswer);
 
   // display the "choiceSharingAnswerPopup" popup

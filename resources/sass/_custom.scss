@@ -163,6 +163,10 @@ body {
     overflow-y: auto;
 }
 
+.cd_answer-node {
+    position: relative;
+}
+
 .cd_pick-user:hover {
     background-color: rgb(216, 216, 216);
     cursor: pointer;
@@ -227,9 +231,8 @@ body {
     white-space: normal;
 
     position: absolute;
-    top: 10px;
-    right: 5px;
-    transform: translate(-50%, 100%);
+    top: 5px;
+    right: 0%;
 }
   
 .cd_btn-choice-close:hover {
