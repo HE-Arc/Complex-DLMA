@@ -123,7 +123,7 @@ class HomeController extends Controller
   {
     $question = Question::select('description')
                 ->whereId($questionID)
-                ->first();
+                ->firstOrFail();
 
     $data = [
       'question_description' => $question->description
@@ -193,11 +193,10 @@ class HomeController extends Controller
    */
   private function getQuestionChoice($choiceID)
   {
-    $choice = DB::table('choices')
-              ->select('text', 'counter')
-              ->where('id', $choiceID)
-              ->first();
-    
+    $choice = Choice::select('text', 'counter')
+              ->whereId($choiceID)
+              ->firstOrFail();
+              
     return $choice;
   }
 
@@ -281,12 +280,11 @@ class HomeController extends Controller
     $questionID = $request->session()->get('questionID');
     $commentText = $request->input('commentText');
 
-    DB::table('comments')->insert([
-      'user_id' => $userID, 
-      'question_id' => $questionID, 
-      'text' => $commentText,
-      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-      'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),]);
+    $comment = new Comment;
+    $comment->user_id = $userID;
+    $comment->question_id = $questionID;
+    $comment->text = $commentText;
+    $comment->save();
 
     $response = "Return something";
     return $response;
