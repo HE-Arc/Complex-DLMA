@@ -209,7 +209,7 @@ function initChoiceSharingAnswerPopup(msg) {
   closeButton.className += " btn btn-sm cd_btn-choice-close py-0";
   closeButton.appendChild(document.createTextNode("x"));
   closeButton.id = "shareRequestAnswerButtonClose_" + Date.now();
-  closeButton.onclick = () => closeAnswer(nodeAnswer.id, closeButton.id);
+  closeButton.onclick = () => closeAnswer(nodeAnswer.id);
 
   // Check the answered choice disable the other
   let disabledChoice;
@@ -270,11 +270,9 @@ function closeShareMyChoicePopup() {
  * Removes the answer and closes the "choiceSharingAnswerPopup" popup if there's no more.
  * 
  * @param {String} nodeId - answer's container id (used to identify which answer has to be closed)
- * @param {String} closeButtonId - answer's close button id
  */
-function closeAnswer(nodeId, closeButtonId) {
+function closeAnswer(nodeId) {
   document.getElementById(nodeId).remove();
-  document.getElementById(closeButtonId).remove();
 
   // if there is no more answe in the popup close the "choiceSharingAnswerPopup" popup
   if (document.querySelectorAll("#choiceSharingAnswerPopupRes .shareRequestAnswers").length == 0)
