@@ -18,29 +18,43 @@
 
     <div id="choicesMain" class="row cd_choices-main-container text-center">
 
-        <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice1">
-            <div id="userChoice1" class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow">
+        <div class="cd_fade-choices">
+            <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice1">
+                <div id="userChoice1" class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow">
 
-                <i id="checkedChoice1" class="fas fa-check cd_checked-choice d-none"></i>
+                    <i id="checkedChoice1" class="fas fa-check cd_checked-choice d-none"></i>
 
-                <div id="choice1">
-                    {!! $data['homeController']->questionChoice($data['question']->choice_1_id) !!}
+                    <div id="choice1">
+                        {!! $data['homeController']->questionChoice($data['question']->choice_1_id) !!}
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice2">
-            <div id="userChoice2" class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow">
+            <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice2">
+                <div id="userChoice2" class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow">
 
-                <i id="checkedChoice2" class="fas fa-check cd_checked-choice d-none"></i>
+                    <i id="checkedChoice2" class="fas fa-check cd_checked-choice d-none"></i>
 
-                <div id="choice2">
-                    {!! $data['homeController']->questionChoice($data['question']->choice_2_id) !!}
+                    <div id="choice2">
+                        {!! $data['homeController']->questionChoice($data['question']->choice_2_id) !!}
+                    </div>
                 </div>
             </div>
+
+            <div class="cd_choice-or rounded-circle col-3 col-sm-2 col-lg-1 shadow">OR</div>
         </div>
 
-        <div class="cd_choice-or rounded-circle col-3 col-sm-2 col-lg-1 shadow">OR</div>
+        <div class="cd_logo-big">
+            <div class="cd_logo-part cd_logo-left cd_logo-big-left">
+                <img src="{{ asset('img/logo_left.png') }}" class="img-fluid" alt="Complex-DLMA">
+            </div>
+            <div class="cd_logo-part cd_logo-right cd_logo-big-right">
+                <img src="{{ asset('img/logo_right.png') }}" class="img-fluid" alt="Complex-DLMA">
+            </div>
+            <div class="cd_logo-part cd_logo-center">
+                <img src="{{ asset('img/logo_center.png') }}" class="img-fluid" alt="Complex-DLMA">
+            </div>
+        </div>
 
     </div>
 

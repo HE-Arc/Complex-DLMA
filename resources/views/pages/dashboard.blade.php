@@ -78,7 +78,7 @@
             </div>
 
             <div class="col-12 cd_medium-text">
-                Answered at : {{ $key }}
+                Answered : {{ date('d.m.Y \a\t H:i',strtotime($key)) }}
             </div>
 
             <hr class="cd_hr-s1" />
