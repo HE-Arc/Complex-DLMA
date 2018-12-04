@@ -29,7 +29,7 @@ $(document).ready(function ()
             success: function (data) {
                 updateChoices(data['question']);
                 updateQuestionDetails(data['question']['id']);
-                UpdateComments(data['question']['id']);
+                updateComments(data['question']['id']);
                 setUriQuestionID(data['question']['id']);
             },
             error: function (e) {
@@ -96,7 +96,7 @@ $(document).ready(function ()
         });
     }
 
-    function UpdateComments(questionID)
+    function updateComments(questionID)
     {
         $.ajax({
             url: 'next_question_comments',
@@ -287,7 +287,11 @@ $(document).ready(function ()
             type: 'GET',
             success: function (userID) {
                 if(userID == "")
-                    window.location.href = "login";
+                {
+                    var loc = "login?previous=/" + questionID;
+                    console.log(loc);
+                    window.location.href = loc;
+                }
             },
         });
     }
@@ -306,7 +310,7 @@ $(document).ready(function ()
             success: function (data) {
                 console.log(data);
                 console.log(questionID);
-                UpdateComments(questionID);
+                updateComments(questionID);
                 $('#commentText').val('');
             },
             error: function (e) {

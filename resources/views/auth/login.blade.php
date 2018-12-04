@@ -15,6 +15,11 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
+                        <!-- If the user tried to comment and got redirected here we should get him back to the right question -->
+                        @if (Request::has('previous'))
+                            <input type="hidden" name="previous" value="{{ Request::get('previous') }}">
+                        @endif
+
                         <div class="form-group row">
                             <div class="input-group col-12 col-xl-6 offset-xl-3">
                                 <div class="input-group-prepend">
@@ -62,6 +67,8 @@
                         </div>
 
                         <div class="form-group row mb-0">
+                           
+                        </div>
                             <div class="col-12 col-lg-6 offset-lg-3">
                                 <button type="submit" class="btn btn-primary btn-block">
                                     {{ __('Login') }}
