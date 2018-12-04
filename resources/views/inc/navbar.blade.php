@@ -1,8 +1,17 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-laravel">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('home') }}">
-            {{ config('app.name', 'Laravel') }}
+        <a class="cd_logo navbar-brand p-0" href="{{ route('home') }}">
+            <div class="cd_logo-part cd_logo-left">
+                <img src="{{ asset('img/logo_left.png') }}" class="img-fluid" alt="Complex-DLMA">
+            </div>
+            <div class="cd_logo-part cd_logo-right">
+                <img src="{{ asset('img/logo_right.png') }}" class="img-fluid" alt="Complex-DLMA">
+            </div>
+            <div class="cd_logo-part cd_logo-center">
+                <img src="{{ asset('img/logo_center.png') }}" class="img-fluid" alt="Complex-DLMA">
+            </div>
         </a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>

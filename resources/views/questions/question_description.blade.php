@@ -3,7 +3,7 @@
         Description
     </div>
     
-    <div class="col-12 cd_small-text">
+    <div class="col-12 cd_medium-text">
         {{ $data['question_description'] }}
     </div>
 </div>

@@ -24,7 +24,7 @@
             <div class="row cd_choices-main-container text-center">
 
                 <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice1">
-                    <div class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow">
+                <div class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow {{ $answer['user_choice'] != 0 ? 'cd_btn-choice-disabled' : '' }}">
 
                         @if ($answer['user_choice'] == 0)
                         <i id="checkedChoice1" class="fas fa-check cd_checked-choice"></i>
@@ -48,7 +48,7 @@
                 </div>
             
                 <div class="col-12 col-lg-6 p-3 p-lg-3 cd_choice-inner-choice2">
-                    <div class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow">
+                    <div class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow {{ $answer['user_choice'] != 1 ? 'cd_btn-choice-disabled' : '' }}">
 
                         @if ($answer['user_choice'] == 1)
                         <i id="checkedChoice2" class="fas fa-check cd_checked-choice"></i>

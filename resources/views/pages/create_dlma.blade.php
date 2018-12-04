@@ -13,8 +13,7 @@
       </div>
     @endif
 
-    <h1 class="text-center cd_page-title">Create a new DLMA</h1>
-    <hr class="cd_hr-s2 mb-5" />
+    <h1 class="text-center cd_page-title mb-5">Enter your new DLMA</h1>
 
     {!! Form::open(['route' => 'createDlma.store']) !!}
 
@@ -77,7 +76,7 @@
     <hr class="cd_hr-s1" />
 
     <div class="form-group">
-        {!! Form::label('description', 'Description, optional and used to specify a context...', [
+        {!! Form::label('description', '[Optional] Help others to understand the context by writing a description !', [
             'class' => 'cd_medium-text'
         ]) !!}
         {!! Form::textarea('description', null, [

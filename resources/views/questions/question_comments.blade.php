@@ -8,7 +8,7 @@
         </span>
     </div>
 
-    <div class="card-body cd_small-text">
+    <div class="card-body cd_medium-text">
         {{ $comment->text }}
     </div>
 </div>

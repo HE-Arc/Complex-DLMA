@@ -3,6 +3,41 @@ body {
     min-width: 300px;
 }
 
+.cd_logo {
+    width: 100px;
+    position: relative;
+}
+
+.cd_logo-part {
+    position: absolute;
+    transform: translate(0%, -50%);
+}
+
+.cd_logo-left {
+    width: 42px;
+    left: 0px;
+    transition: 0.5s ease-in-out;
+}
+
+.cd_logo:hover .cd_logo-left {
+    transform: translate(8px, -18.075px);
+}
+
+.cd_logo-right {
+    width: 42px;
+    right: 0px;
+    transition: 0.5s ease-in-out;
+}
+
+.cd_logo:hover .cd_logo-right {
+    transform: translate(-9px, -18.075px);
+}
+
+.cd_logo-center {
+    width: 49px;
+    right: 26px;
+}
+
 .cd_page-title {
     font-size: 40px;
 }
