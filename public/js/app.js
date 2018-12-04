@@ -35915,6 +35915,8 @@ module.exports = function spread(callback) {
 $(document).ready(function () {
     var userHasVoted = false;
 
+    setUriQuestionID(questionID);
+
     $('#formComment').on('submit', function () {
         //https://stackoverflow.com/questions/27346205/submit-form-laravel-using-ajax
         var commentText = $('#commentText').val();
@@ -35937,13 +35939,18 @@ $(document).ready(function () {
             success: function success(data) {
                 updateChoices(data['question']);
                 updateQuestionDetails(data['question']['id']);
-                UpdateComments(data['question']['id']);
+                updateComments(data['question']['id']);
+                setUriQuestionID(data['question']['id']);
             },
             error: function error(e) {
                 console.log(e.responseText);
             }
         });
     });
+
+    function setUriQuestionID(questionID) {
+        history.pushState(null, "", "./" + questionID);
+    }
 
     /**
      * Update the question username, description and comments
@@ -35997,7 +36004,7 @@ $(document).ready(function () {
         });
     }
 
-    function UpdateComments(questionID) {
+    function updateComments(questionID) {
         $.ajax({
             url: 'next_question_comments',
             type: 'GET',
@@ -36175,7 +36182,11 @@ $(document).ready(function () {
             url: 'auth/check',
             type: 'GET',
             success: function success(userID) {
-                if (userID == "") window.location.href = "login";
+                if (userID == "") {
+                    var loc = "login?previous=/" + questionID;
+                    console.log(loc);
+                    window.location.href = loc;
+                }
             }
         });
     }
@@ -36192,7 +36203,7 @@ $(document).ready(function () {
             dateType: 'HTML',
             success: function success(data) {
                 console.log(data);
-                UpdateComments(questionID);
+                updateComments(questionID);
                 $('#commentText').val('');
             },
             error: function error(e) {

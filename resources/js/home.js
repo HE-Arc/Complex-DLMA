@@ -3,6 +3,8 @@ $(document).ready(function ()
 {
     let userHasVoted = false;
 
+    setUriQuestionID(questionID);
+    
     $('#formComment').on('submit', function()
     {
         //https://stackoverflow.com/questions/27346205/submit-form-laravel-using-ajax
@@ -27,13 +29,19 @@ $(document).ready(function ()
             success: function (data) {
                 updateChoices(data['question']);
                 updateQuestionDetails(data['question']['id']);
-                UpdateComments(data['question']['id']);
+                updateComments(data['question']['id']);
+                setUriQuestionID(data['question']['id']);
             },
             error: function (e) {
                 console.log(e.responseText);
             }
         });
     });
+
+    function setUriQuestionID(questionID)
+    {
+        history.pushState(null, "", "./" + questionID);
+    }
 
     /**
      * Update the question username, description and comments
@@ -88,7 +96,7 @@ $(document).ready(function ()
         });
     }
 
-    function UpdateComments(questionID)
+    function updateComments(questionID)
     {
         $.ajax({
             url: 'next_question_comments',
@@ -279,7 +287,11 @@ $(document).ready(function ()
             type: 'GET',
             success: function (userID) {
                 if(userID == "")
-                    window.location.href = "login";
+                {
+                    var loc = "login?previous=/" + questionID;
+                    console.log(loc);
+                    window.location.href = loc;
+                }
             },
         });
     }
@@ -297,7 +309,7 @@ $(document).ready(function ()
             dateType: 'HTML',
             success: function (data) {
                 console.log(data);
-                UpdateComments(questionID);
+                updateComments(questionID);
                 $('#commentText').val('');
             },
             error: function (e) {
