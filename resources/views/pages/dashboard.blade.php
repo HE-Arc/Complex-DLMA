@@ -19,6 +19,7 @@
         </div>
     @else
     <div class="col-12 mt-3 p-0 text-center">
+        <a class="btn cd_btn-default btn-lg cd_large-text mr-5" href="{{ route('my_dlmas') }}">My DLMAs</a>
         <a class="btn cd_btn-default btn-lg cd_large-text" href="{{ route('home') }}">Home page</a>
     </div>
 

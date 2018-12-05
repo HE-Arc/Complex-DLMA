@@ -5,13 +5,6 @@ $(document).ready(function ()
     let oneChoiceIsLoad = false;
 
     setUriQuestionID(questionID);
-    
-    $('#formComment').on('submit', function()
-    {
-        //https://stackoverflow.com/questions/27346205/submit-form-laravel-using-ajax
-        var commentText = $('#commentText').val();
-        userPostComment(commentText);
-    });
 
     /**
      * When the user click on the button next question.

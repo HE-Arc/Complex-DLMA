@@ -8,6 +8,8 @@
 
 @section('content')
 
+    <script src="{{ asset('js/home.js') }}" defer></script>
+
     <div id="questionHeader"></div>
    
     <div class="row text-center">

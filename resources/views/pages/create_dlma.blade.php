@@ -15,7 +15,7 @@
 
     <h1 class="text-center cd_page-title mb-5">Enter your new DLMA</h1>
 
-    {!! Form::open(['route' => 'createDlma.store']) !!}
+    {!! Form::open(['route' => 'create_dlma.store']) !!}
 
     <div class="row text-center">
       <div class="cd_medium-text font-weight-bold col-12">

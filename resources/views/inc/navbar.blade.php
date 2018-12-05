@@ -20,9 +20,9 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('create_dlma') }}">
+                    <a class="nav-link" href="{{ route('create_dlma') }}">
                         <i class="fas fa-plus-circle mr-1"></i>
-                        {{ __('Create a new DLMA') }}
+                        Create a new DLMA
                     </a>
                 </li>
             </ul>

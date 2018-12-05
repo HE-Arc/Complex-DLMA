@@ -25,7 +25,7 @@ class CreateDlmaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function index()
     {
       return view("pages.create_dlma");
     }
@@ -58,16 +58,27 @@ class CreateDlmaController extends Controller
         $question->description = $request->get("description");
         $question->choice_1_id = $choice_1->id;
         $question->choice_2_id = $choice_2->id;
-        $question->user_id = Auth::user()->id;;
+        $question->user_id = Auth::id();
         $question->report_counter = 0;
         $question->save();
 
-        flash("Your DLMA has been submitted !")->success();
-        return redirect()->route("createDlma.create");
+        $questions = Question::where('user_id', Auth::id())->get()->toArray();
+
+        $sort_questions = [];
+
+        foreach ($questions as $question) {
+
+          $sort_questions[$question['created_at']] = $question;
+        }
+
+        rsort($sort_questions);
+
+        flash("Your DLMA has been submitted ! <a href='" . url("/{$sort_questions[0]['id']}") . "'>The generated URL</a>")->success();
+        return redirect()->route("create_dlma");
       }
       catch (Exception $e) {}
 
       flash("Sorry, an error occured while creating your DLMA. Please retry later.")->error();
-      return redirect()->route("createDlma.create");
+      return redirect()->route("create_dlma");
     }
 }
