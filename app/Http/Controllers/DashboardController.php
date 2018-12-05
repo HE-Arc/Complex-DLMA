@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Answer;
+use App\User;
 
 class DashboardController extends Controller
 {
@@ -44,6 +45,8 @@ class DashboardController extends Controller
                     ->get()
                     ->toArray();
 
+        $users = User::all();
+
         $user_questions = array_filter($questions, function($var) use($answers) {
 
             foreach($answers as $answer) {
@@ -59,6 +62,7 @@ class DashboardController extends Controller
 
             $choice1 = null;
             $choice2 = null;
+            $description = null;
             foreach($choices as $choice) {
 
                 if($choice->id == $user_question->choice_1_id) {
@@ -68,6 +72,8 @@ class DashboardController extends Controller
                 if($choice->id == $user_question->choice_2_id) {
                     $choice2 = $choice;
                 }
+
+                $description = $user_question->description;
             }
 
             $user_choice = null;
@@ -77,6 +83,14 @@ class DashboardController extends Controller
                 if($answer->question_id == $user_question->id) {
                     $user_choice = $answer->choice;
                     $user_answer_time = $answer->updated_at;
+                }
+            }
+
+            $username = null;
+            foreach($users as $user) {
+
+                if($user_question->user_id == $user->id) {
+                    $username = $user->username;
                 }
             }
 
@@ -93,7 +107,9 @@ class DashboardController extends Controller
                     'counter' => $choice2->counter,
                     'perc' => round($choice2->counter / $totCounter * 100, 0)
                 ),
-                'user_choice' => $user_choice
+                'user_choice' => $user_choice,
+                'question_description' => $description,
+                'question_username' => $username
             );
         }
 
