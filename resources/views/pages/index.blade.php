@@ -44,11 +44,11 @@
             <div class="cd_choice-or rounded-circle col-3 col-sm-2 col-lg-1 shadow">OR</div>
         </div>
 
-        <div class="cd_logo-big">
-            <div class="cd_logo-part cd_logo-left cd_logo-big-left">
+        <div class="cd_logo-big cd_logo-big-anim">
+            <div class="cd_logo-part cd_logo-left cd_logo-big-anim-left">
                 <img src="{{ asset('img/logo_left.png') }}" class="img-fluid" alt="Complex-DLMA">
             </div>
-            <div class="cd_logo-part cd_logo-right cd_logo-big-right">
+            <div class="cd_logo-part cd_logo-right cd_logo-big-anim-right">
                 <img src="{{ asset('img/logo_right.png') }}" class="img-fluid" alt="Complex-DLMA">
             </div>
             <div class="cd_logo-part cd_logo-center">
