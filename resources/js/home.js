@@ -5,14 +5,6 @@ $(document).ready(function ()
 
     setUriQuestionID(questionID);
     
-    /*$('#formComment').on('submit', function()
-    {
-        //https://stackoverflow.com/questions/27346205/submit-form-laravel-using-ajax
-        var commentText = $('#commentText').val();
-        console.log("SALUT");
-        userPostComment(commentText);
-    });*/
-
     /**
      * When the user click on the button next question.
      * A new question is load from the db and is load in the page.
