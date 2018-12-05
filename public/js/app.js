@@ -35914,13 +35914,13 @@ module.exports = function spread(callback) {
 // Everything inside this bloc is charged when the document is ready
 $(document).ready(function () {
     var userHasVoted = false;
-    var oneChoiceIsLoad = false;
 
     setUriQuestionID(questionID);
 
     $('#formComment').on('submit', function () {
         //https://stackoverflow.com/questions/27346205/submit-form-laravel-using-ajax
         var commentText = $('#commentText').val();
+        console.log("SALUT");
         userPostComment(commentText);
     });
 
@@ -35929,14 +35929,6 @@ $(document).ready(function () {
      * A new question is load from the db and is load in the page.
      */
     $('#nextQuestion').on('click', function () {
-        $('.cd_fade-choices').removeClass('cd_swap-next-question-in');
-        $('.cd_fade-choices').removeClass('cd_swap-next-question-out');
-        $('.cd_fade-choices').addClass('cd_swap-next-question-out');
-
-        $('.cd_logo-big').removeClass('cd_swap-next-question-in');
-        $('.cd_logo-big').removeClass('cd_swap-next-question-out');
-        $('.cd_logo-big').addClass('cd_swap-next-question-in');
-
         $.ajaxSetup({
             headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
         });
@@ -35950,10 +35942,6 @@ $(document).ready(function () {
                 updateQuestionDetails(data['question']['id']);
                 updateComments(data['question']['id']);
                 setUriQuestionID(data['question']['id']);
-
-                userHasVoted = false;
-                $('#checkedChoice1').addClass('d-none');
-                $('#checkedChoice2').addClass('d-none');
             },
             error: function error(e) {
                 console.log(e.responseText);
@@ -35966,7 +35954,7 @@ $(document).ready(function () {
     }
 
     /**
-     * Update the question username, description and comments
+     * Update the question username, d§escription and comments
      * @param {array} data 
      */
     function updateQuestionDetails(questionID) {
@@ -36061,8 +36049,6 @@ $(document).ready(function () {
             dataType: 'HTML',
             success: function success(data) {
                 $('#choice1').html(data);
-
-                swapToNextQuestionFade();
             },
             error: function error(e) {
                 console.log(e.responseText);
@@ -36077,27 +36063,14 @@ $(document).ready(function () {
             success: function success(data) {
                 $('#choice2').html(data);
 
-                swapToNextQuestionFade();
+                userHasVoted = false;
+                $('#checkedChoice1').addClass('d-none');
+                $('#checkedChoice2').addClass('d-none');
             },
             error: function error(e) {
                 console.log(e.responseText);
             }
         });
-    }
-
-    function swapToNextQuestionFade() {
-        if (oneChoiceIsLoad) {
-
-            $('.cd_fade-choices').addClass('cd_swap-next-question-in');
-            $('.cd_logo-choices').removeClass('cd_swap-next-question-in');
-
-            $('.cd_logo-big').addClass('cd_swap-next-question-out');
-            $('.cd_logo-big').removeClass('cd_swap-next-question-in');
-
-            oneChoiceIsLoad = false;
-        } else {
-            oneChoiceIsLoad = true;
-        }
     }
 
     /**
@@ -36211,7 +36184,7 @@ $(document).ready(function () {
             type: 'GET',
             success: function success(userID) {
                 if (userID == "") {
-                    var loc = "login?previous=/" + questionID;
+                    var loc = "login?previous=" + questionID;
                     console.log(loc);
                     window.location.href = loc;
                 }
@@ -36231,6 +36204,7 @@ $(document).ready(function () {
             dateType: 'HTML',
             success: function success(data) {
                 console.log(data);
+                console.log(questionID);
                 updateComments(questionID);
                 $('#commentText').val('');
             },

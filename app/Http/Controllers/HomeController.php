@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Question;
 use App\Choice;
 use App\User;
+use App\Comment;
 
 class HomeController extends Controller
 {
