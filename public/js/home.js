@@ -2,15 +2,24 @@
 $(document).ready(function ()
 {
     let userHasVoted = false;
+    let oneChoiceIsLoad = false;
 
     setUriQuestionID(questionID);
-    
+
     /**
      * When the user click on the button next question.
      * A new question is load from the db and is load in the page.
      */
     $('#nextQuestion').on('click', function()
     {
+        $('.cd_fade-choices').removeClass('cd_swap-next-question-in');
+        $('.cd_fade-choices').removeClass('cd_swap-next-question-out');
+        $('.cd_fade-choices').addClass('cd_swap-next-question-out');
+
+        $('.cd_logo-big').removeClass('cd_swap-next-question-in');
+        $('.cd_logo-big').removeClass('cd_swap-next-question-out');
+        $('.cd_logo-big').addClass('cd_swap-next-question-in');
+
         $.ajaxSetup({
             headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')}
         });
@@ -24,6 +33,10 @@ $(document).ready(function ()
                 updateQuestionDetails(data['question']['id']);
                 updateComments(data['question']['id']);
                 setUriQuestionID(data['question']['id']);
+
+                userHasVoted = false;
+                $('#checkedChoice1').addClass('d-none');
+                $('#checkedChoice2').addClass('d-none');
             },
             error: function (e) {
                 console.log(e.responseText);
@@ -37,7 +50,7 @@ $(document).ready(function ()
     }
 
     /**
-     * Update the question username, d§escription and comments
+     * Update the question username, description and comments
      * @param {array} data 
      */
     function updateQuestionDetails(questionID)
@@ -135,6 +148,8 @@ $(document).ready(function ()
             dataType: 'HTML',
             success: function (data) {
                 $('#choice1').html(data);
+
+                swapToNextQuestionFade();
             },
             error: function (e) {
                 console.log(e.responseText);
@@ -149,14 +164,28 @@ $(document).ready(function ()
             success: function (data) {
                 $('#choice2').html(data);
 
-                userHasVoted = false;
-                $('#checkedChoice1').addClass('d-none');
-                $('#checkedChoice2').addClass('d-none');
+                swapToNextQuestionFade();
             },
             error: function (e) {
                 console.log(e.responseText);
             }
         });
+    }
+
+    function swapToNextQuestionFade()
+    {
+        if(oneChoiceIsLoad) {
+
+            $('.cd_fade-choices').addClass('cd_swap-next-question-in');
+            $('.cd_logo-choices').removeClass('cd_swap-next-question-in');
+
+            $('.cd_logo-big').addClass('cd_swap-next-question-out');
+            $('.cd_logo-big').removeClass('cd_swap-next-question-in');
+
+            oneChoiceIsLoad = false;
+        } else {
+            oneChoiceIsLoad = true;
+        }
     }
 
     /**
@@ -281,7 +310,7 @@ $(document).ready(function ()
             success: function (userID) {
                 if(userID == "")
                 {
-                    var loc = "login?previous=" + questionID;
+                    var loc = "login?previous=/" + questionID;
                     console.log(loc);
                     window.location.href = loc;
                 }
@@ -302,7 +331,6 @@ $(document).ready(function ()
             dateType: 'HTML',
             success: function (data) {
                 console.log(data);
-                console.log(questionID);
                 updateComments(questionID);
                 $('#commentText').val('');
             },

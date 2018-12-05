@@ -160,7 +160,7 @@ function initShareMyChoicePopup(msg) {
   username.className += " font-weight-bold";
   username.appendChild(document.createTextNode(msg.userFrom));
   nodeElementTitle.appendChild(username);
-  nodeElementTitle.appendChild(document.createTextNode(" would like to know your opinion on the follow DLMA !"));
+  nodeElementTitle.appendChild(document.createTextNode(" would like to know your opinion on the following DLMA !"));
   nodeElementTitle.className += " cd_small-text";
 
   let questionContainer = createDOMQuestion(msg.questionChoice1, msg.questionChoice2, msg.questionDescription);

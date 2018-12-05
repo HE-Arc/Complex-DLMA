@@ -297,8 +297,7 @@ class HomeController extends Controller
     $comment->text = $commentText;
     $comment->save();
 
-    $response = "Return something";
-    return $response;
+    return "Comment saved";
   }
 
 }
