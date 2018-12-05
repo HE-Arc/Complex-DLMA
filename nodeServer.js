@@ -7,6 +7,7 @@ var WebSocketServer = require("websocket").server;
 var http = require("http");
 var server = http.createServer(function(request, response) {});
 var clients = [];
+const uuidv4 = require('uuid/v4');
 
 
 /**
@@ -23,14 +24,29 @@ function htmlEntities(str) {
 
 /**
  * findClientByUsername
- * Searches the given username in the clients list and returns client's id or -1 if
- * there is no register client with username.
+ * Searches the given username in the clients list and returns client's index or -1 if
+ * there is no registered client with this username.
  * 
  * @param {String} searchedClientUsername - searched username in clients list
  */
 function findClientByUsername(searchedClientUsername) {
   for (let i=0; i<clients.length; i++) {
     if (clients[i].username == searchedClientUsername)
+      return i;
+  }
+  return -1;
+}
+
+/**
+ * findClientByUUID
+ * Searches the given UUID in the clients list and returns client's index if
+ * there is no registered client with this UUID.
+ * 
+ * @param {String} searchedClientUUID - searched UUID in clients list
+ */
+function findClientByUUID(searchedClientUUID) {
+  for (let i=0; i<clients.length; i++) {
+    if (clients[i].connection.wsid == searchedClientUUID)
       return i;
   }
   return -1;
@@ -48,14 +64,15 @@ wsServer = new WebSocketServer({
 
 // WebSocket server
 wsServer.on("request", function(request) {
-  console.log((new Date()) + " Connection from origin " + request.origin + ".");
+  // console.log((new Date()) + " Connection from origin " + request.origin + ".");
 
   // accept client's connection
   var connection = request.accept(null, request.origin);
+  connection.wsid = uuidv4();
 
   // push the new client to the clients list
-  var index = clients.push({connection: connection, id: -1, username: ""}) - 1;
-  console.log((new Date()) + " Connection accepted.");
+  clients.push({connection: connection, id: -1, username: ""});
+  // console.log((new Date()) + " Connection accepted.");
 
   // handles incoming messages
   connection.on("message", function(message) {
@@ -63,11 +80,15 @@ wsServer.on("request", function(request) {
       // handle message
       // console.log("Incoming message : " + message.utf8Data);
       let msgObject = JSON.parse(message.utf8Data);
+      
+      // find current client's index in the clients list
+      let clientIndex = findClientByUUID(connection.wsid);
 
       switch(msgObject.type) {
         case "greetings": // handles user's greetings (first message exchanged)
-          clients[index].id = msgObject.userID;
-          clients[index].username = msgObject.username;
+          clients[clientIndex].id = msgObject.userID;
+          clients[clientIndex].username = msgObject.username;
+          console.log(clients[clientIndex].username, "is connected.");
           break;
         case "shareRequest": // handles incoming share request
           var clientToIndex = findClientByUsername(msgObject.userTo);
@@ -95,9 +116,10 @@ wsServer.on("request", function(request) {
   });
 
   // handles client's connection close
-  connection.on("close", function(connection) {
+  connection.on("close", function(code) {
     // close user connection
-    console.log("Connection closed with a client : " + connection)
-    clients.splice(index, 1);
+    let disconnectedClientIndex = findClientByUUID(connection.wsid);
+    console.log(clients[disconnectedClientIndex].username, "disconnected.")
+    clients.splice(disconnectedClientIndex, 1);
   });
 });
