@@ -18,6 +18,12 @@
             </div>
         </div>
     @else
+        <div class="col-12 mt-5 p-0 text-center">
+            <a class="btn cd_btn-default btn-lg cd_large-text" href="{{ route('home') }}">Home page</a>
+        </div>
+
+        <hr class="cd_hr-s3 my-5" />
+        
         @foreach ($data as $key => $answers)
             @foreach ($answers as $answer)
 

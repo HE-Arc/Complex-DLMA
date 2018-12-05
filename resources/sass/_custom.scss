@@ -15,15 +15,15 @@ body {
 }
 
 .cd_logo-big-anim-right {
-    animation: pulsate-right 2s ease-in-out infinite;
+    animation: pulsate-right 1s ease-in-out infinite;
 }
 
 .cd_logo-big-anim-left {
-    animation: pulsate-left 2s ease-in-out infinite;
+    animation: pulsate-left 1s ease-in-out infinite;
 }
 
 .cd_logo-big-anim {
-    animation: pulsate-center 2s ease-in-out infinite;
+    animation: pulsate-center 1s ease-in-out infinite;
 }
 
 @keyframes pulsate-right {
@@ -59,7 +59,7 @@ body {
 .cd_logo-left {
     width: 42%;
     left: 0%;
-    transition: 0.5s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
 .cd_logo:hover .cd_logo-left {
@@ -69,7 +69,7 @@ body {
 .cd_logo-right {
     width: 42%;
     right: 0%;
-    transition: 0.5s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
 .cd_logo:hover .cd_logo-right {
@@ -109,12 +109,12 @@ body {
 
 .cd_swap-next-question-out {
     opacity: 0;
-    transition: 0.5s linear;
+    transition: 0.1s linear;
 }
 
 .cd_swap-next-question-in {
     opacity: 1;
-    transition: 0.5s linear;
+    transition: 0.1s linear;
 }
 
 .cd_modal-content {
