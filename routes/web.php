@@ -31,6 +31,7 @@ Route::get('/create_dlma', 'CreateDlmaController@index')->name('create_dlma');
 Route::post('/create_dlma', 'CreateDlmaController@store')->name('create_dlma.store');
 
 Route::get('/my_dlmas', 'MyDlmasController@index')->name('my_dlmas');
+Route::get('/answered_dlmas', 'AnsweredDlmasController@index')->name('answered_dlmas');
 
 Route::get('/next_question', 'HomeController@newQuestion');
 Route::get('/next_question_choice', 'HomeController@questionChoiceAjax');

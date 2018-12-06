@@ -13,7 +13,7 @@
       </div>
     @endif
 
-    <h1 class="text-center cd_page-title mb-5">Enter your new DLMA</h1>
+    <h2 class="text-center cd_page-title mb-5">Enter your new DLMA</h2>
 
     {!! Form::open(['route' => 'create_dlma.store']) !!}
 

@@ -10884,6 +10884,25 @@ body {
   background-color: #960000 !important;
 }
 
+.cd_icon-square-btn {
+  font-size: 80px;
+}
+
+.cd_btn-default-square-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.cd_btn-default-square-content {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
 .cd_btn-choice-disabled,
 .cd_btn-choice-disabled:hover {
   background-image: -webkit-gradient(linear, left top, right bottom, from(silver), to(#6d6d6d)) !important;

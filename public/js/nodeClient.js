@@ -126,10 +126,20 @@ function createDOMQuestion(choice1, choice2, description)
   // question's description
   let nodeQuestionDescription = document.createElement("div");
   let descriptionText = document.createElement('span');
-  descriptionText.appendChild(document.createTextNode("Description : "));
-  descriptionText.className += " font-weight-bold";
-  nodeQuestionDescription.appendChild(descriptionText);
-  nodeQuestionDescription.appendChild(document.createTextNode(description));
+
+  if (description == "") {
+    
+    descriptionText.appendChild(document.createTextNode("No description provided !"));
+    descriptionText.className += " font-weight-bold";
+    nodeQuestionDescription.appendChild(descriptionText);
+  } else {
+
+    descriptionText.appendChild(document.createTextNode("Description : "));
+    descriptionText.className += " font-weight-bold";
+    nodeQuestionDescription.appendChild(descriptionText);
+    nodeQuestionDescription.appendChild(document.createTextNode(description));
+  }
+
   nodeQuestionDescription.className += " cd_small-text";
   questionContainer.appendChild(nodeQuestionDescription);
 
