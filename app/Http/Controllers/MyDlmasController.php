@@ -30,20 +30,21 @@ class MyDlmasController extends Controller
     {
         $userID = Auth::id();
 
-        $user_questions = Question::findOrFail($userID);
+        $user_questions = Question::where('user_id', $userID)->get()->toArray();
 
         $choices = Choice::all();
 
-        $questions = [];
+        $questions = array();
 
         foreach($user_questions as $user_question) {
-            
+
             $choice1 = null;
             $choice2 = null;
             $description = null;
             foreach($choices as $choice) {
 
                 if($choice->id == $user_question['choice_1_id']) {
+                    
                     $choice1 = $choice;
                 }
 
@@ -54,12 +55,28 @@ class MyDlmasController extends Controller
                 $description = $user_question['description'];
             }
 
-            $questions[$user_question['created_at']] = [
-                'choice_1_id' => $choice1
-            ];
+            $totCounter = $choice1->counter + $choice2->counter;
+            if ($totCounter == 0) {
+                $totCounter = 1;
+            }
+
+            $questions[$user_question['created_at']] = array(
+                '0' => array(
+                    'text' => $choice1->text,
+                    'counter' => $choice1->counter,
+                    'perc' => round($choice1->counter / $totCounter * 100, 0)
+                ),
+                '1' => array(
+                    'text' => $choice2->text,
+                    'counter' => $choice2->counter,
+                    'perc' => round($choice2->counter / $totCounter * 100, 0)
+                ),
+                'question_description' => $description,
+                'question_url' => url("/{$user_question['id']}")
+            );
         }
 
-        ksort($questions);
+        krsort($questions);
 
         return view('pages.my_dlmas')->with('questions', $questions);
     }
