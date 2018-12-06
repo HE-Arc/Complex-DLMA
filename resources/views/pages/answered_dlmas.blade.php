@@ -3,7 +3,7 @@
 @section('content')
 
     @if (count($data) <= 0)
-    <div class="col-6 offset-3 card border-dark cd_medium-text mt-5 p-0">
+    <div class="col-12 col-md-6 offset-0 offset-md-3 card border-dark cd_medium-text mt-5 p-0">
         <div class="card-header cd_large-text">
             No answer found...
         </div>

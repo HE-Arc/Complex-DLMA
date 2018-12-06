@@ -61,19 +61,8 @@ class CreateDlmaController extends Controller
         $question->user_id = Auth::id();
         $question->report_counter = 0;
         $question->save();
-
-        $questions = Question::where('user_id', Auth::id())->get()->toArray();
-
-        $sort_questions = [];
-
-        foreach ($questions as $question) {
-
-          $sort_questions[$question['created_at']] = $question;
-        }
-
-        rsort($sort_questions);
-
-        flash("Your DLMA has been submitted ! <a href='" . url("/{$sort_questions[0]['id']}") . "'>The generated URL</a>")->success();
+        
+        flash("Your DLMA has been submitted ! <a href='" . url("/{$question['id']}") . "'>The generated URL</a>")->success();
         return redirect()->route("create_dlma");
       }
       catch (Exception $e) {}

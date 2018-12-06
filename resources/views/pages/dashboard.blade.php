@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="row mt-3">
+    <div class="row mt-5">
 
         <div class="col-12 col-sm-6 col-lg-3 text-center p-0 mb-3">
             <a class="btn cd_btn-default cd_btn-default-square-container btn-lg cd_large-text" href="{{ route('home') }}">

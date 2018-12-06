@@ -3,21 +3,21 @@
 @section('content')
 
     @if (count($questions) <= 0)
-        <div class="col-6 offset-3 card border-dark cd_medium-text mt-5 p-0">
-            <div class="card-header cd_large-text">
-                No DLMA found...
-            </div>
+    <div class="col-12 col-md-6 offset-0 offset-md-3 card border-dark cd_medium-text mt-5 p-0">
+        <div class="card-header cd_large-text">
+            No DLMA found...
+        </div>
 
-            <div class="card-body">
-                Oh ! It looks like you didn't create any complex DLMA...
-                <br>
-                Start right now, by going to the create DLMA page or go back to the home page.
-                <div class="col-12 p-0 text-center">
-                    <a class="btn cd_btn-default mt-3 mr-3" href="{{ route('create_dlma') }}">Create a new DLMA</a>
-                    <a class="btn cd_btn-default mt-3" href="{{ route('home') }}">Home page</a>
-                </div>
+        <div class="card-body">
+            Oh ! It looks like you didn't create any complex DLMA...
+            <br>
+            Start right now, by going to the create DLMA page or go back to the home page.
+            <div class="col-12 p-0 text-center">
+                <a class="btn cd_btn-default mt-3 mr-3" href="{{ route('create_dlma') }}">Create a new DLMA</a>
+                <a class="btn cd_btn-default mt-3" href="{{ route('home') }}">Home page</a>
             </div>
-        </div>  
+        </div>
+    </div>  
     @else
     <div class="col-12 mt-3 p-0 text-center">
 

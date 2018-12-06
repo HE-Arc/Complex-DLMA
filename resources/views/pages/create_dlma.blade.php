@@ -88,9 +88,15 @@
     </div>
 
     <div class="col-12 text-center">
+        <a href="{{ route('home') }}" class="btn btn-lg cd_btn-default mb-5 mr-5">
+            Home page
+        </a>
         <button type="submit" class="btn btn-lg cd_btn-default cd_btn-animated mb-5">
             <span>Submit DLMA</span>
         </button>
+    </div>
+
+    <div class="col-12 text-center">
     </div>
 
     {!! Form::close() !!}
