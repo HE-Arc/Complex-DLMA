@@ -24,17 +24,18 @@ function htmlEntities(str) {
 
 /**
  * findClientByUsername
- * Searches the given username in the clients list and returns client's index or -1 if
- * there is no registered client with this username.
+ * Searches the given username in the clients list and returns client's index (or indices if logged
+ * in on multiple tabs/browser) or an empty array if there is no registered client with this username.
  * 
  * @param {String} searchedClientUsername - searched username in clients list
  */
 function findClientByUsername(searchedClientUsername) {
+  let clientsWithGivenUsername = [];
   for (let i=0; i<clients.length; i++) {
     if (clients[i].username == searchedClientUsername)
-      return i;
+      clientsWithGivenUsername.push(i);
   }
-  return -1;
+  return clientsWithGivenUsername;
 }
 
 /**
@@ -91,24 +92,27 @@ wsServer.on("request", function(request) {
           console.log(clients[clientIndex].username, "is connected.");
           break;
         case "shareRequest": // handles incoming share request
-          var clientToIndex = findClientByUsername(msgObject.userTo);
-          var clientFromIndex = findClientByUsername(msgObject.userFrom);
+          var clientToIndices = findClientByUsername(msgObject.userTo);
+          var clientFromIndices = findClientByUsername(msgObject.userFrom);
 
-          if (clientToIndex != -1 && clientFromIndex != -1)
-            clients[clientToIndex].connection.sendUTF(JSON.stringify(msgObject)); // pass the request further
-          else {
-            if (clientToIndex == -1) {
+          if (clientToIndices.length > 0 && clientFromIndices.length > 0) {
+            for (let i=0; i<clientToIndices.length; i++)
+              clients[clientToIndices[i]].connection.sendUTF(JSON.stringify(msgObject)); // pass the request further
+          } else {
+            if (clientToIndices.length <= 0) {
               let msg = {type: "shareError", username: msgObject.userTo, errorCode: 0}; // client not connected
               connection.sendUTF(JSON.stringify(msg));
             }
           }
           break;
         case "shareRequestAnswer": // handles incoming share request's
-          var clientToIndex = findClientByUsername(msgObject.userTo);
-          var clientFromIndex = findClientByUsername(msgObject.userFrom);
+          var clientToIndices = findClientByUsername(msgObject.userTo);
+          var clientFromIndices = findClientByUsername(msgObject.userFrom);
 
-          if (clientToIndex != -1 && clientFromIndex != -1)
-            clients[clientToIndex].connection.sendUTF(JSON.stringify(msgObject)); // pass the request further
+          if (clientToIndices.length > 0 && clientFromIndices.length > 0) {
+            for (let i=0; i<clientToIndices.length; i++)
+              clients[clientToIndices[i]].connection.sendUTF(JSON.stringify(msgObject)); // pass the request further
+          }
           break;
         default:
       }
