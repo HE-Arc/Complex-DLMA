@@ -76,7 +76,7 @@
     <hr class="cd_hr-s1" />
 
     <div class="form-group">
-        {!! Form::label('description', '[Optional] Help others to understand the context by writing a description !', [
+        {!! Form::label('description', '[Optional] Help others understand the context by writing a description !', [
             'class' => 'cd_medium-text'
         ]) !!}
         {!! Form::textarea('description', null, [

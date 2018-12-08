@@ -140,7 +140,7 @@
 
             <div class="col-12">
                 <div class="col-12 cd_small-text">
-                    <a class="font-weight-bold" href='{{ url("/{$question->id}") }}'>URL of the question</a>
+                    <a class="font-weight-bold" href='{{ url("/{$question->id}") }}'>DLMA's link</a>
                 </div>
             </div>
 

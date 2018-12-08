@@ -62,12 +62,12 @@ class CreateDlmaController extends Controller
         $question->report_counter = 0;
         $question->save();
         
-        flash("Your DLMA has been submitted ! <a href='" . url("/{$question['id']}") . "'>The generated URL</a>")->success();
+        flash("Your DLMA has been submitted ! <a href='" . url("/{$question['id']}") . "'>Go to your DLMA</a>")->success();
         return redirect()->route("create_dlma");
       }
       catch (Exception $e) {}
 
-      flash("Sorry, an error occured while creating your DLMA. Please retry later.")->error();
+      flash("Sorry, an error occured while creating your DLMA. Please try again.")->error();
       return redirect()->route("create_dlma");
     }
 }
