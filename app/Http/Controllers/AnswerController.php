@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Answer;
 use App\Question;
@@ -91,13 +90,36 @@ class AnswerController extends Controller
     }
 
     /**
-     * Update an answer.
+     * Update an answer and the choice counter.
      */
     private function update($userID, $questionID, $choiceNumber)
     {
         $answer = Answer::where('user_id', $userID)
-                    ->where('question_id', $questionID)
-                    ->firstOrFail();
+                    ->where('question_id', $questionID)->first();
+
+        $question = Question::find($questionID);
+
+        $choice1 = $question->choice1()->first();
+        $choice2 = $question->choice2()->first();
+        if($answer->choice == 0)
+        {
+            $choice1->counter = $choice1->counter - 1;
+        }
+        else
+        {
+            $choice2->counter = $choice2->counter - 1;
+        }
+        if($choiceNumber == 0)
+        {
+            $choice1->counter = $choice1->counter + 1;
+        }
+        else
+        {
+            $choice2->counter = $choice2->counter + 1;
+        }
+        $choice1->save();
+        $choice2->save();
+
         $answer->choice = $choiceNumber;
         $answer->save();
     }

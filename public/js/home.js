@@ -2,15 +2,16 @@
 $(document).ready(function ()
 {
     let userHasVoted = false;
-    let oneChoiceIsLoad = false;
-
-    setUriQuestionID(questionID);
+    
+    nextQuestion(questionID);
 
     /**
-     * When the user click on the button next question.
-     * A new question is load from the db and is load in the page.
+     * Load a new question or the one corresponding with the given question id.
+     * Update the DOM with the received values.
+     * 
+     * @param {Integer} questionID : The id of the question to load, null if a new question should be load.
      */
-    $('#nextQuestion').on('click', function()
+    function nextQuestion(questionID)
     {
         $('.cd_fade-choices').removeClass('cd_swap-next-question-in');
         $('.cd_fade-choices').removeClass('cd_swap-next-question-out');
@@ -20,172 +21,82 @@ $(document).ready(function ()
         $('.cd_logo-big').removeClass('cd_swap-next-question-out');
         $('.cd_logo-big').addClass('cd_swap-next-question-in');
 
-        $.ajaxSetup({
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')}
-        });
+        if (questionID === null)
+        {
+            $.ajax({
+                url: 'next_question',
+                type: 'GET',
+                dataType: 'JSON',
+                success: function (data) {
+                    fillDomWithContent(data);
+                },
+                error: function (e) {
+                    console.log("ERROR");
+                }
+            });
+        }
+        else
+        {
+            $.ajax({
+                url: 'specific_question',
+                type: 'GET',
+                data: 'questionID=' + questionID,
+                dataType: 'JSON',
+                success: function (data) {
+                    fillDomWithContent(data);
+                },
+                error: function (e) {
+                    console.log("ERROR");
+                }
+            });
+        }
+    }
 
-        $.ajax({
-            url: 'next_question',
-            type: 'GET',
-            dataType: 'JSON',
-            success: function (data) {
-                updateChoices(data['question']);
-                updateQuestionDetails(data['question']['id']);
-                updateComments(data['question']['id']);
-                setUriQuestionID(data['question']['id']);
+    /**
+     * Update the DOM with the given values.
+     * 
+     * @param {Array} data : contains partial views (html)
+     */
+    function fillDomWithContent(data)
+    {
+        $('#questionHeader').html(data['header']);
+        $('#choice1').html(data['choice1']);
+        $('#choice2').html(data['choice2']);
+        $('#questionUsername').html(data['username']);
+        $('#questionDescription').html(data['description']);
+        $('#questionComments').html(data['comments']);
+        $('#questionCommentsCounter').html(data['comments_number']);
 
-                userHasVoted = false;
-                $('#checkedChoice1').addClass('d-none');
-                $('#checkedChoice2').addClass('d-none');
-            },
-            error: function (e) {
-                console.log(e.responseText);
-            }
-        });
+        setUriQuestionID(questionID);
+
+        // Fade question
+        $('.cd_fade-choices').addClass('cd_swap-next-question-in');
+        $('.cd_logo-choices').removeClass('cd_swap-next-question-in');
+
+        $('.cd_logo-big').addClass('cd_swap-next-question-out');
+        $('.cd_logo-big').removeClass('cd_swap-next-question-in');
+
+        // Display the checker for the checked choice
+        userHasVoted = false;
+        $('#checkedChoice1').addClass('d-none');
+        $('#checkedChoice2').addClass('d-none');
+    }
+
+    /**
+     * When the user click on the button next question.
+     * A new question is load from the db and is load in the page.
+     */
+    $('#nextQuestion').on('click', function()
+    {
+        nextQuestion(null);
     });
 
+    /**
+     * Update the URI with the current question id.
+     */
     function setUriQuestionID(questionID)
     {
         history.pushState(null, "", "./" + questionID);
-    }
-
-    /**
-     * Update the question username, description and comments
-     * @param {array} data 
-     */
-    function updateQuestionDetails(questionID)
-    {
-        $.ajaxSetup({
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')}
-        });
-        
-        $.ajax({
-            url: 'next_question_header',
-            type: 'GET',
-            data: 'questionID=' + questionID,
-            dataType: 'HTML',
-            success: function (data) {
-                $('#questionHeader').html(data);
-            },
-            error: function (e) {
-                console.log(e.responseText);
-            }
-        });
-
-        $.ajaxSetup({
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')}
-        });
-        $.ajax({
-            url: 'next_question_username',
-            type: 'GET',
-            data: 'questionID=' + questionID,
-            dataType: 'HTML',
-            success: function (data) {
-                $('#questionUsername').html(data);
-            },
-            error: function (e) {
-                console.log(e.responseText);
-            }
-        });
-
-        $.ajax({
-            url: 'next_question_description',
-            type: 'GET',
-            data: 'questionID=' + questionID,
-            dataType: 'HTML',
-            success: function (data) {
-                $('#questionDescription').html(data);
-            },
-            error: function (e) {
-                console.log(e.responseText);
-            }
-        });
-    }
-
-    function updateComments(questionID)
-    {
-        $.ajax({
-            url: 'next_question_comments',
-            type: 'GET',
-            data: 'questionID=' + questionID,
-            dataType: 'HTML',
-            success: function (data) {
-                $('#questionComments').html(data);
-            },
-            error: function (e) {
-                console.log(e.responseText);
-            }
-        });
-
-        $.ajax({
-            url: 'next_question_comments_counter',
-            type: 'GET',
-            data: 'questionID=' + questionID,
-            dataType: 'HTML',
-            success: function (data) {
-                $('#questionCommentsCounter').html(data);
-            },
-            error: function (e) {
-                console.log(e.responseText);
-            }
-        });
-    }
-
-    /**
-     * Update the 2 choices
-     * @param {array} data
-     */
-    function updateChoices(choicesID)
-    {
-        $.ajaxSetup({
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')}
-        });
-
-        $.ajax({
-            url: 'next_question_choice',
-            type: 'GET',
-            data: 'choiceID=' + choicesID['choice_1_id'],
-            dataType: 'HTML',
-            success: function (data) {
-                $('#choice1').html(data);
-
-                swapToNextQuestionFade();
-            },
-            error: function (e) {
-                console.log(e.responseText);
-            }
-        });
-        
-        $.ajax({
-            url: 'next_question_choice',
-            type: 'GET',
-            data: 'choiceID=' + choicesID['choice_2_id'],
-            dataType: 'HTML',
-            success: function (data) {
-                $('#choice2').html(data);
-
-                swapToNextQuestionFade();
-            },
-            error: function (e) {
-                console.log(e.responseText);
-            }
-        });
-    }
-
-    function swapToNextQuestionFade()
-    {
-        if(oneChoiceIsLoad) {
-
-            $('.cd_fade-choices').addClass('cd_swap-next-question-in');
-            $('.cd_logo-choices').removeClass('cd_swap-next-question-in');
-
-            $('.cd_logo-big').addClass('cd_swap-next-question-out');
-            $('.cd_logo-big').removeClass('cd_swap-next-question-in');
-
-            oneChoiceIsLoad = false;
-        } else {
-            oneChoiceIsLoad = true;
-        }
     }
 
     /**
@@ -289,21 +200,16 @@ $(document).ready(function ()
                 //console.log(data);
             },
             error: function (e) {
-                console.log(e.responseText);
+                console.log("ERROR");
             }
         });
     };
-
 
     /**
      * This verifies that the user is indeed logged in before posting a comment
      */
     function userCheckRedirectLogin()
-    {
-        $.ajaxSetup({
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')}
-        });
-      
+    {      
         $.ajax({
             url: 'auth/check',
             type: 'GET',
@@ -318,6 +224,11 @@ $(document).ready(function ()
         });
     }
 
+    /**
+     * Update the DB with the the user comment and update the required part of the DOM.
+     * 
+     * @param {String} commentText : The comment
+     */
     function userPostComment(commentText)
     {
         $.ajaxSetup({
@@ -330,14 +241,13 @@ $(document).ready(function ()
             data: 'commentText=' + commentText,
             dateType: 'HTML',
             success: function (data) {
-                console.log(data);
-                updateComments(questionID);
                 $('#commentText').val('');
+                $('#questionComments').html(data['comments']);
+                $('#questionCommentsCounter').html(data['comments_number']);
             },
             error: function (e) {
-                console.log("error");
+                console.log("ERROR");
             }
         });
     };
-
 });

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Question;
 use App\User;
 use App\Choice;
@@ -34,7 +33,7 @@ class MyDlmasController extends Controller
 
         $choices = Choice::all();
 
-        $questions = array();
+        $questions = [];
 
         foreach($user_questions as $user_question) {
 
@@ -60,20 +59,20 @@ class MyDlmasController extends Controller
                 $totCounter = 1;
             }
 
-            $questions[$user_question['created_at']] = array(
-                '0' => array(
+            $questions[$user_question['created_at']] = [
+                '0' => [
                     'text' => $choice1->text,
                     'counter' => $choice1->counter,
                     'perc' => round($choice1->counter / $totCounter * 100, 0)
-                ),
-                '1' => array(
+                ],
+                '1' => [
                     'text' => $choice2->text,
                     'counter' => $choice2->counter,
                     'perc' => round($choice2->counter / $totCounter * 100, 0)
-                ),
+                ],
                 'question_description' => $description,
                 'question_url' => url("/{$user_question['id']}")
-            );
+            ];
         }
 
         krsort($questions);

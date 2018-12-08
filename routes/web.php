@@ -33,13 +33,7 @@ Route::post('/create_dlma', 'CreateDlmaController@store')->name('create_dlma.sto
 Route::get('/my_dlmas', 'MyDlmasController@index')->name('my_dlmas');
 Route::get('/answered_dlmas', 'AnsweredDlmasController@index')->name('answered_dlmas');
 
-Route::get('/next_question', 'HomeController@newQuestion');
-Route::get('/next_question_choice', 'HomeController@questionChoiceAjax');
-Route::get('/next_question_username', 'HomeController@questionUsernameAjax');
-Route::get('/next_question_description', 'HomeController@questionDescriptionAjax');
-Route::get('/next_question_comments', 'HomeController@questionCommentsAjax');
-Route::get('/next_question_comments_counter', 'HomeController@questionCommentsCounterAjax');
-Route::get('/next_question_header', 'HomeController@questionHeaderAjax');
-
+Route::get('/next_question', 'HomeController@fetchNewQuestionGenerateViews');
+Route::get('/specific_question', 'HomeController@fetchSpecificQuestionGenerateViews');
 
 Route::get('/{question_id}', ['uses' => 'HomeController@indexWithId'])->name('home_select');

@@ -20,4 +20,19 @@ class Question extends Model
     
     return Choice::findOrFail($this->choice_2_id);
   }
+
+  public function user()
+  {
+    return $this->belongsTo('App\User');
+  }
+
+  public function choice1()
+  {
+    return $this->belongsTo('App\Choice', 'choice_1_id');
+  }
+
+  public function choice2()
+  {
+    return $this->belongsTo('App\Choice', 'choice_2_id');
+  }
 }

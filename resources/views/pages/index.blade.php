@@ -4,11 +4,16 @@
 <script src="{{ asset('js/index.js') }}" defer></script>
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
-{!! $data['homeController']->questionHeader($data['question']->id) !!}
 
 @section('content')
 
     <script src="{{ asset('js/home.js') }}" defer></script>
+    
+    @if(isset($questionID))
+        <script>var questionID = {!! json_encode($questionID) !!};</script>
+    @else
+        <script>var questionID = null;</script>
+    @endif
 
     <div id="questionHeader"></div>
    
@@ -26,9 +31,7 @@
 
                     <i id="checkedChoice1" class="fas fa-check cd_checked-choice d-none"></i>
 
-                    <div id="choice1">
-                        {!! $data['homeController']->questionChoice($data['question']->choice_1_id) !!}
-                    </div>
+                    <div id="choice1"></div>
                 </div>
             </div>
 
@@ -37,9 +40,7 @@
 
                     <i id="checkedChoice2" class="fas fa-check cd_checked-choice d-none"></i>
 
-                    <div id="choice2">
-                        {!! $data['homeController']->questionChoice($data['question']->choice_2_id) !!}
-                    </div>
+                    <div id="choice2"></div>
                 </div>
             </div>
 
@@ -60,9 +61,7 @@
 
     </div>
 
-    <div id="questionUsername">
-        {!! $data['homeController']->questionUsername($data['question']->id) !!}
-    </div>
+    <div id="questionUsername"></div>
 
     <div class="col-12 text-center text-sm-right p-0">
         <button id="btnShare" class="btn btn-md cd_btn-default mr-0 mr-sm-5 mt-3 mt-sm-0" type="button" onclick="resetShareModal()" {{ Auth::check() ? 'data-toggle=modal data-target=#shareWithUserModal' : 'disabled' }}>
@@ -76,15 +75,11 @@
 
     <hr class="cd_hr-s1" />
 
-    <div id="questionDescription">
-        {!! $data['homeController']->questionDescription($data['question']->id) !!}
-    </div>
+    <div id="questionDescription"></div>
 
     <hr class="cd_hr-s3 my-5" />
 
-    <div id="questionCommentsCounter">
-        {!! $data['homeController']->questionCommentsCounter($data['question']->id) !!}
-    </div>
+    <div id="questionCommentsCounter"></div>
     
     <hr class="cd_hr-s1" />
         
@@ -100,9 +95,7 @@
                 </div>
             </div>
     
-            <div id="questionComments">
-                {!! $data['homeController']->questionComments($data['question']->id) !!}
-            </div>
+            <div id="questionComments"></div>
         </div>
     </div>
 
