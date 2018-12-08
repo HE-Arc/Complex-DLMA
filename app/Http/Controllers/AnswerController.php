@@ -37,7 +37,7 @@ class AnswerController extends Controller
         {
             $answer = $this->answerExists($userID, $questionID);
 
-            // if the user did not answer already, we need to increment the choice counter 
+            // if the user did not answer, we need to increment the choice counter 
             // and insert its answer into the DB
             if(!$answer)
             {
@@ -45,7 +45,7 @@ class AnswerController extends Controller
 
                 $this->store($userID, $questionID, $choiceNumber);
             }
-            // if he did already we do NOT increment the counter again but still gupdate its answer
+            // if he did answer we update his answer and 
             else
             {
                 $this->update($userID, $questionID, $choiceNumber);
@@ -64,6 +64,18 @@ class AnswerController extends Controller
 
         $choice = $question->choice($choiceNumber);
         $choice->counter++;
+        $choice->save();
+    }
+
+    /**
+     * Decrement the counter of a question choice.
+     */
+    private function decrementCounter($choiceNumber, $questionID)
+    {
+        $question = Question::findOrFail($questionID);
+
+        $choice = $question->choice($choiceNumber);
+        $choice->counter--;
         $choice->save();
     }
 
@@ -95,31 +107,15 @@ class AnswerController extends Controller
     private function update($userID, $questionID, $choiceNumber)
     {
         $answer = Answer::where('user_id', $userID)
-                    ->where('question_id', $questionID)->first();
+                    ->where('question_id', $questionID)
+                    ->first();
 
-        $question = Question::find($questionID);
+        // Decrement the current choice counter
+        $this->decrementCounter($answer->choice, $questionID);
+        // Increment the new choice counter
+        $this->incrementCounter($choiceNumber, $questionID);
 
-        $choice1 = $question->choice1()->first();
-        $choice2 = $question->choice2()->first();
-        if($answer->choice == 0)
-        {
-            $choice1->counter = $choice1->counter - 1;
-        }
-        else
-        {
-            $choice2->counter = $choice2->counter - 1;
-        }
-        if($choiceNumber == 0)
-        {
-            $choice1->counter = $choice1->counter + 1;
-        }
-        else
-        {
-            $choice2->counter = $choice2->counter + 1;
-        }
-        $choice1->save();
-        $choice2->save();
-
+        // Update the choice
         $answer->choice = $choiceNumber;
         $answer->save();
     }
