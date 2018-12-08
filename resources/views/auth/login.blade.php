@@ -78,7 +78,7 @@
 
                         <div class="form-group row text-left">
                             <div class="col-12 col-xl-6 offset-xl-3">
-                                <div class="form-check p-0">
+                                <div class="form-check p-3 p-xl-0">
                                     <a class="btn btn-link px-0 py-1" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>

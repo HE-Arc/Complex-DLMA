@@ -147,6 +147,12 @@
                 </div>
             </div>
 
+            <div class="col-12">
+                <div class="col-12 cd_small-text">
+                    <a class="font-weight-bold" href='{{ url("/{$answer->question->id}") }}'>DLMA's link</a>
+                </div>
+            </div>
+
             <hr class="cd_hr-s1" />
         </div>
         

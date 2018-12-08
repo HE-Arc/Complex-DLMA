@@ -28,9 +28,13 @@ class AnswerController extends Controller
         
         $questionID = $request->session()->get('questionID');
 
+        $response = "";
+
         // if user is not logged in
         if($userID == '')
         {
+            $response = "new_answer";
+
             $this->incrementCounter($choiceNumber, $questionID);
         }
         else
@@ -41,6 +45,8 @@ class AnswerController extends Controller
             // and insert its answer into the DB
             if(!$answer)
             {
+                $response = "new_answer";
+
                 $this->incrementCounter($choiceNumber, $questionID);
 
                 $this->store($userID, $questionID, $choiceNumber);
@@ -48,11 +54,17 @@ class AnswerController extends Controller
             // if he did answer we update his answer and 
             else
             {
-                $this->update($userID, $questionID, $choiceNumber);
+                $answer = Answer::where('user_id', $userID)
+                            ->where('question_id', $questionID)
+                            ->first();
+
+                $response = ["update_answer" => $answer->choice];
+
+                $this->update($answer, $choiceNumber);
             }
         }
     
-        return "";
+        return ['response' => $response];
     }
 
     /**
@@ -104,16 +116,12 @@ class AnswerController extends Controller
     /**
      * Update an answer and the choice counter.
      */
-    private function update($userID, $questionID, $choiceNumber)
+    private function update($answer, $choiceNumber)
     {
-        $answer = Answer::where('user_id', $userID)
-                    ->where('question_id', $questionID)
-                    ->first();
-
         // Decrement the current choice counter
-        $this->decrementCounter($answer->choice, $questionID);
+        $this->decrementCounter($answer->choice, $answer->question_id);
         // Increment the new choice counter
-        $this->incrementCounter($choiceNumber, $questionID);
+        $this->incrementCounter($choiceNumber, $answer->question_id);
 
         // Update the choice
         $answer->choice = $choiceNumber;

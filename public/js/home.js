@@ -31,7 +31,7 @@ $(document).ready(function ()
                     fillDomWithContent(data);
                 },
                 error: function (e) {
-                    console.log("ERROR");
+                    alert("An error occured... Please refresh the page and try again.");
                 }
             });
         }
@@ -46,7 +46,7 @@ $(document).ready(function ()
                     fillDomWithContent(data);
                 },
                 error: function (e) {
-                    console.log("ERROR");
+                    alert("An error occured... Please refresh the page and try again.");
                 }
             });
         }
@@ -104,7 +104,7 @@ $(document).ready(function ()
      */
     $('#userChoice1').on('click', function()
     {
-        userSelectChoice(1);
+        userSelectChoice(0);
     });
 
     /**
@@ -112,7 +112,7 @@ $(document).ready(function ()
      */
     $('#userChoice2').on('click', function()
     {
-        userSelectChoice(2);
+        userSelectChoice(1);
     });
 
     /*
@@ -157,10 +157,49 @@ $(document).ready(function ()
             choicesPercDOM.push($(this).find('.cd_choice-perc'));
             choicesCounterDOM.push($(this).find('.cd_choice-counter'));
         });
+    
+        $('#checkedChoice' + (choiceID + 1)).removeClass('d-none');
 
-        // Compute the votes percentage
-        nbOfVotes[choiceID - 1]++;
+        // Ajax request to increment the user choice
+        $.ajaxSetup({
+            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')}
+        });
+      
+        $.ajax({
+            url: 'dispatch_request',
+            type: 'POST',
+            data: 'choiceID=' + choiceID,
+            dataType: 'JSON',
+            success: function (data) {
 
+                if(data['response'] == 'new_answer')
+                {
+                    nbOfVotes[choiceID]++;
+                }
+                else
+                {
+                    previousChoice = data['response']['update_answer'];
+                    nbOfVotes[previousChoice]--;
+                    nbOfVotes[choiceID]++;
+                }
+
+                displayQuestionInformation(nbOfVotes, choicesPercDOM, choicesCounterDOM);
+            },
+            error: function () {
+                alert("An error occured... Please refresh the page and try again.");
+            }
+        });
+    };
+
+    /**
+     * Display the question information (percentage and counter for each choice).
+     * 
+     * @param {Array} nbOfVotes : The number of votes for each choices
+     * @param {Array} choicesPercDOM : The DOM part for the choices percentage
+     * @param {Array} choicesCounterDOM : The DOM part for the choices counter
+     */
+    function displayQuestionInformation(nbOfVotes, choicesPercDOM, choicesCounterDOM)
+    {
         nbOfVotesTot = nbOfVotes.reduce((x, y) => x + y);
 
         choicesPerc = [];
@@ -183,27 +222,7 @@ $(document).ready(function ()
             $(this).html(nbOfVotes[i] + " votes");
             i++;
         });
-        
-        $('#checkedChoice' + choiceID).removeClass('d-none');
-
-        // Ajax request to increment the user choice
-        $.ajaxSetup({
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')}
-        });
-      
-        $.ajax({
-            url: 'dispatch_request',
-            type: 'POST',
-            data: 'choiceID=' + (choiceID - 1),
-            dataType: 'JSON',
-            success: function (data) {
-                //console.log(data);
-            },
-            error: function (e) {
-                console.log("ERROR");
-            }
-        });
-    };
+    }
 
     /**
      * This verifies that the user is indeed logged in before posting a comment
@@ -245,8 +264,8 @@ $(document).ready(function ()
                 $('#questionComments').html(data['comments']);
                 $('#questionCommentsCounter').html(data['comments_number']);
             },
-            error: function (e) {
-                console.log("ERROR");
+            error: function () {
+                alert("An error occured... Please refresh the page and try again.");
             }
         });
     };
