@@ -195,7 +195,7 @@ $(document).ready(function ()
             url: 'dispatch_request',
             type: 'POST',
             data: 'choiceID=' + (choiceID - 1),
-            dataType: 'HTML',
+            dataType: 'JSON',
             success: function (data) {
                 //console.log(data);
             },
@@ -239,7 +239,7 @@ $(document).ready(function ()
             url: 'post_comment',
             type: 'POST',
             data: 'commentText=' + commentText,
-            dateType: 'HTML',
+            dateType: 'JSON',
             success: function (data) {
                 $('#commentText').val('');
                 $('#questionComments').html(data['comments']);

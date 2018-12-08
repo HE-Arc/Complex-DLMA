@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @if (count($data) <= 0)
+    @if ($answers->count() <= 0)
     <div class="col-12 col-md-6 offset-0 offset-md-3 card border-dark cd_medium-text mt-5 p-0">
         <div class="card-header cd_large-text">
             No answer found...
@@ -49,59 +49,72 @@
     <hr class="cd_hr-s1 my-3" />
     
     <div class="row">
-        @foreach ($data as $key => $answers)
         @foreach ($answers as $answer)
 
         <div class="col-12 col-lg-6">
             <div class="col-12 cd_medium-text">
-                Answered at : {{ date('d.m.Y H:i',strtotime($key)) }}
+                Answered at : {{ $answer->updated_at->format('d.m.y H:i') }}
             </div>
 
             <div class="row cd_choices-main-container-dashboard text-center">
 
-                <div class="col-12 col-md-6 p-3 cd_choice-inner-choice1-dashboard">
-                    <div class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow {{ $answer['user_choice'] != 0 ? 'cd_btn-choice-disabled' : '' }}">
+                @php
+                $choice1 = $answer->question->choice1;
+                $choice2 = $answer->question->choice2;
+                $totCounter = $choice1->counter + $choice2->counter;
+                @endphp
 
-                        @if ($answer['user_choice'] == 0)
+                <div class="col-12 col-md-6 p-3 cd_choice-inner-choice1-dashboard">
+                    <div class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow {{ $answer->choice != 0 ? 'cd_btn-choice-disabled' : '' }}">
+
+                        @if ($answer->choice == 0)
                         <i id="checkedChoice1" class="fas fa-check cd_checked-choice"></i>
                         @endif
 
                         <div class="col-12 cd_choice-text-container p-0">
 
+                            @php
+                            $choice1Perc = round($choice1->counter / $totCounter * 100, 0);
+                            @endphp
+
                             <div class="cd_choice-perc cd_large-text font-weight-bold col-12">
-                                {!! $answer[0]['perc'] !!}%
+                                {!! $choice1Perc !!}%
                             </div>
 
                             <div class="cd_choice-counter cd_small-text col-12">
-                                {!! $answer[0]['counter'] !!} votes
+                                {!! $choice1->counter !!} votes
                             </div>
 
                             <div class="cd_choice-text cd_small-medium-text font-weight-bold col-12">
-                                {!! $answer[0]['text'] !!}
+                                {!! $choice1->text !!}
                             </div>
                         </div>
                     </div>
                 </div>
             
                 <div class="col-12 col-md-6 p-3 cd_choice-inner-choice2-dashboard">
-                    <div class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow {{ $answer['user_choice'] != 1 ? 'cd_btn-choice-disabled' : '' }}">
+                    <div class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow {{ $answer->choice != 1 ? 'cd_btn-choice-disabled' : '' }}">
 
-                        @if ($answer['user_choice'] == 1)
+                        @if ($answer->choice == 1)
                         <i id="checkedChoice2" class="fas fa-check cd_checked-choice"></i>
                         @endif
 
                         <div class="col-12 cd_choice-text-container p-3">
         
+                            @php
+                            $choice2Perc = round($choice2->counter / $totCounter * 100, 0);
+                            @endphp
+
                             <div class="cd_choice-perc cd_large-text font-weight-bold col-12">
-                                {!! $answer[1]['perc'] !!}%
+                                {!! $choice2Perc !!}%
                             </div>
-        
+
                             <div class="cd_choice-counter cd_small-text col-12">
-                                {!! $answer[1]['counter'] !!} votes
+                                {!! $choice2->counter !!} votes
                             </div>
-        
-                            <div class="cd_choice-text cd_small-medium-text font-weight-bold col-12 p-0">
-                                {!! $answer[1]['text'] !!}
+
+                            <div class="cd_choice-text cd_small-medium-text font-weight-bold col-12">
+                                {!! $choice2->text !!}
                             </div>
                         </div>
                     </div>
@@ -115,20 +128,20 @@
 
             <div class="col-12">
                 <div class="col-12 cd_small-text">
-                    DLMA added by <span class="font-weight-bold">{{ $answer['question_username'] }}</span>
+                    DLMA added by <span class="font-weight-bold">{{ $answer->user->username }}</span>
                 </div>
             </div>
 
             <div class="col-12">
                 <div class="col-12 cd_small-text">
-                    @if ($answer['question_description'] == "")
+                    @if ($answer->question->description == "")
 
                     <span class="font-weight-bold">No description provided !</span>
                         
                     @else
 
                     <span class="font-weight-bold">Description :</span>
-                    {{ $answer['question_description'] }}
+                    {{ $answer->question->description }}
 
                     @endif
                 </div>
@@ -137,7 +150,6 @@
             <hr class="cd_hr-s1" />
         </div>
         
-        @endforeach
         @endforeach
     </div>
     @endif        

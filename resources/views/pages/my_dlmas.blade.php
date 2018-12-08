@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @if (count($questions) <= 0)
+    @if ($questions->count() <= 0)
     <div class="col-12 col-md-6 offset-0 offset-md-3 card border-dark cd_medium-text mt-5 p-0">
         <div class="card-header cd_large-text">
             No DLMA found...
@@ -51,30 +51,43 @@
     <hr class="cd_hr-s1 my-3" />
     
     <div class="row">
-        @foreach ($questions as $key => $question_values)
+        @foreach ($questions as $question)
 
         <div class="col-12 col-lg-6">
             <div class="col-12 cd_medium-text">
-                Created at : {{ date('d.m.Y H:i',strtotime($key)) }}
+                Created at : {{ $question->updated_at->format('d.m.y H:i') }}
             </div>
 
             <div class="row cd_choices-main-container-dashboard text-center">
+
+                @php
+                $choice1 = $question->choice1;
+                $choice2 = $question->choice2;
+                $totCounter = $choice1->counter + $choice2->counter;
+                if ($totCounter == 0) {
+                    $totCounter = 1;
+                }
+                @endphp
 
                 <div class="col-12 col-md-6 p-3 cd_choice-inner-choice1-dashboard">
                     <div class="btn cd_btn-choice1 userChoice cd_choice-inner-container col-12 h-100 shadow">
 
                         <div class="col-12 cd_choice-text-container p-0">
 
+                            @php
+                            $choice1Perc = round($choice1->counter / $totCounter * 100, 0);
+                            @endphp
+
                             <div class="cd_choice-perc cd_large-text font-weight-bold col-12">
-                                {!! $question_values[0]['perc'] !!}%
+                                {!! $choice1Perc !!}%
                             </div>
 
                             <div class="cd_choice-counter cd_small-text col-12">
-                                {!! $question_values[0]['counter'] !!} votes
+                                {!! $choice1->counter !!} votes
                             </div>
 
                             <div class="cd_choice-text cd_small-medium-text font-weight-bold col-12">
-                                {!! $question_values[0]['text'] !!}
+                                {!! $choice1->text !!}
                             </div>
                         </div>
                     </div>
@@ -84,17 +97,21 @@
                     <div class="btn cd_btn-choice2 userChoice cd_choice-inner-container col-12 h-100 shadow">
 
                         <div class="col-12 cd_choice-text-container p-3">
+                            
+                            @php
+                            $choice2Perc = round($choice2->counter / $totCounter * 100, 0);
+                            @endphp
         
                             <div class="cd_choice-perc cd_large-text font-weight-bold col-12">
-                                {!! $question_values[1]['perc'] !!}%
+                                {!! $choice2Perc !!}%
                             </div>
         
                             <div class="cd_choice-counter cd_small-text col-12">
-                                {!! $question_values[1]['counter'] !!} votes
+                                {!! $choice2->counter !!} votes
                             </div>
         
                             <div class="cd_choice-text cd_small-medium-text font-weight-bold col-12 p-0">
-                                {!! $question_values[1]['text'] !!}
+                                {!! $choice2->text !!}
                             </div>
                         </div>
                     </div>
@@ -108,14 +125,14 @@
 
             <div class="col-12">
                 <div class="col-12 cd_small-text">
-                    @if ($question_values['question_description'] == "")
+                    @if ($question->description == "")
 
                     <span class="font-weight-bold">No description provided !</span>
                         
                     @else
 
                     <span class="font-weight-bold">Description :</span>
-                    {{ $question_values['question_description'] }}
+                    {{ $question->description }}
 
                     @endif
                 </div>
@@ -123,7 +140,7 @@
 
             <div class="col-12">
                 <div class="col-12 cd_small-text">
-                    <a class="font-weight-bold" href="{{ $question_values['question_url'] }}">URL of the question</a>
+                    <a class="font-weight-bold" href='{{ url("/{$question->id}") }}'>URL of the question</a>
                 </div>
             </div>
 

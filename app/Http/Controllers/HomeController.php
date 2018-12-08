@@ -76,8 +76,8 @@ class HomeController extends Controller
   {
     // Header
 
-    $choice1 = Choice::findOrFail($question->choice_1_id);
-    $choice2 = Choice::findOrfail($question->choice_2_id);
+    $choice1 = $question->choice1;
+    $choice2 = $question->choice2;
 
     $usernames = User::select('username')->get()->toArray();
 
@@ -98,10 +98,8 @@ class HomeController extends Controller
 
     // Username
 
-    $question_user = Question::find($question->id)->user()->first();
-
     $views['username'] = view("questions.question_username")
-                            ->with(['username' => $question_user->username])
+                            ->with(['username' => $question->user->username])
                             ->render();
 
     // Choices
