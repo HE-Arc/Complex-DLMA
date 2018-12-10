@@ -1,5 +1,13 @@
+@php
+$innerUsernames = [];
+foreach($usernames as $username)
+{
+    array_push($innerUsernames, $username->username);
+}
+@endphp
+
 <script>
-    var usernames = {!! json_encode($usernames) !!};
+    var usernames = {!! json_encode($innerUsernames) !!};
     var questionID = {!! json_encode($id) !!};
     var questionDescription = {!! json_encode($description) !!};
     questionDescription = !questionDescription ? "" : questionDescription;

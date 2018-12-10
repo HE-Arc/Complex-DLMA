@@ -79,7 +79,7 @@ class HomeController extends Controller
     $choice1 = $question->choice1;
     $choice2 = $question->choice2;
 
-    $usernames = User::select('username')->get()->toArray();
+    $usernames = User::select('username')->get();
 
     $views = [];
     $views['header'] = view("questions.question_header")->with([
@@ -91,7 +91,7 @@ class HomeController extends Controller
     ])->render();
 
     // Description
-    
+
     $views['description'] = view("questions.question_description")
                               ->with(['description' => $question->description])
                               ->render();
