@@ -15,7 +15,7 @@ class AnswerController extends Controller
      * Increment the question choice.
      * Create an answer for connected user.
      */
-    public function dispatchRequest(Request $request)
+    public function selectChoice(Request $request)
     {
         $userID = Auth::id();
 

@@ -19,7 +19,7 @@ Route::get('/auth/check',function(){
     return \Auth::id();
 });
 
-Route::post('/dispatch_request','AnswerController@dispatchRequest');
+Route::post('/select_choice','AnswerController@selectChoice');
 
 Route::post('/post_comment', 'HomeController@store')->middleware('auth');
 

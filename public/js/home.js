@@ -166,7 +166,7 @@ $(document).ready(function ()
         });
       
         $.ajax({
-            url: 'dispatch_request',
+            url: 'select_choice',
             type: 'POST',
             data: 'choiceID=' + choiceID,
             dataType: 'JSON',
