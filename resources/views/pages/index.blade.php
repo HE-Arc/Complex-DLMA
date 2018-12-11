@@ -64,7 +64,7 @@
     <div id="questionUsername"></div>
 
     <div class="col-12 text-center text-sm-right p-0">
-        <button id="btnShare" class="btn btn-md cd_btn-default mr-0 mr-sm-5 mt-3 mt-sm-0" type="button" onclick="resetShareModal()" {{ Auth::check() ? 'data-toggle=modal data-target=#shareWithUserModal' : 'disabled' }}>
+        <button id="btnShare" class="btn btn-md cd_btn-default mr-0 mr-sm-5 mt-3 mt-sm-0" type="button" onclick="resetShareModal()" {{ Auth::check() ? 'data-toggle=modal data-target=#shareWithUserModal' : '' }}>
             <i class="fas fa-balance-scale cd_sharing-icon"></i> Ask others
         </button>
 
