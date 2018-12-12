@@ -82,6 +82,9 @@ $(document).ready(function ()
         $('#checkedChoice2').addClass('d-none');
     }
 
+    /**
+     * When the user click on the share button
+     */
     $("#btnShare").on('click', function()
     {
         userCheckRedirectLogin();
@@ -128,6 +131,9 @@ $(document).ready(function ()
         userCheckRedirectLogin();
     });
 
+    /**
+     * When the user click on the post comment button.
+     */
     $('#postComment').click(function(e)
     {   
         var commentText = $('#commentText').val().trim();
