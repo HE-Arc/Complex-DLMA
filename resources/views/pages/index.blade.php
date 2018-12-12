@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-<link rel="shortcut icon" sizes="114x114" href="assets/img/ficon.png">
 <script src="{{ asset('js/index.js') }}" defer></script>
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
