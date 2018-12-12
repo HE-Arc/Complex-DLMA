@@ -82,6 +82,11 @@ $(document).ready(function ()
         $('#checkedChoice2').addClass('d-none');
     }
 
+    $("#btnShare").on('click', function()
+    {
+        userCheckRedirectLogin();
+    });
+
     /**
      * When the user click on the button next question.
      * A new question is load from the db and is load in the page.
