@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Call all seeders in a specific order.
         $this->call([
             UsersTableSeeder::class,
             ChoicesTableSeeder::class,

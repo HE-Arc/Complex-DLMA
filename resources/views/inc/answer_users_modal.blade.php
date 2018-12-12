@@ -1,3 +1,4 @@
+<!-- Share request - Modal -->
 <div class="modal cd_modalless" id="choiceSharingAnswerPopup" tabindex="-1">
     <div class="modal-dialog cd_modal-content">
       <div class="modal-content">
@@ -18,6 +19,7 @@
     </div>
 </div>
 
+<!-- Answer share request - Modal -->
 <div class="modal cd_modalless" id="shareMyChoicePopup">
     <div class="modal-dialog cd_modal-content">
       <div class="modal-content">

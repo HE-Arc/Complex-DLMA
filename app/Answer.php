@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Reprents a db's answer and provides methods to access its data.
+ */
 class Answer extends Model
 {
     //Some modification were needed because of our composite primary key,

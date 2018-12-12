@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Reprents a db's user and provides methods to access its data.
+ */
 class User extends Authenticatable
 {
     use Notifiable;

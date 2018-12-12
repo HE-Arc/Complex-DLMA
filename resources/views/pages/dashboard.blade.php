@@ -4,6 +4,7 @@
 
     <div class="row mt-5">
 
+        <!-- Redirecting buttons -->
         <div class="col-12 col-sm-6 col-lg-3 text-center p-0 mb-3">
             <a class="btn cd_btn-default cd_btn-default-square-container btn-lg cd_large-text" href="{{ route('home') }}">
                 <div class="cd_btn-default-square-content">

@@ -23,6 +23,7 @@
         </div>
     </div>
 
+    <!-- Choices buttons -->
     <div id="choicesMain" class="row cd_choices-main-container text-center">
 
         <div class="cd_fade-choices">
@@ -79,6 +80,7 @@
 
     <hr class="cd_hr-s3 my-5" />
 
+    <!-- Comments -->
     <div id="questionCommentsCounter"></div>
     
     <hr class="cd_hr-s1" />

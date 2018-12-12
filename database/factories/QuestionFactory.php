@@ -2,6 +2,7 @@
 
 use Faker\Generator as Faker;
 
+// Factory which creates fake questions with a real user and real choices with real text (faker)
 $factory->define(App\Question::class, function (Faker $faker) {
     $user_id = DB::table('users')
                   ->inRandomOrder()

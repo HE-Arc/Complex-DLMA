@@ -15,6 +15,7 @@
 
     <h2 class="text-center cd_page-title mb-5">Enter your new DLMA</h2>
 
+    <!-- New dilemma formular -->
     {!! Form::open(['route' => 'create_dlma.store']) !!}
 
     <div class="row text-center">

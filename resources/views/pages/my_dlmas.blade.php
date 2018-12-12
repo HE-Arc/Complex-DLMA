@@ -3,6 +3,7 @@
 @section('content')
 
     @if ($questions->count() <= 0)
+    <!-- Display a message to the user if no DLMA were found -->
     <div class="col-12 col-md-6 offset-0 offset-md-3 card border-dark cd_medium-text mt-5 p-0">
         <div class="card-header cd_large-text">
             No DLMA found...
@@ -19,6 +20,7 @@
         </div>
     </div>  
     @else
+    <!-- Redirecting buttons -->
     <div class="col-12 mt-3 p-0 text-center">
 
         <div class="row">
@@ -51,6 +53,7 @@
     <hr class="cd_hr-s1 my-3" />
     
     <div class="row">
+        <!-- All created questions -->
         @foreach ($questions as $question)
 
         <div class="col-12 col-lg-6">

@@ -3,6 +3,7 @@
 @section('content')
 
     @if ($answers->count() <= 0)
+    <!-- Display a message to the user if no answer were found -->
     <div class="col-12 col-md-6 offset-0 offset-md-3 card border-dark cd_medium-text mt-5 p-0">
         <div class="card-header cd_large-text">
             No answer found...
@@ -18,6 +19,7 @@
         </div>
     </div>
     @else
+    <!-- Redirecting buttons -->
     <div class="col-12 mt-3 p-0 text-center">
         <div class="row">
             <div class="col-12 col-sm-6 text-center p-0 mb-3 mb-sm-0">
@@ -49,6 +51,7 @@
     <hr class="cd_hr-s1 my-3" />
     
     <div class="row">
+        <!-- All answers -->
         @foreach ($answers as $answer)
 
         <div class="col-12 col-lg-6">

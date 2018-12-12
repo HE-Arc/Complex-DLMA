@@ -1,3 +1,4 @@
+<!-- Select users - Modal -->
 <div class="modal fade" id="shareWithUserModal" tabindex="0" role="dialog" aria-labelledby="shareWithUserModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

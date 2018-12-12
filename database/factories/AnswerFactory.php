@@ -2,6 +2,7 @@
 
 use Faker\Generator as Faker;
 
+// Factory which creates fake answers with a real user on a real question of the db 
 $factory->define(App\Answer::class, function (Faker $faker) {
     $user_id = DB::table('users')
                   ->inRandomOrder()

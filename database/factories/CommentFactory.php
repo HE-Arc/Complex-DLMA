@@ -2,6 +2,7 @@
 
 use Faker\Generator as Faker;
 
+// Factory which creates fake comments with a real user on a real question with real text (faker)
 $factory->define(App\Comment::class, function (Faker $faker) {
     $user_id = DB::table('users')
                   ->inRandomOrder()
