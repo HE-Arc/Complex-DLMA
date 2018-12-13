@@ -8,5 +8,5 @@ The application's principle is to make a choice between two possibilities. Choic
 
 ## Team
 - [Chacun Guillaume](https://github.com/ChacunGu)
-- [Herbelin Ludovic](https://github.com/Naralas1)
+- [Herbelin Ludovic](https://github.com/Naralas)
 - [Wohlfahrt Alexander](https://github.com/SpicyPaper)
