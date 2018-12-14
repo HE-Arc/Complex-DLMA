@@ -10,3 +10,7 @@ The application's principle is to make a choice between two possibilities. Choic
 - [Chacun Guillaume](https://github.com/ChacunGu)
 - [Herbelin Ludovic](https://github.com/Naralas)
 - [Wohlfahrt Alexander](https://github.com/SpicyPaper)
+
+## Deploy to your server
+
+Please read this doc [fr](https://github.com/HE-Arc/Complex-DLMA/wiki/Guide-de-d%C3%A9ploiement)
