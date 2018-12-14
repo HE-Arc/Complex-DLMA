@@ -214,8 +214,20 @@ $(document).ready(function ()
         nbOfVotesTot = nbOfVotes.reduce((x, y) => x + y);
 
         choicesPerc = [];
-        choicesPerc.push(Math.round(nbOfVotes[0] / nbOfVotesTot * 100));
-        choicesPerc.push(Math.round(nbOfVotes[1] / nbOfVotesTot * 100));
+        choice1Perc = nbOfVotes[0] / nbOfVotesTot * 100;
+        choice2Perc = nbOfVotes[1] / nbOfVotesTot * 100;
+
+        // Test to avoir rounding problems.
+        if(nbOfVotes[0] > nbOfVotes[1])
+        {
+            choicesPerc.push(Math.ceil(choice1Perc));
+            choicesPerc.push(Math.floor(choice2Perc));
+        }
+        else
+        {
+            choicesPerc.push(Math.floor(choice1Perc));
+            choicesPerc.push(Math.ceil(choice2Perc));
+        }
 
         // Display the votes and the percentage for each question
         let i = 0;
