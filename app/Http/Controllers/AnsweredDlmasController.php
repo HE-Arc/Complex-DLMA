@@ -25,7 +25,8 @@ class AnsweredDlmasController extends Controller
      */
     public function index(Request $request)
     {
-        $answers = Answer::where('user_id', Auth::id())
+        $answers = Answer::with(['question.choice1', 'question.choice2', 'user'])
+                    ->where('user_id', Auth::id())
                     ->orderBy('updated_at', 'desc')
                     ->get();
 

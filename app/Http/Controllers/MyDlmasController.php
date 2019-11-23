@@ -27,7 +27,8 @@ class MyDlmasController extends Controller
     {
         $userID = Auth::id();
 
-        $questions = Question::where('user_id', $userID)
+        $questions = Question::with(['choice1', 'choice2', 'user'])
+                        ->where('user_id', $userID)
                         ->orderBy('updated_at', 'desc')
                         ->get();
 

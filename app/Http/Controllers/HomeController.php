@@ -44,7 +44,8 @@ class HomeController extends Controller
    */
   public function fetchSpecificQuestionGenerateViews(Request $request)
   {
-    $question = Question::findOrFail($request->input('questionID'));
+    $question = Question::with(['choice1', 'choice2', 'user'])
+                            ->findOrFail($request->input('questionID'));
 
     $request->session()->put('questionID', $question->id);
 
@@ -59,7 +60,8 @@ class HomeController extends Controller
    */
   public function fetchNewQuestionGenerateViews(Request $request)
   {
-    $question = Question::inRandomOrder()->first();
+    $question = Question::with(['choice1', 'choice2', 'user'])
+                            ->inRandomOrder()->first();
 
     $request->session()->put('questionID', $question->id);
 
@@ -116,9 +118,10 @@ class HomeController extends Controller
 
     // Comments
 
-    $comments = Comment::where('question_id', $question->id)
-                    ->orderBy('created_at', 'desc')
-                    ->get();
+    $comments = Comment::with('user')
+                          ->where('question_id', $question->id)
+                          ->orderBy('created_at', 'desc')
+                          ->get();
 
     $views['comments_number'] = view("questions.question_comments_counter")
                                   ->with(['comments_number' => $comments->count()])
@@ -144,7 +147,8 @@ class HomeController extends Controller
     $comment->text = $commentText;
     $comment->save();
 
-    $question = Question::findOrFail($questionID);
+    $question = Question::with(['choice1', 'choice2', 'user'])
+                          ->findOrFail($questionID);
 
     return $this->getViews($question);
   }
